@@ -9,76 +9,176 @@
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- CSS Styling -->
-<style>
-/* Shariful Modal CSS */
-.sharifulinfo-modal {
-  display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); animation: sharifulinfo-fadeIn 0.4s ease;
-  overflow-y: auto; padding: 20px 10px; box-sizing: border-box;
-}
-.sharifulinfo-modal-content {
-  position: relative; background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
-  margin: auto; border-radius: 25px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  width: 100%; max-width: 420px; animation: sharifulinfo-slideIn 0.5s ease; color: white; text-align: center; overflow: hidden; box-sizing: border-box;
-}
-.sharifulinfo-modal-inner { padding: 30px 25px; position: relative; }
-.sharifulinfo-modal-content::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-  background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1;
-}
-.sharifulinfo-close {
-  position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; font-weight: bold;
-  cursor: pointer; transition: all 0.3s ease; z-index: 10; width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
-}
-.sharifulinfo-close:hover { transform: scale(1.1) rotate(90deg); background: rgba(255, 255, 255, 0.2); color: #fdbb2d; }
-.sharifulinfo-header { margin-bottom: 30px; }
-.sharifulinfo-image-container { position: relative; display: inline-block; margin-bottom: 25px; }
-.sharifulinfo-image {
-  width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, 0.3);
-  object-fit: cover; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.4s ease; position: relative; z-index: 2;
-}
-.sharifulinfo-image:hover { transform: scale(1.05); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); }
-.sharifulinfo-image-overlay {
-  position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%;
-  background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; opacity: 0.5; animation: sharifulinfo-rotate 10s linear infinite;
-}
-.sharifulinfo-name { font-size: 26px; margin: 15px 0 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); letter-spacing: 0.5px; }
-.sharifulinfo-department { font-size: 18px; margin: 12px 0; font-weight: 600; color: #fdbb2d; letter-spacing: 1px; }
-.sharifulinfo-session { font-size: 16px; margin: 10px 0; font-weight: 500; opacity: 0.9; }
-.sharifulinfo-profession-container { margin: 20px 0; }
-.sharifulinfo-profession {
-  font-size: 16px; margin: 0; font-weight: 500; color: rgba(255, 255, 255, 0.95); padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.1); border-radius: 30px; display: inline-block; backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-.sharifulinfo-social { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-.sharifulinfo-social-link {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px;
-  border-radius: 15px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 18px; text-decoration: none;
-  transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15);
-}
-.sharifulinfo-social-link:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
-.sharifulinfo-social-link:nth-child(1):hover { background: linear-gradient(135deg, rgba(59, 89, 152, 0.8), rgba(59, 89, 152, 0.9)); }
-.sharifulinfo-social-link:nth-child(2):hover { background: linear-gradient(135deg, rgba(0, 132, 255, 0.8), rgba(0, 132, 255, 0.9)); }
-.sharifulinfo-social-link:nth-child(3):hover { background: linear-gradient(135deg, rgba(37, 211, 102, 0.8), rgba(37, 211, 102, 0.9)); }
-.sharifulinfo-social-link:nth-child(4):hover { background: linear-gradient(135deg, rgba(212, 70, 56, 0.8), rgba(212, 70, 56, 0.9)); }
-.sharifulinfo-social-link i { font-size: 24px; margin-bottom: 8px; }
-.sharifulinfo-social-link span { font-size: 12px; font-weight: 500; opacity: 0.9; }
+    <!-- CSS Styling -->
+    <style>
+        /* ================= LOGIN SYSTEM CSS ================= */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e272e, #34495e);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
-@keyframes sharifulinfo-fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes sharifulinfo-slideIn { from { opacity: 0; transform: translateY(-30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes sharifulinfo-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@media (max-width: 480px) {
-  .sharifulinfo-modal { padding: 10px 5px; }
-  .sharifulinfo-modal-content { max-width: 95%; border-radius: 20px; }
-  .sharifulinfo-modal-inner { padding: 25px 20px; }
-  .sharifulinfo-image { width: 140px; height: 140px; }
-  .sharifulinfo-name { font-size: 22px; }
-  .sharifulinfo-social { grid-template-columns: 1fr 1fr; gap: 12px; }
-}
-</style>
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            font-family: 'Poppins', 'Tiro Bangla', sans-serif;
+        }
+
+        .login-box h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-family: 'Tiro Bangla';
+        }
+
+        .login-input-group {
+            margin-bottom: 15px;
+            text-align: left;
+            position: relative;
+        }
+
+        .login-input-group label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #636e72;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .login-input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .login-input-group input:focus {
+            border-color: #00cec9;
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            cursor: pointer;
+            color: #636e72;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #00cec9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #00b894;
+        }
+
+        .login-error {
+            color: #d63031;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Hide Main Content Initially */
+        #main-website-container {
+            display: none;
+        }
+    </style>
+
+    <style>
+    /* Shariful Modal CSS */
+    .sharifulinfo-modal {
+      display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); animation: sharifulinfo-fadeIn 0.4s ease;
+      overflow-y: auto; padding: 20px 10px; box-sizing: border-box;
+    }
+    .sharifulinfo-modal-content {
+      position: relative; background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+      margin: auto; border-radius: 25px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      width: 100%; max-width: 420px; animation: sharifulinfo-slideIn 0.5s ease; color: white; text-align: center; overflow: hidden; box-sizing: border-box;
+    }
+    .sharifulinfo-modal-inner { padding: 30px 25px; position: relative; }
+    .sharifulinfo-modal-content::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1;
+    }
+    .sharifulinfo-close {
+      position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; font-weight: bold;
+      cursor: pointer; transition: all 0.3s ease; z-index: 10; width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
+    }
+    .sharifulinfo-close:hover { transform: scale(1.1) rotate(90deg); background: rgba(255, 255, 255, 0.2); color: #fdbb2d; }
+    .sharifulinfo-header { margin-bottom: 30px; }
+    .sharifulinfo-image-container { position: relative; display: inline-block; margin-bottom: 25px; }
+    .sharifulinfo-image {
+      width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, 0.3);
+      object-fit: cover; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.4s ease; position: relative; z-index: 2;
+    }
+    .sharifulinfo-image:hover { transform: scale(1.05); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); }
+    .sharifulinfo-image-overlay {
+      position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%;
+      background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; opacity: 0.5; animation: sharifulinfo-rotate 10s linear infinite;
+    }
+    .sharifulinfo-name { font-size: 26px; margin: 15px 0 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); letter-spacing: 0.5px; }
+    .sharifulinfo-department { font-size: 18px; margin: 12px 0; font-weight: 600; color: #fdbb2d; letter-spacing: 1px; }
+    .sharifulinfo-session { font-size: 16px; margin: 10px 0; font-weight: 500; opacity: 0.9; }
+    .sharifulinfo-profession-container { margin: 20px 0; }
+    .sharifulinfo-profession {
+      font-size: 16px; margin: 0; font-weight: 500; color: rgba(255, 255, 255, 0.95); padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.1); border-radius: 30px; display: inline-block; backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .sharifulinfo-social { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+    .sharifulinfo-social-link {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px;
+      border-radius: 15px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 18px; text-decoration: none;
+      transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .sharifulinfo-social-link:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
+    .sharifulinfo-social-link:nth-child(1):hover { background: linear-gradient(135deg, rgba(59, 89, 152, 0.8), rgba(59, 89, 152, 0.9)); }
+    .sharifulinfo-social-link:nth-child(2):hover { background: linear-gradient(135deg, rgba(0, 132, 255, 0.8), rgba(0, 132, 255, 0.9)); }
+    .sharifulinfo-social-link:nth-child(3):hover { background: linear-gradient(135deg, rgba(37, 211, 102, 0.8), rgba(37, 211, 102, 0.9)); }
+    .sharifulinfo-social-link:nth-child(4):hover { background: linear-gradient(135deg, rgba(212, 70, 56, 0.8), rgba(212, 70, 56, 0.9)); }
+    .sharifulinfo-social-link i { font-size: 24px; margin-bottom: 8px; }
+    .sharifulinfo-social-link span { font-size: 12px; font-weight: 500; opacity: 0.9; }
+    
+    @keyframes sharifulinfo-fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes sharifulinfo-slideIn { from { opacity: 0; transform: translateY(-30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes sharifulinfo-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @media (max-width: 480px) {
+      .sharifulinfo-modal { padding: 10px 5px; }
+      .sharifulinfo-modal-content { max-width: 95%; border-radius: 20px; }
+      .sharifulinfo-modal-inner { padding: 25px 20px; }
+      .sharifulinfo-image { width: 140px; height: 140px; }
+      .sharifulinfo-name { font-size: 22px; }
+      .sharifulinfo-social { grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+    </style>
 
     <style>
         :root {
@@ -120,47 +220,47 @@
         .submenu a { padding-left: 60px !important; font-size: 13px !important; }
         
         .rules-box {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
 
-.rules-box h3 {
-    text-align: center;
-    color: #c0392b;
-    margin-bottom: 20px;
-}
+        .rules-box h3 {
+            text-align: center;
+            color: #c0392b;
+            margin-bottom: 20px;
+        }
 
-.rule-group {
-    margin-bottom: 18px;
-}
+        .rule-group {
+            margin-bottom: 18px;
+        }
 
-.rule-group h4 {
-    color: #2c3e50;
-    margin-bottom: 8px;
-    font-size: 1.05rem;
-}
+        .rule-group h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
 
-.rule-group ul {
-    list-style: none;
-    padding-left: 0;
-}
+        .rule-group ul {
+            list-style: none;
+            padding-left: 0;
+        }
 
-.rule-group ul li {
-    padding: 6px 0;
-    position: relative;
-    padding-left: 22px;
-    color: #444;
-}
+        .rule-group ul li {
+            padding: 6px 0;
+            position: relative;
+            padding-left: 22px;
+            color: #444;
+        }
 
-.rule-group ul li::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    color: #27ae60;
-    font-size: 14px;
-}
+        .rule-group ul li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-size: 14px;
+        }
 
         /* --- MAIN AREA --- */
         .main { margin-left: var(--sidebar-w); padding: 20px; transition: 0.3s; flex: 1; padding-bottom: 60px; }
@@ -543,97 +643,123 @@
 </head>
 <body>
 
-    <!-- MOBILE HEADER -->
-    <div class="mobile-header">
-        <a href="#" onclick="showSection('home')" class="mobile-header-title">
-            <h3 style="font-family: 'Tiro Bangla'; display:flex; align-items:center;">
-                <i class="fas fa-hotel" style="margin-right:8px; font-size:20px;"></i> ছবিকুঞ্জ ছাত্রাবাস
-            </h3>
-        </a>
-        <div style="display:flex; align-items:center; gap:15px;">
-             <!-- Dark Mode Button Mobile -->
-            <i class="fas fa-moon" id="theme-toggle-mob" onclick="toggleTheme()" style="font-size: 20px; cursor: pointer; color:white;"></i>
-            <i class="fas fa-bars" style="font-size: 24px; cursor: pointer;" onclick="toggleSidebar()"></i>
+    <!-- ================= LOGIN OVERLAY ================= -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
+            <p style="margin-bottom: 20px; color:#777;">লগিন করুন</p>
+            
+            <div class="login-input-group">
+                <label>ইউজারনেম</label>
+                <input type="text" id="login-user" placeholder="Enter Username">
+            </div>
+
+            <div class="login-input-group">
+                <label>পাসওয়ার্ড</label>
+                <input type="password" id="login-pass" placeholder="Enter Password">
+                <i class="fas fa-eye toggle-pass" onclick="togglePass()"></i>
+            </div>
+
+            <button class="login-btn" onclick="checkLogin()">লগিন</button>
+            <div class="login-error" id="login-msg">ভুল ইউজারনেম বা পাসওয়ার্ড!</div>
         </div>
     </div>
+    <!-- ================= END LOGIN OVERLAY ================= -->
 
-    <!-- SIDEBAR -->
-    <nav class="sidebar" id="sidebar">
-        <div class="brand">
-            <a href="#" onclick="showSection('home')" class="brand-link">
-                <i class="fas fa-hotel fa-2x" style="color: var(--secondary)"></i>
-                <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
+    <!-- WRAPPER FOR MAIN WEBSITE CONTENT -->
+    <div id="main-website-container">
+
+        <!-- MOBILE HEADER -->
+        <div class="mobile-header">
+            <a href="#" onclick="showSection('home')" class="mobile-header-title">
+                <h3 style="font-family: 'Tiro Bangla'; display:flex; align-items:center;">
+                    <i class="fas fa-hotel" style="margin-right:8px; font-size:20px;"></i> ছবিকুঞ্জ ছাত্রাবাস
+                </h3>
             </a>
-            <!-- Dark Mode Button Sidebar -->
-            <div onclick="toggleTheme()" style="margin-top:10px; cursor:pointer; background:rgba(255,255,255,0.1); padding:5px 10px; border-radius:20px; display:inline-block; font-size:12px;">
-                <i class="fas fa-moon" id="theme-icon-side"></i> থিম পরিবর্তন
+            <div style="display:flex; align-items:center; gap:15px;">
+                 <!-- Dark Mode Button Mobile -->
+                <i class="fas fa-moon" id="theme-toggle-mob" onclick="toggleTheme()" style="font-size: 20px; cursor: pointer; color:white;"></i>
+                <i class="fas fa-bars" style="font-size: 24px; cursor: pointer;" onclick="toggleSidebar()"></i>
             </div>
         </div>
-        
-        <div class="menu-label">Main Menu</div>
-        <ul class="nav-links">
-            <li><a onclick="showSection('home')" class="active"><i class="fas fa-home"></i> হোম পেজ</a></li>
-            <li><a onclick="showSection('floor-g')"><i class="fas fa-layer-group"></i> নিচ তলা (Ground)</a></li>
-            <li><a onclick="showSection('floor-1')"><i class="fas fa-layer-group"></i> ১ম তলা (1st Floor)</a></li>
-            <li><a onclick="showSection('floor-2')"><i class="fas fa-layer-group"></i> ২য় তলা (2nd Floor)</a></li>
-            <li><a onclick="showSection('member-list')"><i class="fas fa-users"></i> সদস্য তালিকা</a></li>
-            <li><a onclick="showSection('blood-finder')"><i class="fas fa-heartbeat" style="color:#ff7675"></i> রক্ত খুঁজুন</a></li>
-            <li><a onclick="openEmergency()"><i class="fas fa-phone-alt" style="color:#00cec9"></i> জরুরি সেবা</a></li>
-        </ul>
-
-        <div class="menu-label">Connect</div>
-        <ul class="nav-links">
-            <li>
-                <a href="#" target="_blank">
-                    <i class="fab fa-facebook-messenger" style="color:#0984e3;"></i> মেসেঞ্জার গ্রুপ
+    
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar">
+            <div class="brand">
+                <a href="#" onclick="showSection('home')" class="brand-link">
+                    <i class="fas fa-hotel fa-2x" style="color: var(--secondary)"></i>
+                    <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
                 </a>
-            </li>
-        </ul>
-
-        <div class="menu-label">Management</div>
-        <ul class="nav-links">
-            <li>
-                <a onclick="toggleSubmenu()"><i class="fas fa-calculator"></i> হিসাব নিকাশ <i class="fas fa-chevron-down" style="margin-left: auto; font-size: 12px;"></i></a>
-                <ul class="submenu" id="calcSub">
-                    <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20Mil%20Management/" target="_blank">দৈনিক মিল হিসাব</a></li>
-                    <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20Rice%20Management/" target="_blank">দৈনিক চাল হিসাব</a></li>
-                    <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly%20Mil%20Management/" target="_blank">মাসিক খরচ হিসাব</a></li>
-                    <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly%20Chal%20Management/" target="_blank">মাসিক চাল হিসাব</a></li>
-                    <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20mil%20and%20Rice%20Management/" target="_blank">দৈনিক চাল ও মিল হিসাব</a></li>
-                    <li><a href="" target="_blank">অন্যান্য</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-
-
-
-    <!-- MAIN CONTENT -->
-    <div class="main">
-
-        <!-- 1. HOME -->
-        <div id="home" class="section active">
-            
-            <!-- DATE & TIME BAR -->
-            <div class="datetime-container">
-                <div class="dt-box">
-                    <div class="dt-icon"><i class="far fa-calendar-alt"></i></div>
-                    <div class="dt-text">
-                        <h4 id="live-date">...</h4>
-                        <p>আজকের তারিখ</p>
-                    </div>
+                <!-- Dark Mode Button Sidebar -->
+                <div onclick="toggleTheme()" style="margin-top:10px; cursor:pointer; background:rgba(255,255,255,0.1); padding:5px 10px; border-radius:20px; display:inline-block; font-size:12px;">
+                    <i class="fas fa-moon" id="theme-icon-side"></i> থিম পরিবর্তন
                 </div>
-                <div class="dt-box">
-                    <div class="dt-icon"><i class="far fa-clock"></i></div>
-                    <div class="dt-text">
-                        <h4 id="live-time">...</h4>
-                        <p>বর্তমান সময়</p>
-                    </div>
-                </div>
-                <div class="greeting-badge" id="greeting-text">শুভ দিন</div>
             </div>
-
+            
+            <div class="menu-label">Main Menu</div>
+            <ul class="nav-links">
+                <li><a onclick="showSection('home')" class="active"><i class="fas fa-home"></i> হোম পেজ</a></li>
+                <li><a onclick="showSection('floor-g')"><i class="fas fa-layer-group"></i> নিচ তলা (Ground)</a></li>
+                <li><a onclick="showSection('floor-1')"><i class="fas fa-layer-group"></i> ১ম তলা (1st Floor)</a></li>
+                <li><a onclick="showSection('floor-2')"><i class="fas fa-layer-group"></i> ২য় তলা (2nd Floor)</a></li>
+                <li><a onclick="showSection('member-list')"><i class="fas fa-users"></i> সদস্য তালিকা</a></li>
+                <li><a onclick="showSection('blood-finder')"><i class="fas fa-heartbeat" style="color:#ff7675"></i> রক্ত খুঁজুন</a></li>
+                <li><a onclick="openEmergency()"><i class="fas fa-phone-alt" style="color:#00cec9"></i> জরুরি সেবা</a></li>
+            </ul>
+    
+            <div class="menu-label">Connect</div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#" target="_blank">
+                        <i class="fab fa-facebook-messenger" style="color:#0984e3;"></i> মেসেঞ্জার গ্রুপ
+                    </a>
+                </li>
+            </ul>
+    
+            <div class="menu-label">Management</div>
+            <ul class="nav-links">
+                <li>
+                    <a onclick="toggleSubmenu()"><i class="fas fa-calculator"></i> হিসাব নিকাশ <i class="fas fa-chevron-down" style="margin-left: auto; font-size: 12px;"></i></a>
+                    <ul class="submenu" id="calcSub">
+                        <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20Mil%20Management/" target="_blank">দৈনিক মিল হিসাব</a></li>
+                        <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20Rice%20Management/" target="_blank">দৈনিক চাল হিসাব</a></li>
+                        <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly%20Mil%20Management/" target="_blank">মাসিক খরচ হিসাব</a></li>
+                        <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly%20Chal%20Management/" target="_blank">মাসিক চাল হিসাব</a></li>
+                        <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20mil%20and%20Rice%20Management/" target="_blank">দৈনিক চাল ও মিল হিসাব</a></li>
+                        <li><a href="" target="_blank">অন্যান্য</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    
+    
+    
+    
+        <!-- MAIN CONTENT -->
+        <div class="main">
+    
+            <!-- 1. HOME -->
+            <div id="home" class="section active">
+                
+                <!-- DATE & TIME BAR -->
+                <div class="datetime-container">
+                    <div class="dt-box">
+                        <div class="dt-icon"><i class="far fa-calendar-alt"></i></div>
+                        <div class="dt-text">
+                            <h4 id="live-date">...</h4>
+                            <p>আজকের তারিখ</p>
+                        </div>
+                    </div>
+                    <div class="dt-box">
+                        <div class="dt-icon"><i class="far fa-clock"></i></div>
+                        <div class="dt-text">
+                            <h4 id="live-time">...</h4>
+                            <p>বর্তমান সময়</p>
+                        </div>
+                    </div>
+                    <div class="greeting-badge" id="greeting-text">শুভ দিন</div>
+                </div>
+    
             <!-- NOTICE BOARD -->
             <div class="notice-board-wrapper">
                 <span class="notice-label"><i class="fas fa-bullhorn"></i> নোটিশ</span>
@@ -641,469 +767,526 @@
             ছবিকুঞ্জ ছাত্রাবাসে আপনাকে স্বাগতম - শরিফুল
                 </marquee>
             </div>
-
-            <!-- WEATHER CARD -->
-            <div class="weather-card">
-                <div class="w-header">
-                    <div class="w-loc">
-                        <h3><i class="fas fa-map-marker-alt"></i> বগুড়া, বাংলাদেশ</h3>
-                        <p id="weather-desc">আকাশ পরিষ্কার</p>
+    
+                <!-- WEATHER CARD -->
+                <div class="weather-card">
+                    <div class="w-header">
+                        <div class="w-loc">
+                            <h3><i class="fas fa-map-marker-alt"></i> বগুড়া, বাংলাদেশ</h3>
+                            <p id="weather-desc">আকাশ পরিষ্কার</p>
+                        </div>
+                        <i class="fas fa-cloud-sun w-icon" id="weather-icon"></i>
                     </div>
-                    <i class="fas fa-cloud-sun w-icon" id="weather-icon"></i>
+                    <div class="w-main">
+                        <div class="w-temp" id="weather-temp">--°C</div>
+                    </div>
+                    <div class="w-details">
+                        <span><i class="fas fa-wind"></i> <span id="wind-speed">-- km/h</span></span>
+                        <span><i class="fas fa-tint"></i> <span id="humidity">--%</span></span>
+                    </div>
                 </div>
-                <div class="w-main">
-                    <div class="w-temp" id="weather-temp">--°C</div>
+    
+                <!-- Slider -->
+                <div class="slider-wrapper">
+                    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000');">
+                        <div class="slide-content"><h1>ছবিকুঞ্জ ছাত্রাবাসে স্বাগতম</h1><p>একটি আদর্শ ও নিরাপদ ছাত্রাবাস</p></div>
+                    </div>
+                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000');">
+                        <div class="slide-content"><h1>আধুনিক সুযোগ সুবিধা</h1><p>২৪ ঘণ্টা বিদ্যুৎ ও পানির সুব্যবস্থা</p></div>
+                    </div>
+                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522771753014-df70f1c270c4?q=80&w=1000');">
+                        <div class="slide-content"><h1>মনোরম পরিবেশ</h1><p>পড়াশোনার জন্য শান্ত ও নিরিবিলি পরিবেশ</p></div>
+                    </div>
                 </div>
-                <div class="w-details">
-                    <span><i class="fas fa-wind"></i> <span id="wind-speed">-- km/h</span></span>
-                    <span><i class="fas fa-tint"></i> <span id="humidity">--%</span></span>
+    
+                <!-- STATS SECTION -->
+                <h3 style="font-family:'Tiro Bangla'; color:var(--primary); margin-bottom:15px; border-left:4px solid var(--secondary); padding-left:10px;">বর্তমান অবস্থা</h3>
+                <div class="stats-grid">
+                    <!-- Total Members -->
+                    <div class="stat-card-new">
+                        <div class="stat-icon-new" style="color:#0984e3; background:#0984e320">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-num-new" id="stat-mem">0</div>
+                        <div class="stat-label-new">মোট সদস্য</div>
+                    </div>
+    
+                    <!-- Total Rooms -->
+                    <div class="stat-card-new">
+                        <div class="stat-icon-new" style="color:#6c5ce7; background:#6c5ce720">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <div class="stat-num-new" id="stat-room">0</div>
+                        <div class="stat-label-new">মোট রুম</div>
+                    </div>
+    
+                    <!-- Empty Seats -->
+                    <div class="stat-card-new">
+                        <div class="stat-icon-new" style="color:#fdcb6e; background:#fdcb6e20">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="stat-num-new" id="stat-seat">0</div>
+                        <div class="stat-label-new">খালি সিট</div>
+                    </div>
+    
+                    <!-- Double Rooms -->
+                    <div class="stat-card-new">
+                        <div class="stat-icon-new" style="color:#00cec9; background:#00cec920">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="stat-num-new" id="stat-double">0</div>
+                        <div class="stat-label-new">ডাবল রুম</div>
+                    </div>
+    
+                    <!-- Single Rooms -->
+                    <div class="stat-card-new">
+                        <div class="stat-icon-new" style="color:#2d3436; background:#2d343620">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="stat-num-new" id="stat-single">0</div>
+                        <div class="stat-label-new">সিঙ্গেল রুম</div>
+                    </div>
+    
+                    <!-- Total Floors -->
+                    <div class="stat-card-new">
+                        <div class="stat-icon-new" style="color:#e17055; background:#e1705520">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="stat-num-new" id="stat-floor">0</div>
+                        <div class="stat-label-new">মোট তলা</div>
+                    </div>
                 </div>
+    
+                <!-- Facilities -->
+    <div style="margin-bottom: 30px;">
+        <h3 style="font-family:'Tiro Bangla'; color:var(--primary); border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">
+            আমাদের সুবিধাসমূহ
+        </h3>
+    
+        <div class="facilities-grid">
+            <!-- Existing Facilities -->
+            <div class="fac-card">
+                <i class="fas fa-wifi"></i>
+                <h4>হাই-স্পিড ওয়াইফাই</h4>
             </div>
-
-            <!-- Slider -->
-            <div class="slider-wrapper">
-                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000');">
-                    <div class="slide-content"><h1>ছবিকুঞ্জ ছাত্রাবাসে স্বাগতম</h1><p>একটি আদর্শ ও নিরাপদ ছাত্রাবাস</p></div>
-                </div>
-                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000');">
-                    <div class="slide-content"><h1>আধুনিক সুযোগ সুবিধা</h1><p>২৪ ঘণ্টা বিদ্যুৎ ও পানির সুব্যবস্থা</p></div>
-                </div>
-                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522771753014-df70f1c270c4?q=80&w=1000');">
-                    <div class="slide-content"><h1>মনোরম পরিবেশ</h1><p>পড়াশোনার জন্য শান্ত ও নিরিবিলি পরিবেশ</p></div>
-                </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-bolt"></i>
+                <h4>বিদ্যুৎ ব্যবস্থা</h4>
             </div>
-
-            <!-- STATS SECTION -->
-            <h3 style="font-family:'Tiro Bangla'; color:var(--primary); margin-bottom:15px; border-left:4px solid var(--secondary); padding-left:10px;">বর্তমান অবস্থা</h3>
-            <div class="stats-grid">
-                <!-- Total Members -->
-                <div class="stat-card-new">
-                    <div class="stat-icon-new" style="color:#0984e3; background:#0984e320">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-num-new" id="stat-mem">0</div>
-                    <div class="stat-label-new">মোট সদস্য</div>
-                </div>
-
-                <!-- Total Rooms -->
-                <div class="stat-card-new">
-                    <div class="stat-icon-new" style="color:#6c5ce7; background:#6c5ce720">
-                        <i class="fas fa-door-open"></i>
-                    </div>
-                    <div class="stat-num-new" id="stat-room">0</div>
-                    <div class="stat-label-new">মোট রুম</div>
-                </div>
-
-                <!-- Empty Seats -->
-                <div class="stat-card-new">
-                    <div class="stat-icon-new" style="color:#fdcb6e; background:#fdcb6e20">
-                        <i class="fas fa-bed"></i>
-                    </div>
-                    <div class="stat-num-new" id="stat-seat">0</div>
-                    <div class="stat-label-new">খালি সিট</div>
-                </div>
-
-                <!-- Double Rooms -->
-                <div class="stat-card-new">
-                    <div class="stat-icon-new" style="color:#00cec9; background:#00cec920">
-                        <i class="fas fa-user-friends"></i>
-                    </div>
-                    <div class="stat-num-new" id="stat-double">0</div>
-                    <div class="stat-label-new">ডাবল রুম</div>
-                </div>
-
-                <!-- Single Rooms -->
-                <div class="stat-card-new">
-                    <div class="stat-icon-new" style="color:#2d3436; background:#2d343620">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="stat-num-new" id="stat-single">0</div>
-                    <div class="stat-label-new">সিঙ্গেল রুম</div>
-                </div>
-
-                <!-- Total Floors -->
-                <div class="stat-card-new">
-                    <div class="stat-icon-new" style="color:#e17055; background:#e1705520">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <div class="stat-num-new" id="stat-floor">0</div>
-                    <div class="stat-label-new">মোট তলা</div>
-                </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-water"></i>
+                <h4>বিশুদ্ধ পানি</h4>
             </div>
-
-            <!-- Facilities -->
-<div style="margin-bottom: 30px;">
-    <h3 style="font-family:'Tiro Bangla'; color:var(--primary); border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">
-        আমাদের সুবিধাসমূহ
-    </h3>
-
-    <div class="facilities-grid">
-        <!-- Existing Facilities -->
-        <div class="fac-card">
-            <i class="fas fa-wifi"></i>
-            <h4>হাই-স্পিড ওয়াইফাই</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-bolt"></i>
-            <h4>বিদ্যুৎ ব্যবস্থা</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-water"></i>
-            <h4>বিশুদ্ধ পানি</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-book-reader"></i>
-            <h4>পড়ার পরিবেশ</h4>
-        </div>
-
-        <!-- New Facilities -->
-        <div class="fac-card">
-            <i class="fas fa-utensils"></i>
-            <h4>মিল ব্যবস্থা</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-fire"></i>
-            <h4>রান্নার ব্যবস্থা</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-tv"></i>
-            <h4>টিভির ব্যবস্থা</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-newspaper"></i>
-            <h4>পত্রিকার ব্যবস্থা</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-box-open"></i>
-            <h4>স্টোর রুম ব্যবস্থা</h4>
-        </div>
-
-        <div class="fac-card">
-            <i class="fas fa-warehouse"></i>
-            <h4>গ্যারেজ ব্যবস্থা</h4>
+    
+            <div class="fac-card">
+                <i class="fas fa-book-reader"></i>
+                <h4>পড়ার পরিবেশ</h4>
+            </div>
+    
+            <!-- New Facilities -->
+            <div class="fac-card">
+                <i class="fas fa-utensils"></i>
+                <h4>মিল ব্যবস্থা</h4>
+            </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-fire"></i>
+                <h4>রান্নার ব্যবস্থা</h4>
+            </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-tv"></i>
+                <h4>টিভির ব্যবস্থা</h4>
+            </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-newspaper"></i>
+                <h4>পত্রিকার ব্যবস্থা</h4>
+            </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-box-open"></i>
+                <h4>স্টোর রুম ব্যবস্থা</h4>
+            </div>
+    
+            <div class="fac-card">
+                <i class="fas fa-warehouse"></i>
+                <h4>গ্যারেজ ব্যবস্থা</h4>
+            </div>
         </div>
     </div>
-</div>
-
-            <!-- MAP SECTION -->
-            <div class="map-section">
-                <div class="map-header">
-                    <h3><i class="fas fa-map-marked-alt" style="color:var(--danger); margin-right:8px;"></i> লোকেশন ও ঠিকানা</h3>
-                    <p style="font-size:13px; color:#555; margin-top:5px;"><i class="fas fa-map-pin"></i> জহুরুল নগর, বগুড়া</p>
+    
+                <!-- MAP SECTION -->
+                <div class="map-section">
+                    <div class="map-header">
+                        <h3><i class="fas fa-map-marked-alt" style="color:var(--danger); margin-right:8px;"></i> লোকেশন ও ঠিকানা</h3>
+                        <p style="font-size:13px; color:#555; margin-top:5px;"><i class="fas fa-map-pin"></i> জহুরুল নগর, বগুড়া</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.648174542289!2d89.37059727599723!3d24.87586564463878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc54ad8e49b805%3A0x6b9d629a8a619028!2sJahurul%20Nagar%2C%20Bogura!5e0!3m2!1sen!2sbd!4v1709400000000!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.648174542289!2d89.37059727599723!3d24.87586564463878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc54ad8e49b805%3A0x6b9d629a8a619028!2sJahurul%20Nagar%2C%20Bogura!5e0!3m2!1sen!2sbd!4v1709400000000!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    
+                
+    
+                <!-- SUNRISE & SUNSET -->
+                <div class="sun-grid">
+                    <div class="sun-card sun-rise">
+                        <i class="fas fa-sun sun-icon"></i>
+                        <div class="sun-time" id="sunrise-time">...</div>
+                        <div class="sun-label">সূর্যোদয় (আজ)</div>
+                    </div>
+                    <div class="sun-card sun-set">
+                        <i class="fas fa-moon sun-icon"></i>
+                        <div class="sun-time" id="sunset-time">...</div>
+                        <div class="sun-label">সূর্যাস্ত (আজ)</div>
+                    </div>
                 </div>
+    
+                <!-- PRAYER TIMES -->
+                <div class="prayer-section">
+                    <div class="prayer-header">
+                        <h3 style="font-family:'Tiro Bangla'; color:var(--primary)"><i class="fas fa-mosque"></i> নামাজের সময়সূচী</h3>
+                        <span style="font-size:12px; color:#777; font-family:'Tiro Bangla'">বগুড়া জেলা</span>
+                    </div>
+                    <ul class="prayer-list" id="prayer-list-container">
+                        <li class="prayer-item"><span class="p-name">লোড হচ্ছে...</span></li>
+                    </ul>
+                </div>
+    
+    
+                <!-- Rules (UPDATED STYLE) -->
+    <div class="rules-box">
+        <h3><i class="fas fa-exclamation-circle"></i> মেসের নিয়মাবলী</h3>
+    
+        <div class="rule-group">
+            <h4><i class="fas fa-money-bill-wave"></i> অর্থ সংক্রান্ত নিয়ম</h4>
+            <ul>
+                <li>১–৫ তারিখের মধ্যে মিলের বকেয়া টাকা পরিশোধ করতে হবে।</li>
+                <li>অর্ধেক মাসের মধ্যেই চলতি মাসের মিলের টাকা পরিশোধ করতে হবে।</li>
+                <li>১০ তারিখের মধ্যে মেস ভাড়া পরিশোধ করতে হবে।</li>
+            </ul>
+        </div>
+    
+        <div class="rule-group">
+            <h4><i class="fas fa-clock"></i> সময় সংক্রান্ত নিয়ম</h4>
+            <ul>
+                <li>রাত ১২:০০ টার মধ্যে মেসে প্রবেশ করতে হবে।</li>
+            </ul>
+        </div>
+    
+        <div class="rule-group">
+            <h4><i class="fas fa-users"></i> শৃঙ্খলা ও আচরণ</h4>
+            <ul>
+                <li>মেসে হৈচৈ বা উচ্চস্বরে গান বাজানো যাবে না।</li>
+                <li>সিনিয়রদের যথাযথ সম্মান ও শালীন আচরণ বজায় রাখতে হবে।</li>
+                <li>মেসের শান্ত পরিবেশ বজায় রাখা সবার দায়িত্ব।</li>
+            </ul>
+        </div>
+    
+        <div class="rule-group">
+            <h4><i class="fas fa-broom"></i> পরিষ্কার-পরিচ্ছন্নতা</h4>
+            <ul>
+                <li>নিজের রুম ও মেস পরিষ্কার পরিচ্ছন্ন রাখতে হবে।</li>
+                <li>রান্নার চুলা ও বাথরুম ব্যবহার শেষে পরিষ্কার করে রাখতে হবে।</li>
+            </ul>
+        </div>
+    
+        <div class="rule-group">
+            <h4><i class="fas fa-ban"></i> নিষেধাজ্ঞা ও নিরাপত্তা</h4>
+            <ul>
+                <li>মেসের অভ্যন্তরে ধুমপান ও মাদকসেবন সম্পূর্ণ নিষিদ্ধ।</li>
+                <li>মেসে বাইরের লেডিস গেস্ট অনুমোদিত নয়।</li>
+                <li>বিদ্যুৎ ও পানি অপচয় করা যাবে না।</li>
+                <li>মেসের কোনো জিনিস নষ্ট হলে বা সমস্যা হলে কর্তৃপক্ষকে জানাতে হবে।</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+                <!-- COMPACT FOOTER -->
+                <div class="footer-compact">
+                    Design By <a href="javascript:void(0);" class="designer-link">MD SHARIFUL ISLAM</a>. © ২০২৬ ছবিকুঞ্জ ছাত্রাবাস - জহরুল নগর,বগুড়া।
+                </div>
+    
             </div>
-
             
-
-            <!-- SUNRISE & SUNSET -->
-            <div class="sun-grid">
-                <div class="sun-card sun-rise">
-                    <i class="fas fa-sun sun-icon"></i>
-                    <div class="sun-time" id="sunrise-time">...</div>
-                    <div class="sun-label">সূর্যোদয় (আজ)</div>
-                </div>
-                <div class="sun-card sun-set">
-                    <i class="fas fa-moon sun-icon"></i>
-                    <div class="sun-time" id="sunset-time">...</div>
-                    <div class="sun-label">সূর্যাস্ত (আজ)</div>
-                </div>
+            <!-- HTML for the popup -->
+    <div class="sharifulinfo-modal" id="sharifulinfoModal">
+      <div class="sharifulinfo-modal-content">
+        <div class="sharifulinfo-modal-inner">
+          <span class="sharifulinfo-close">&times;</span>
+          
+          <div class="sharifulinfo-header">
+            <div class="sharifulinfo-image-container">
+              <img src="https://i.imgur.com/mm2jLrd.png" alt="MD SHARIFUL ISLAM" class="sharifulinfo-image">
+              <div class="sharifulinfo-image-overlay"></div>
             </div>
-
-            <!-- PRAYER TIMES -->
-            <div class="prayer-section">
-                <div class="prayer-header">
-                    <h3 style="font-family:'Tiro Bangla'; color:var(--primary)"><i class="fas fa-mosque"></i> নামাজের সময়সূচী</h3>
-                    <span style="font-size:12px; color:#777; font-family:'Tiro Bangla'">বগুড়া জেলা</span>
-                </div>
-                <ul class="prayer-list" id="prayer-list-container">
-                    <li class="prayer-item"><span class="p-name">লোড হচ্ছে...</span></li>
-                </ul>
+            <h2 class="sharifulinfo-name">MD SHARIFUL ISLAM</h2>
+            <p class="sharifulinfo-department">DEPARTMENT OF PHYSICS</p>
+            <p class="sharifulinfo-session">SESSION: 24-25</p>
+            <div class="sharifulinfo-profession-container">
+              <p class="sharifulinfo-profession">Professional Web Designer & Developer</p>
             </div>
-
-
-            <!-- Rules (UPDATED STYLE) -->
-<div class="rules-box">
-    <h3><i class="fas fa-exclamation-circle"></i> মেসের নিয়মাবলী</h3>
-
-    <div class="rule-group">
-        <h4><i class="fas fa-money-bill-wave"></i> অর্থ সংক্রান্ত নিয়ম</h4>
-        <ul>
-            <li>১–৫ তারিখের মধ্যে মিলের বকেয়া টাকা পরিশোধ করতে হবে।</li>
-            <li>অর্ধেক মাসের মধ্যেই চলতি মাসের মিলের টাকা পরিশোধ করতে হবে।</li>
-            <li>১০ তারিখের মধ্যে মেস ভাড়া পরিশোধ করতে হবে।</li>
-        </ul>
-    </div>
-
-    <div class="rule-group">
-        <h4><i class="fas fa-clock"></i> সময় সংক্রান্ত নিয়ম</h4>
-        <ul>
-            <li>রাত ১২:০০ টার মধ্যে মেসে প্রবেশ করতে হবে।</li>
-        </ul>
-    </div>
-
-    <div class="rule-group">
-        <h4><i class="fas fa-users"></i> শৃঙ্খলা ও আচরণ</h4>
-        <ul>
-            <li>মেসে হৈচৈ বা উচ্চস্বরে গান বাজানো যাবে না।</li>
-            <li>সিনিয়রদের যথাযথ সম্মান ও শালীন আচরণ বজায় রাখতে হবে।</li>
-            <li>মেসের শান্ত পরিবেশ বজায় রাখা সবার দায়িত্ব।</li>
-        </ul>
-    </div>
-
-    <div class="rule-group">
-        <h4><i class="fas fa-broom"></i> পরিষ্কার-পরিচ্ছন্নতা</h4>
-        <ul>
-            <li>নিজের রুম ও মেস পরিষ্কার পরিচ্ছন্ন রাখতে হবে।</li>
-            <li>রান্নার চুলা ও বাথরুম ব্যবহার শেষে পরিষ্কার করে রাখতে হবে।</li>
-        </ul>
-    </div>
-
-    <div class="rule-group">
-        <h4><i class="fas fa-ban"></i> নিষেধাজ্ঞা ও নিরাপত্তা</h4>
-        <ul>
-            <li>মেসের অভ্যন্তরে ধুমপান ও মাদকসেবন সম্পূর্ণ নিষিদ্ধ।</li>
-            <li>মেসে বাইরের লেডিস গেস্ট অনুমোদিত নয়।</li>
-            <li>বিদ্যুৎ ও পানি অপচয় করা যাবে না।</li>
-            <li>মেসের কোনো জিনিস নষ্ট হলে বা সমস্যা হলে কর্তৃপক্ষকে জানাতে হবে।</li>
-        </ul>
-    </div>
-</div>
-
-
-            <!-- COMPACT FOOTER -->
-            <div class="footer-compact">
-                Design By <a href="javascript:void(0);" class="designer-link">MD SHARIFUL ISLAM</a>. © ২০২৬ ছবিকুঞ্জ ছাত্রাবাস - জহরুল নগর,বগুড়া।
-            </div>
-
+          </div>
+          
+          <div class="sharifulinfo-social">
+            <a href="https://www.facebook.com/share/1G1KQHWXH9/" target="_blank" class="sharifulinfo-social-link">
+              <i class="fab fa-facebook-f"></i>
+              <span>Facebook</span>
+            </a>
+            <a href="https://m.me/msharifulvisionary" target="_blank" class="sharifulinfo-social-link">
+              <i class="fab fa-facebook-messenger"></i>
+              <span>Messenger</span>
+            </a>
+            <a href="https://wa.me/8801735757143" target="_blank" class="sharifulinfo-social-link">
+              <i class="fab fa-whatsapp"></i>
+              <span>WhatsApp</span>
+            </a>
+            <a href="mailto:msharifulvisionary@gmail.com" class="sharifulinfo-social-link">
+              <i class="fas fa-envelope"></i>
+              <span>Email</span>
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
+    
+            <!-- 2. FLOOR SECTIONS -->
+            <div id="floor-g" class="section">
+                <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">নিচ তলা (Ground)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">4 Rooms</span></div>
+                <div class="room-grid" id="grid-g">Loading...</div>
+            </div>
+            <div id="floor-1" class="section">
+                <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">6 Rooms</span></div>
+                <div class="room-grid" id="grid-1">Loading...</div>
+            </div>
+            <div id="floor-2" class="section">
+                <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">২য় তলা (2nd Floor)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">6 Rooms</span></div>
+                <div class="room-grid" id="grid-2">Loading...</div>
+            </div>
+    
+            <!-- 3. MEMBER LIST -->
+            <div id="member-list" class="section">
+                <h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2>
+                <div class="member-grid" id="all-member-container">
+                    <!-- JS Generated Cards -->
+                </div>
+            </div>
+    
+            <!-- 4. BLOOD FINDER -->
+            <div id="blood-finder" class="section">
+                <div class="blood-hero">
+                    <i class="fas fa-heartbeat fa-3x" style="margin-bottom:10px;"></i>
+                    <h1>রক্ত খুঁজুন</h1>
+                    <p>জরুরি প্রয়োজনে মেসের ডোনার খুঁজে বের করুন</p>
+                    <div class="blood-search-box">
+                        <select id="search-blood" class="b-select" onchange="searchBlood()">
+                            <option value="">গ্রুপ নির্বাচন করুন</option>
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="blood-results" class="blood-result-grid">
+                    <p style="text-align:center; width:100%; color:#777; grid-column: 1/-1;">ফলাফল দেখার জন্য গ্রুপ সিলেক্ট করুন</p>
+                </div>
+            </div>
+    
+            <!-- 5. PLACEHOLDERS -->
+            <div id="calc-dm" class="section calc-placeholder"></div>
+            <div id="calc-dr" class="section calc-placeholder"></div>
+            <div id="calc-mc" class="section calc-placeholder"></div>
+            <div id="calc-mr" class="section calc-placeholder"></div>
+            <div id="calc-cb" class="section calc-placeholder"></div>
+    
+        </div>
+    
+        <!-- MODALS -->
         
-        <!-- HTML for the popup -->
-<div class="sharifulinfo-modal" id="sharifulinfoModal">
-  <div class="sharifulinfo-modal-content">
-    <div class="sharifulinfo-modal-inner">
-      <span class="sharifulinfo-close">&times;</span>
-      
-      <div class="sharifulinfo-header">
-        <div class="sharifulinfo-image-container">
-          <img src="https://i.imgur.com/mm2jLrd.png" alt="MD SHARIFUL ISLAM" class="sharifulinfo-image">
-          <div class="sharifulinfo-image-overlay"></div>
-        </div>
-        <h2 class="sharifulinfo-name">MD SHARIFUL ISLAM</h2>
-        <p class="sharifulinfo-department">DEPARTMENT OF PHYSICS</p>
-        <p class="sharifulinfo-session">SESSION: 24-25</p>
-        <div class="sharifulinfo-profession-container">
-          <p class="sharifulinfo-profession">Professional Web Designer & Developer</p>
-        </div>
-      </div>
-      
-      <div class="sharifulinfo-social">
-        <a href="https://www.facebook.com/share/1G1KQHWXH9/" target="_blank" class="sharifulinfo-social-link">
-          <i class="fab fa-facebook-f"></i>
-          <span>Facebook</span>
-        </a>
-        <a href="https://m.me/msharifulvisionary" target="_blank" class="sharifulinfo-social-link">
-          <i class="fab fa-facebook-messenger"></i>
-          <span>Messenger</span>
-        </a>
-        <a href="https://wa.me/8801735757143" target="_blank" class="sharifulinfo-social-link">
-          <i class="fab fa-whatsapp"></i>
-          <span>WhatsApp</span>
-        </a>
-        <a href="mailto:msharifulvisionary@gmail.com" class="sharifulinfo-social-link">
-          <i class="fas fa-envelope"></i>
-          <span>Email</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-        <!-- 2. FLOOR SECTIONS -->
-        <div id="floor-g" class="section">
-            <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">নিচ তলা (Ground)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">4 Rooms</span></div>
-            <div class="room-grid" id="grid-g">Loading...</div>
-        </div>
-        <div id="floor-1" class="section">
-            <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">6 Rooms</span></div>
-            <div class="room-grid" id="grid-1">Loading...</div>
-        </div>
-        <div id="floor-2" class="section">
-            <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">২য় তলা (2nd Floor)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">6 Rooms</span></div>
-            <div class="room-grid" id="grid-2">Loading...</div>
-        </div>
-
-        <!-- 3. MEMBER LIST -->
-        <div id="member-list" class="section">
-            <h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2>
-            <div class="member-grid" id="all-member-container">
-                <!-- JS Generated Cards -->
-            </div>
-        </div>
-
-        <!-- 4. BLOOD FINDER -->
-        <div id="blood-finder" class="section">
-            <div class="blood-hero">
-                <i class="fas fa-heartbeat fa-3x" style="margin-bottom:10px;"></i>
-                <h1>রক্ত খুঁজুন</h1>
-                <p>জরুরি প্রয়োজনে মেসের ডোনার খুঁজে বের করুন</p>
-                <div class="blood-search-box">
-                    <select id="search-blood" class="b-select" onchange="searchBlood()">
-                        <option value="">গ্রুপ নির্বাচন করুন</option>
-                        <option value="A+">A+</option><option value="A-">A-</option>
-                        <option value="B+">B+</option><option value="B-">B-</option>
-                        <option value="O+">O+</option><option value="O-">O-</option>
-                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                    </select>
+        <!-- Bogura Emergency Modal -->
+        <div class="modal" id="emergencyModal">
+            <div class="modal-content">
+                <div class="modal-head" style="background:#e17055"><h3 style="font-family:'Tiro Bangla'">বগুড়া জরুরি সেবা</h3><i class="fas fa-times" onclick="closeModal('emergencyModal')" style="cursor:pointer"></i></div>
+                <div class="modal-body">
+                    <ul class="em-list">
+                        <li class="em-item" onclick="callNumber('999')">
+                            <div class="em-icon"><i class="fas fa-user-shield"></i></div>
+                            <div class="em-text"><h4>জাতীয় জরুরি সেবা</h4><p>৯৯৯</p></div>
+                        </li>
+                         <li class="em-item" onclick="callNumber('05162404')">
+                            <div class="em-icon" style="background:#2c3e50; color:white;"><i class="fas fa-landmark"></i></div>
+                            <div class="em-text"><h4>জেলা প্রশাসকের কার্যালয়</h4><p>০৫১-৬২৪০৪</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('01713374092')">
+                            <div class="em-icon" style="background:#3498db; color:white"><i class="fas fa-taxi"></i></div>
+                            <div class="em-text"><h4>বগুড়া সদর থানা (OC)</h4><p>০ ১৭১৩-৩৭৪০৯২</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('01777711200')">
+                            <div class="em-icon" style="background:#27ae60; color:white;"><i class="fas fa-shield-alt"></i></div>
+                            <div class="em-text"><h4>RAB-12, বগুড়া</h4><p>০১৭৭৭-৭১১২০০</p></div>
+                        </li>
+                         <li class="em-item" onclick="callNumber('01320000400')">
+                            <div class="em-icon" style="background:#e67e22; color:white;"><i class="fas fa-road"></i></div>
+                            <div class="em-text"><h4>হাইওয়ে পুলিশ</h4><p>০১৩২-০০০০৪০০</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('05166222')">
+                            <div class="em-icon" style="background:#ff7675; color:white"><i class="fas fa-fire-extinguisher"></i></div>
+                            <div class="em-text"><h4>ফায়ার সার্ভিস বগুড়া</h4><p>০৫১-৬৬২২২</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('05169000')">
+                            <div class="em-icon" style="background:#74b9ff; color:white"><i class="fas fa-hospital-alt"></i></div>
+                            <div class="em-text"><h4>শজিমেক হাসপাতাল</h4><p>০৫১-৬৯০০০</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('05162460')">
+                            <div class="em-icon" style="background:#00b894; color:white"><i class="fas fa-hospital"></i></div>
+                            <div class="em-text"><h4>মোহাম্মদ আলী হাসপাতাল</h4><p>০৫১-৬২৪৬০</p></div>
+                        </li>
+                         <li class="em-item" onclick="callNumber('16603')">
+                            <div class="em-icon" style="background:#f1c40f; color:white"><i class="fas fa-bolt"></i></div>
+                            <div class="em-text"><h4>নেসকো (বিদ্যুৎ)</h4><p>১৬৬০৩</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('16496')">
+                            <div class="em-icon" style="background:#2d3436; color:white"><i class="fas fa-burn"></i></div>
+                            <div class="em-text"><h4>পশ্চিমাঞ্চল গ্যাস</h4><p>১৬৪৯৬</p></div>
+                        </li>
+                        <li class="em-item" onclick="callNumber('01320155060')">
+                            <div class="em-icon" style="background:#0984e3; color:white"><i class="fas fa-hiking"></i></div>
+                            <div class="em-text"><h4>টুরিস্ট পুলিশ বগুড়া</h4><p>০১৩২০-১৫৫০৬০</p></div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div id="blood-results" class="blood-result-grid">
-                <p style="text-align:center; width:100%; color:#777; grid-column: 1/-1;">ফলাফল দেখার জন্য গ্রুপ সিলেক্ট করুন</p>
-            </div>
         </div>
-
-        <!-- 5. PLACEHOLDERS -->
-        <div id="calc-dm" class="section calc-placeholder"></div>
-        <div id="calc-dr" class="section calc-placeholder"></div>
-        <div id="calc-mc" class="section calc-placeholder"></div>
-        <div id="calc-mr" class="section calc-placeholder"></div>
-        <div id="calc-cb" class="section calc-placeholder"></div>
-
-    </div>
-
-    <!-- MODALS -->
     
-    <!-- Bogura Emergency Modal -->
-    <div class="modal" id="emergencyModal">
-        <div class="modal-content">
-            <div class="modal-head" style="background:#e17055"><h3 style="font-family:'Tiro Bangla'">বগুড়া জরুরি সেবা</h3><i class="fas fa-times" onclick="closeModal('emergencyModal')" style="cursor:pointer"></i></div>
-            <div class="modal-body">
-                <ul class="em-list">
-                    <li class="em-item" onclick="callNumber('999')">
-                        <div class="em-icon"><i class="fas fa-user-shield"></i></div>
-                        <div class="em-text"><h4>জাতীয় জরুরি সেবা</h4><p>৯৯৯</p></div>
-                    </li>
-                     <li class="em-item" onclick="callNumber('05162404')">
-                        <div class="em-icon" style="background:#2c3e50; color:white;"><i class="fas fa-landmark"></i></div>
-                        <div class="em-text"><h4>জেলা প্রশাসকের কার্যালয়</h4><p>০৫১-৬২৪০৪</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('01713374092')">
-                        <div class="em-icon" style="background:#3498db; color:white"><i class="fas fa-taxi"></i></div>
-                        <div class="em-text"><h4>বগুড়া সদর থানা (OC)</h4><p>০ ১৭১৩-৩৭৪০৯২</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('01777711200')">
-                        <div class="em-icon" style="background:#27ae60; color:white;"><i class="fas fa-shield-alt"></i></div>
-                        <div class="em-text"><h4>RAB-12, বগুড়া</h4><p>০১৭৭৭-৭১১২০০</p></div>
-                    </li>
-                     <li class="em-item" onclick="callNumber('01320000400')">
-                        <div class="em-icon" style="background:#e67e22; color:white;"><i class="fas fa-road"></i></div>
-                        <div class="em-text"><h4>হাইওয়ে পুলিশ</h4><p>০১৩২-০০০০৪০০</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('05166222')">
-                        <div class="em-icon" style="background:#ff7675; color:white"><i class="fas fa-fire-extinguisher"></i></div>
-                        <div class="em-text"><h4>ফায়ার সার্ভিস বগুড়া</h4><p>০৫১-৬৬২২২</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('05169000')">
-                        <div class="em-icon" style="background:#74b9ff; color:white"><i class="fas fa-hospital-alt"></i></div>
-                        <div class="em-text"><h4>শজিমেক হাসপাতাল</h4><p>০৫১-৬৯০০০</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('05162460')">
-                        <div class="em-icon" style="background:#00b894; color:white"><i class="fas fa-hospital"></i></div>
-                        <div class="em-text"><h4>মোহাম্মদ আলী হাসপাতাল</h4><p>০৫১-৬২৪৬০</p></div>
-                    </li>
-                     <li class="em-item" onclick="callNumber('16603')">
-                        <div class="em-icon" style="background:#f1c40f; color:white"><i class="fas fa-bolt"></i></div>
-                        <div class="em-text"><h4>নেসকো (বিদ্যুৎ)</h4><p>১৬৬০৩</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('16496')">
-                        <div class="em-icon" style="background:#2d3436; color:white"><i class="fas fa-burn"></i></div>
-                        <div class="em-text"><h4>পশ্চিমাঞ্চল গ্যাস</h4><p>১৬৪৯৬</p></div>
-                    </li>
-                    <li class="em-item" onclick="callNumber('01320155060')">
-                        <div class="em-icon" style="background:#0984e3; color:white"><i class="fas fa-hiking"></i></div>
-                        <div class="em-text"><h4>টুরিস্ট পুলিশ বগুড়া</h4><p>০১৩২০-১৫৫০৬০</p></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Room Modal -->
-    <div class="modal" id="roomModal"><div class="modal-content"><div class="modal-head"><h3 id="rm-header" style="font-family:'Tiro Bangla'">রুম বিবরণ</h3><i class="fas fa-times" onclick="closeModal('roomModal')" style="cursor:pointer"></i></div><div class="modal-body" id="room-members-list"></div></div></div>
-    
-    <!-- Profile Modal -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <div class="modal-head">
-                <h3 style="font-family:'Tiro Bangla'">সদস্য প্রোফাইল</h3>
-                <i class="fas fa-times" onclick="closeModal('profileModal')" style="cursor:pointer"></i>
-            </div>
-            <div class="modal-body">
-                <form id="profileForm">
-                    <input type="hidden" id="p-id">
-                    <div class="input-group"><label>নাম</label> <input type="text" id="p-name"></div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                        <div class="input-group"><label>ফোন</label> <input type="text" id="p-phone"></div>
-                        <div class="input-group">
-                            <label>রক্তের গ্রুপ</label>
-                            <select id="p-blood"><option value="">Select</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
-                        </div>
-                    </div>
-                    <div class="input-group"><label>ঠিকানা</label> <input type="text" id="p-address"></div>
-                    
-                    <!-- NEW FIELDS -->
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                        <div class="input-group">
-                            <label>পেশা</label> 
-                            <select id="p-profession">
-                                <option value="">Select</option>
-                                <option value="ছাত্র">ছাত্র</option>
-                                <option value="কর্মজীবী/ চাকুরীজীবী">কর্মজীবী/ চাকুরীজীবী</option>
-                                <option value="অন্যান্য">অন্যান্য</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label>বর্তমান অধ্যায়নরত শ্রেনী</label> 
-                            <select id="p-class">
-                                <option value="">Select</option>
-                                <option value="অনার্স ১ম বর্ষ">অনার্স ১ম বর্ষ</option>
-                                <option value="অনার্স ২য় বর্ষ">অনার্স ২য় বর্ষ</option>
-                                <option value="অনার্স ৩য় বর্ষ">অনার্স ৩য় বর্ষ</option>
-                                <option value="অনার্স ৪র্থ বর্ষ">অনার্স ৪র্থ বর্ষ</option>
-                                <option value="মাস্টার্স">মাস্টার্স</option>
-                                <option value="অন্যান্য">অন্যান্য</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                        <div class="input-group"><label>কলেজ</label> <input type="text" id="p-college"></div>
-                        <div class="input-group"><label>ডিপার্টমেন্ট</label> <input type="text" id="p-dept"></div>
-                    </div>
-                    <div class="input-group"><label>সেশন</label> <input type="text" id="p-session"></div>
-                    <div style="border-top:1px dashed #ccc; margin-top:10px; padding-top:10px;">
-                        <div class="input-group"><label>জয়েনিং ডেট</label> <input type="date" id="p-join"></div>
+        <!-- Room Modal -->
+        <div class="modal" id="roomModal"><div class="modal-content"><div class="modal-head"><h3 id="rm-header" style="font-family:'Tiro Bangla'">রুম বিবরণ</h3><i class="fas fa-times" onclick="closeModal('roomModal')" style="cursor:pointer"></i></div><div class="modal-body" id="room-members-list"></div></div></div>
+        
+        <!-- Profile Modal -->
+        <div class="modal" id="profileModal">
+            <div class="modal-content">
+                <div class="modal-head">
+                    <h3 style="font-family:'Tiro Bangla'">সদস্য প্রোফাইল</h3>
+                    <i class="fas fa-times" onclick="closeModal('profileModal')" style="cursor:pointer"></i>
+                </div>
+                <div class="modal-body">
+                    <form id="profileForm">
+                        <input type="hidden" id="p-id">
+                        <div class="input-group"><label>নাম</label> <input type="text" id="p-name"></div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                            <div class="input-group"><label>লাস্ট রক্তদান</label> <input type="date" id="p-last"></div>
-                            <div class="input-group"><label>মোট দান (সংখ্যা)</label> <input type="number" id="p-total-donations" placeholder="Ex: 5"></div>
+                            <div class="input-group"><label>ফোন</label> <input type="text" id="p-phone"></div>
+                            <div class="input-group">
+                                <label>রক্তের গ্রুপ</label>
+                                <select id="p-blood"><option value="">Select</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group"><label>নোট</label> <textarea id="p-note" rows="2"></textarea></div>
-                    <button type="button" class="btn-full btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> সেভ করুন</button>
-                    <button type="button" class="btn-full btn-del" onclick="delMember()"><i class="fas fa-trash"></i> ডিলিট করুন</button>
-                </form>
+                        <div class="input-group"><label>ঠিকানা</label> <input type="text" id="p-address"></div>
+                        
+                        <!-- NEW FIELDS -->
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                            <div class="input-group">
+                                <label>পেশা</label> 
+                                <select id="p-profession">
+                                    <option value="">Select</option>
+                                    <option value="ছাত্র">ছাত্র</option>
+                                    <option value="কর্মজীবী/ চাকুরীজীবী">কর্মজীবী/ চাকুরীজীবী</option>
+                                    <option value="অন্যান্য">অন্যান্য</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>বর্তমান অধ্যায়নরত শ্রেনী</label> 
+                                <select id="p-class">
+                                    <option value="">Select</option>
+                                    <option value="অনার্স ১ম বর্ষ">অনার্স ১ম বর্ষ</option>
+                                    <option value="অনার্স ২য় বর্ষ">অনার্স ২য় বর্ষ</option>
+                                    <option value="অনার্স ৩য় বর্ষ">অনার্স ৩য় বর্ষ</option>
+                                    <option value="অনার্স ৪র্থ বর্ষ">অনার্স ৪র্থ বর্ষ</option>
+                                    <option value="মাস্টার্স">মাস্টার্স</option>
+                                    <option value="অন্যান্য">অন্যান্য</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                            <div class="input-group"><label>কলেজ</label> <input type="text" id="p-college"></div>
+                            <div class="input-group"><label>ডিপার্টমেন্ট</label> <input type="text" id="p-dept"></div>
+                        </div>
+                        <div class="input-group"><label>সেশন</label> <input type="text" id="p-session"></div>
+                        <div style="border-top:1px dashed #ccc; margin-top:10px; padding-top:10px;">
+                            <div class="input-group"><label>জয়েনিং ডেট</label> <input type="date" id="p-join"></div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                                <div class="input-group"><label>লাস্ট রক্তদান</label> <input type="date" id="p-last"></div>
+                                <div class="input-group"><label>মোট দান (সংখ্যা)</label> <input type="number" id="p-total-donations" placeholder="Ex: 5"></div>
+                            </div>
+                        </div>
+                        <div class="input-group"><label>নোট</label> <textarea id="p-note" rows="2"></textarea></div>
+                        <button type="button" class="btn-full btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> সেভ করুন</button>
+                        <button type="button" class="btn-full btn-del" onclick="delMember()"><i class="fas fa-trash"></i> ডিলিট করুন</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+
+    </div> 
+    <!-- END WRAPPER -->
+
+    <!-- ================= LOGIN & LOGIC SCRIPT ================= -->
+    <script>
+        // LOGIN CREDENTIALS
+        const AUTH_USER = "cobikunjomess";
+        const AUTH_PASS = "123@cobikunjomess";
+
+        // DOM ELEMENTS
+        const loginOverlay = document.getElementById('login-overlay');
+        const websiteContainer = document.getElementById('main-website-container');
+        const loginMsg = document.getElementById('login-msg');
+
+        // CHECK IF ALREADY LOGGED IN
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('isLoggedIn') === 'true') {
+                showWebsite();
+            }
+        });
+
+        // LOGIN FUNCTION
+        function checkLogin() {
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+
+            if(u === AUTH_USER && p === AUTH_PASS) {
+                localStorage.setItem('isLoggedIn', 'true');
+                showWebsite();
+            } else {
+                loginMsg.style.display = 'block';
+            }
+        }
+
+        // SHOW WEBSITE FUNCTION
+        function showWebsite() {
+            loginOverlay.style.display = 'none';
+            websiteContainer.style.display = 'block';
+        }
+
+        // TOGGLE PASSWORD VISIBILITY
+        function togglePass() {
+            var x = document.getElementById("login-pass");
+            var icon = document.querySelector(".toggle-pass");
+            if (x.type === "password") {
+                x.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                x.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+
 
     <!-- LOGIC -->
     <script type="module">
