@@ -11,154 +11,150 @@
 
     <!-- CSS Styling -->
     <style>
-        /* ================= LOGIN SYSTEM CSS ================= */
+        /* ================= NEW DUAL LOGIN CSS ================= */
         #login-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #1e272e, #34495e);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: linear-gradient(135deg, #1e272e, #2c3e50);
+            z-index: 99999; display: flex; justify-content: center; align-items: center;
+            flex-direction: column; padding: 20px;
         }
 
-        .login-box {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
+        .login-card {
+            background: white; width: 100%; max-width: 450px;
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             font-family: 'Poppins', 'Tiro Bangla', sans-serif;
+            animation: popIn 0.5s ease;
         }
 
-        .login-box h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-family: 'Tiro Bangla';
+        @keyframes popIn { from{transform: scale(0.9); opacity: 0;} to{transform: scale(1); opacity: 1;} }
+
+        .login-header {
+            background: #00cec9; padding: 25px; text-align: center; color: white;
+        }
+        .login-header h2 { font-family: 'Tiro Bangla'; font-size: 24px; margin-bottom: 5px; }
+        .login-header p { font-size: 14px; opacity: 0.9; }
+
+        .login-tabs { display: flex; background: #f1f2f6; }
+        .tab-btn {
+            flex: 1; padding: 15px; border: none; background: transparent;
+            font-weight: bold; cursor: pointer; color: #636e72; font-family: 'Tiro Bangla'; font-size: 16px;
+            border-bottom: 3px solid transparent; transition: 0.3s;
+        }
+        .tab-btn.active { border-bottom-color: #00cec9; color: #00cec9; background: white; }
+
+        .login-body { padding: 30px; }
+        .login-form { display: none; }
+        .login-form.active { display: block; animation: fadeIn 0.3s; }
+
+        .input-group-login { position: relative; margin-bottom: 20px; }
+        .input-group-login label { display: block; font-size: 13px; font-weight: 600; color: #2d3436; margin-bottom: 8px; font-family: 'Tiro Bangla'; }
+        .input-group-login input {
+            width: 100%; padding: 12px 15px; border: 2px solid #dfe6e9;
+            border-radius: 8px; outline: none; transition: 0.3s; font-size: 15px;
+        }
+        .input-group-login input:focus { border-color: #00cec9; }
+        .input-group-login i.toggle-pass {
+            position: absolute; right: 15px; top: 40px; color: #b2bec3; cursor: pointer;
         }
 
-        .login-input-group {
-            margin-bottom: 15px;
-            text-align: left;
-            position: relative;
+        .btn-login {
+            width: 100%; padding: 12px; background: #2d3436; color: white;
+            border: none; border-radius: 8px; font-size: 16px; font-weight: 600; font-family: 'Tiro Bangla';
+            cursor: pointer; transition: 0.3s;
         }
+        .btn-login:hover { background: #00cec9; }
 
-        .login-input-group label {
-            font-size: 13px;
-            font-weight: bold;
-            color: #636e72;
-            display: block;
-            margin-bottom: 5px;
-        }
+        .error-msg { color: #d63031; font-size: 13px; text-align: center; margin-top: 10px; display: none; font-family: 'Tiro Bangla'; }
 
-        .login-input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #dfe6e9;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .login-input-group input:focus {
-            border-color: #00cec9;
-        }
-
-        .toggle-pass {
-            position: absolute;
-            right: 12px;
-            top: 38px;
-            cursor: pointer;
-            color: #636e72;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: #00cec9;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-
-        .login-btn:hover {
-            background: #00b894;
-        }
-
-        .login-error {
-            color: #d63031;
-            font-size: 13px;
-            margin-top: 10px;
-            display: none;
-        }
-
+        /* CREDENTIAL MODAL */
+        #credModal { display: none; position: fixed; z-index: 100000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+        .cred-box { background:white; padding:30px; border-radius:15px; text-align:center; max-width:400px; width:90%; border-top: 5px solid #00cec9; }
+        .cred-copy-box { background:#f1f2f6; padding:15px; margin:15px 0; border-radius:8px; border:1px dashed #b2bec3; text-align:left; }
+        .cred-line { margin-bottom:5px; font-family: monospace; font-size:16px; word-break: break-all; }
+        
         /* Hide Main Content Initially */
-        #main-website-container {
-            display: none;
+        #main-website-container { display: none; }
+        
+        /* Disabled form style */
+        .disabled-form { pointer-events: none; opacity: 0.8; }
+        .disabled-form input, .disabled-form select, .disabled-form textarea { background-color: #f1f2f6; color: #555; }
+        
+        /* Logout Button Style */
+        .logout-btn {
+            background: #d6303120; color: #d63031 !important; margin-top: 20px; border: 1px solid #d63031;
+            text-align: center; border-radius: 6px; justify-content: center; font-weight: bold;
         }
+        .logout-btn:hover { background: #d63031; color: white !important; }
+
+        /* ================= NEW: USER STATUS CARD ================= */
+        .user-status-card {
+            background: white; border-radius: 12px; padding: 15px 20px;
+            margin-bottom: 25px; display: flex; align-items: center; gap: 15px;
+            border-left: 5px solid #00cec9; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            animation: slideDown 0.5s ease;
+        }
+        .user-status-card.admin-mode { border-left-color: #6c5ce7; background: #f8f9fa; }
+        
+        .us-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: #00cec920; color: #00cec9;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+        .user-status-card.admin-mode .us-icon { background: #6c5ce720; color: #6c5ce7; }
+        
+        .us-info h3 { font-family: 'Tiro Bangla'; font-size: 18px; margin: 0; color: var(--primary); }
+        .us-info small { font-size: 12px; color: #636e72; font-weight: bold; }
+
+        /* ================= NEW: BEAUTIFUL FLOOR ROOM COUNT BADGE ================= */
+        .floor-room-badge {
+            background: linear-gradient(135deg, #ff7675, #d63031);
+            color: white; padding: 6px 15px; border-radius: 30px;
+            font-size: 12px; font-weight: bold; letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .floor-room-badge i { font-size: 14px; }
+
+        /* ================= ROOM TYPE BADGES ================= */
+        .room-badge {
+            position: absolute; top: 10px; right: 10px;
+            font-size: 10px; padding: 3px 10px; border-radius: 20px;
+            color: white; font-weight: 600; letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            text-transform: uppercase;
+        }
+        .badge-single { background: linear-gradient(135deg, #00b894, #00cec9); }
+        .badge-double { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+
     </style>
 
     <style>
-    /* Shariful Modal CSS */
-    .sharifulinfo-modal {
-      display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); animation: sharifulinfo-fadeIn 0.4s ease;
-      overflow-y: auto; padding: 20px 10px; box-sizing: border-box;
+    /* Shariful Modal CSS (FIXED DISPLAY) */
+    .sharifulinfo-modal { 
+        display: none; /* Ensure Hidden by default */
+        position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; 
+        background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); animation: sharifulinfo-fadeIn 0.4s ease; 
+        overflow-y: auto; padding: 20px 10px; box-sizing: border-box; 
     }
-    .sharifulinfo-modal-content {
-      position: relative; background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
-      margin: auto; border-radius: 25px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      width: 100%; max-width: 420px; animation: sharifulinfo-slideIn 0.5s ease; color: white; text-align: center; overflow: hidden; box-sizing: border-box;
-    }
+    .sharifulinfo-modal-content { position: relative; background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%); margin: auto; border-radius: 25px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1); width: 100%; max-width: 420px; animation: sharifulinfo-slideIn 0.5s ease; color: white; text-align: center; overflow: hidden; box-sizing: border-box; }
     .sharifulinfo-modal-inner { padding: 30px 25px; position: relative; }
-    .sharifulinfo-modal-content::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-      background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1;
-    }
-    .sharifulinfo-close {
-      position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; font-weight: bold;
-      cursor: pointer; transition: all 0.3s ease; z-index: 10; width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
-    }
+    .sharifulinfo-modal-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; }
+    .sharifulinfo-close { position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.1); }
     .sharifulinfo-close:hover { transform: scale(1.1) rotate(90deg); background: rgba(255, 255, 255, 0.2); color: #fdbb2d; }
     .sharifulinfo-header { margin-bottom: 30px; }
     .sharifulinfo-image-container { position: relative; display: inline-block; margin-bottom: 25px; }
-    .sharifulinfo-image {
-      width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, 0.3);
-      object-fit: cover; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.4s ease; position: relative; z-index: 2;
-    }
+    .sharifulinfo-image { width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, 0.3); object-fit: cover; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.4s ease; position: relative; z-index: 2; }
     .sharifulinfo-image:hover { transform: scale(1.05); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); }
-    .sharifulinfo-image-overlay {
-      position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%;
-      background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; opacity: 0.5; animation: sharifulinfo-rotate 10s linear infinite;
-    }
+    .sharifulinfo-image-overlay { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%; background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; opacity: 0.5; animation: sharifulinfo-rotate 10s linear infinite; }
     .sharifulinfo-name { font-size: 26px; margin: 15px 0 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); letter-spacing: 0.5px; }
     .sharifulinfo-department { font-size: 18px; margin: 12px 0; font-weight: 600; color: #fdbb2d; letter-spacing: 1px; }
     .sharifulinfo-session { font-size: 16px; margin: 10px 0; font-weight: 500; opacity: 0.9; }
     .sharifulinfo-profession-container { margin: 20px 0; }
-    .sharifulinfo-profession {
-      font-size: 16px; margin: 0; font-weight: 500; color: rgba(255, 255, 255, 0.95); padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.1); border-radius: 30px; display: inline-block; backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
+    .sharifulinfo-profession { font-size: 16px; margin: 0; font-weight: 500; color: rgba(255, 255, 255, 0.95); padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border-radius: 30px; display: inline-block; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
     .sharifulinfo-social { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-    .sharifulinfo-social-link {
-      display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px;
-      border-radius: 15px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 18px; text-decoration: none;
-      transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15);
-    }
+    .sharifulinfo-social-link { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 15px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 18px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); }
     .sharifulinfo-social-link:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
     .sharifulinfo-social-link:nth-child(1):hover { background: linear-gradient(135deg, rgba(59, 89, 152, 0.8), rgba(59, 89, 152, 0.9)); }
     .sharifulinfo-social-link:nth-child(2):hover { background: linear-gradient(135deg, rgba(0, 132, 255, 0.8), rgba(0, 132, 255, 0.9)); }
@@ -166,280 +162,124 @@
     .sharifulinfo-social-link:nth-child(4):hover { background: linear-gradient(135deg, rgba(212, 70, 56, 0.8), rgba(212, 70, 56, 0.9)); }
     .sharifulinfo-social-link i { font-size: 24px; margin-bottom: 8px; }
     .sharifulinfo-social-link span { font-size: 12px; font-weight: 500; opacity: 0.9; }
-    
     @keyframes sharifulinfo-fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes sharifulinfo-slideIn { from { opacity: 0; transform: translateY(-30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes sharifulinfo-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @media (max-width: 480px) {
-      .sharifulinfo-modal { padding: 10px 5px; }
-      .sharifulinfo-modal-content { max-width: 95%; border-radius: 20px; }
-      .sharifulinfo-modal-inner { padding: 25px 20px; }
-      .sharifulinfo-image { width: 140px; height: 140px; }
-      .sharifulinfo-name { font-size: 22px; }
-      .sharifulinfo-social { grid-template-columns: 1fr 1fr; gap: 12px; }
-    }
+    @media (max-width: 480px) { .sharifulinfo-modal { padding: 10px 5px; } .sharifulinfo-modal-content { max-width: 95%; border-radius: 20px; } .sharifulinfo-modal-inner { padding: 25px 20px; } .sharifulinfo-image { width: 140px; height: 140px; } .sharifulinfo-name { font-size: 22px; } .sharifulinfo-social { grid-template-columns: 1fr 1fr; gap: 12px; } }
     </style>
 
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #00cec9;
-            --accent: #6c5ce7;
-            --danger: #e17055;
-            --bg: #f1f2f6;
-            --white: #ffffff;
-            --sidebar-w: 270px;
-        }
-
+        /* Existing Main Styles */
+        :root { --primary: #2c3e50; --secondary: #00cec9; --accent: #6c5ce7; --danger: #e17055; --bg: #f1f2f6; --white: #ffffff; --sidebar-w: 270px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', 'Tiro Bangla', sans-serif; background: var(--bg); color: #2d3436; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: var(--sidebar-w); background: #1e272e; height: 100vh; position: fixed;
-            color: white; transition: 0.3s; z-index: 1000; overflow-y: auto;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        /* --- SIDEBAR (UPDATED FOR SCROLLING) --- */
+        .sidebar { 
+            width: var(--sidebar-w); background: #1e272e; height: 100vh; position: fixed; 
+            color: white; transition: 0.3s; z-index: 1000; 
+            overflow-y: auto; /* Enable Scroll */
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1); 
+            padding-bottom: 80px; /* Crucial for Mobile Scroll to bottom */
         }
+        /* Custom Scrollbar for Sidebar */
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-track { background: #1e272e; }
+        .sidebar::-webkit-scrollbar-thumb { background: #636e72; border-radius: 10px; }
+
         .brand { padding: 25px 20px; text-align: center; background: #00000020; border-bottom: 1px solid #ffffff10; }
         .brand h2 { font-family: 'Tiro Bangla'; color: var(--secondary); margin-top: 10px; font-size: 20px; }
-        /* Clickable brand title */
         .brand-link { text-decoration: none; cursor: pointer; }
-
         .menu-label { padding: 15px 25px 5px; font-size: 11px; text-transform: uppercase; color: #636e72; font-weight: bold; letter-spacing: 1px; }
-        
         .nav-links { list-style: none; padding-bottom: 20px; }
-        .nav-links li a {
-            display: flex; align-items: center; padding: 12px 25px; color: #b2bec3; text-decoration: none;
-            transition: 0.3s; font-size: 14px; border-left: 4px solid transparent; cursor: pointer;
-        }
+        .nav-links li a { display: flex; align-items: center; padding: 12px 25px; color: #b2bec3; text-decoration: none; transition: 0.3s; font-size: 14px; border-left: 4px solid transparent; cursor: pointer; }
         .nav-links li a:hover, .nav-links li a.active { background: #ffffff08; color: var(--white); border-left-color: var(--secondary); }
         .nav-links li a i { width: 30px; font-size: 16px; color: var(--secondary); }
-
         .submenu { display: none; background: #00000030; }
         .submenu.open { display: block; }
         .submenu a { padding-left: 60px !important; font-size: 13px !important; }
         
-        .rules-box {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .rules-box h3 {
-            text-align: center;
-            color: #c0392b;
-            margin-bottom: 20px;
-        }
-
-        .rule-group {
-            margin-bottom: 18px;
-        }
-
-        .rule-group h4 {
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 1.05rem;
-        }
-
-        .rule-group ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .rule-group ul li {
-            padding: 6px 0;
-            position: relative;
-            padding-left: 22px;
-            color: #444;
-        }
-
-        .rule-group ul li::before {
-            content: "✔";
-            position: absolute;
-            left: 0;
-            color: #27ae60;
-            font-size: 14px;
-        }
+        /* RULES BOX */
+        .rules-box { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid #ff7675; margin-bottom: 30px; }
+        .rules-box h3 { text-align: center; color: #c0392b; margin-bottom: 20px; font-family:'Tiro Bangla'; }
+        .rule-group { margin-bottom: 18px; }
+        .rule-group h4 { color: #2c3e50; margin-bottom: 8px; font-size: 1.05rem; }
+        .rule-group ul { list-style: none; padding-left: 0; }
+        .rule-group ul li { padding: 6px 0; position: relative; padding-left: 22px; color: #444; }
+        .rule-group ul li::before { content: "✔"; position: absolute; left: 0; color: #27ae60; font-size: 14px; }
 
         /* --- MAIN AREA --- */
         .main { margin-left: var(--sidebar-w); padding: 20px; transition: 0.3s; flex: 1; padding-bottom: 60px; }
-        
-        /* Mobile Nav */
         .mobile-header { display: none; background: var(--primary); padding: 15px; color: white; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; }
         .mobile-header-title { text-decoration: none; color: white; }
-
-        /* --- SECTIONS --- */
         .section { display: none; animation: fadeIn 0.4s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: 0; } }
 
-        /* 1. DATE TIME BAR */
-        .datetime-container {
-            background: white; padding: 15px 25px; border-radius: 12px; margin-bottom: 20px;
-            display: flex; justify-content: flex-start; align-items: center; gap: 40px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--secondary);
-            animation: slideDown 0.5s ease;
-        }
+        /* DATETIME */
+        .datetime-container { background: white; padding: 15px 25px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: flex-start; align-items: center; gap: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--secondary); animation: slideDown 0.5s ease; }
         @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
         .dt-box { display: flex; align-items: center; gap: 12px; }
-        .dt-icon { 
-            width: 42px; height: 42px; background: #f1f2f6; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px;
-            transition: 0.3s;
-        }
+        .dt-icon { width: 42px; height: 42px; background: #f1f2f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; transition: 0.3s; }
         .dt-box:hover .dt-icon { background: var(--secondary); color: white; }
         .dt-text h4 { font-family: 'Tiro Bangla'; font-size: 18px; color: var(--primary); margin-bottom: 2px; }
         .dt-text p { font-family: 'Tiro Bangla'; font-size: 12px; color: #636e72; font-weight: 500; }
-        .greeting-badge {
-            background: var(--accent); color: white; padding: 5px 12px; border-radius: 20px; 
-            font-size: 12px; font-family: 'Tiro Bangla'; margin-left: auto;
-        }
+        .greeting-badge { background: var(--accent); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-family: 'Tiro Bangla'; margin-left: auto; }
 
-        /* NOTICE BOARD */
-        .notice-board-wrapper {
-            background: #fff3cd; border: 1px solid #ffeeba; color: #856404;
-            padding: 10px 20px; border-radius: 8px; margin-bottom: 20px;
-            display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
+        /* NOTICE */
+        .notice-board-wrapper { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .notice-label { font-weight: bold; background: #d63031; color: white; padding: 2px 10px; border-radius: 4px; margin-right: 15px; font-size: 12px; white-space: nowrap; }
         .notice-text { font-family: 'Tiro Bangla'; font-size: 14px; width: 100%; overflow: hidden; white-space: nowrap; }
 
-        /* 2. SLIDER */
-        .slider-wrapper {
-            position: relative; width: 100%; height: 320px; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px;
-        }
-        .slide {
-            position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s;
-            background-size: cover; background-position: center;
-        }
+        /* SLIDER & STATS */
+        .slider-wrapper { position: relative; width: 100%; height: 320px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; background-size: cover; background-position: center; }
         .slide.active { opacity: 1; }
-        
-        .slide-content {
-            position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 40px 30px 20px; color: white;
-        }
+        .slide-content { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 30px 20px; color: white; }
         .slide-content h1 { font-family: 'Tiro Bangla'; font-size: 28px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card-new { background: white; padding: 20px 15px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #f0f0f0; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .stat-card-new:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .stat-icon-new { font-size: 28px; margin-bottom: 10px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f2f6; }
+        .stat-num-new { font-size: 24px; font-weight: 700; color: var(--primary); line-height: 1; margin-bottom: 5px; }
+        .stat-label-new { font-size: 13px; color: #636e72; font-family: 'Tiro Bangla'; }
 
-        /* 3. STATS GRID */
-        .stats-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-            gap: 15px; 
-            margin-bottom: 30px; 
-        }
-        .stat-card-new { 
-            background: white; 
-            padding: 20px 15px; 
-            border-radius: 12px; 
-            text-align: center; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            transition: 0.3s; 
-            border: 1px solid #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .stat-card-new:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .stat-icon-new { 
-            font-size: 28px; 
-            margin-bottom: 10px; 
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #f1f2f6;
-        }
-        .stat-num-new { 
-            font-size: 24px; 
-            font-weight: 700; 
-            color: var(--primary); 
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-        .stat-label-new { 
-            font-size: 13px; 
-            color: #636e72; 
-            font-family: 'Tiro Bangla'; 
-        }
-
-        /* WEATHER CARD */
-        .weather-card {
-            background: linear-gradient(135deg, #74b9ff, #0984e3); color: white;
-            padding: 25px; border-radius: 15px; margin-bottom: 30px; position: relative;
-            box-shadow: 0 10px 20px rgba(9, 132, 227, 0.3); overflow: hidden;
-        }
-        .weather-card::before {
-            content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
-            background: rgba(255,255,255,0.1); border-radius: 50%;
-        }
+        /* WEATHER & MAP */
+        .weather-card { background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; position: relative; box-shadow: 0 10px 20px rgba(9, 132, 227, 0.3); overflow: hidden; }
+        .weather-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; }
         .w-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .w-loc h3 { font-family: 'Tiro Bangla'; font-size: 22px; }
         .w-loc p { font-size: 12px; opacity: 0.9; }
-        
         .w-main { display: flex; align-items: center; gap: 20px; }
         .w-temp { font-size: 45px; font-weight: bold; }
         .w-icon { font-size: 40px; color: #dfe6e9; }
-        
         .w-details { margin-top: 20px; display: flex; gap: 20px; font-size: 13px; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 8px; width: fit-content; }
-
-        /* MAP SECTION */
-        .map-section {
-            background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
-        }
+        .map-section { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .map-header { border-bottom: 2px solid #f1f2f6; padding-bottom: 10px; margin-bottom: 15px; }
         .map-header h3 { font-family: 'Tiro Bangla'; color: var(--primary); }
-        .map-container {
-            width: 100%; height: 250px; border-radius: 10px; overflow: hidden; border: 1px solid #eee;
-        }
+        .map-container { width: 100%; height: 250px; border-radius: 10px; overflow: hidden; border: 1px solid #eee; }
 
-        /* Facilities Grid */
+        /* FACILITIES & SUN/PRAYER */
         .facilities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
         .fac-card { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
         .fac-card:hover { transform: translateY(-5px); }
         .fac-card i { font-size: 24px; color: var(--accent); margin-bottom: 10px; }
         .fac-card h4 { font-size: 14px; font-family: 'Tiro Bangla'; }
-
-        /* SUNRISE & PRAYER STYLES */
-        .sun-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; margin-bottom: 25px;
-        }
-        .sun-card {
-            padding: 20px; border-radius: 15px; color: white; text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; overflow: hidden;
-        }
+        .sun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; margin-bottom: 25px; }
+        .sun-card { padding: 20px; border-radius: 15px; color: white; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
         .sun-rise { background: linear-gradient(135deg, #f0932b, #f6e58d); color: #2d3436; }
         .sun-set { background: linear-gradient(135deg, #2c3e50, #4a69bd); color: white; }
         .sun-icon { font-size: 30px; margin-bottom: 8px; display: block; }
         .sun-time { font-size: 22px; font-weight: bold; font-family: 'Tiro Bangla'; }
         .sun-label { font-size: 13px; font-family: 'Tiro Bangla'; opacity: 0.8; }
-        
-        .prayer-section {
-            background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--secondary); margin-bottom: 30px;
-        }
-        .prayer-header { 
-            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 10px; margin-bottom: 15px; 
-        }
+        .prayer-section { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--secondary); margin-bottom: 30px; }
+        .prayer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 10px; margin-bottom: 15px; }
         .prayer-list { list-style: none; }
-        .prayer-item { 
-            display: flex; justify-content: space-between; padding: 12px; border-radius: 8px; 
-            margin-bottom: 8px; transition: 0.2s; font-family: 'Tiro Bangla'; font-size: 15px;
-            background: #f8f9fa; border-left: 3px solid transparent;
-        }
+        .prayer-item { display: flex; justify-content: space-between; padding: 12px; border-radius: 8px; margin-bottom: 8px; transition: 0.2s; font-family: 'Tiro Bangla'; font-size: 15px; background: #f8f9fa; border-left: 3px solid transparent; }
         .prayer-item:hover { background: #e0f7fa; transform: translateX(5px); }
-        .prayer-item.active { background: var(--secondary); color: white; border-left-color: var(--primary); }
         .p-name { font-weight: bold; display: flex; align-items: center; gap: 10px; }
 
-        /* MEMBER & BLOOD & FOOTER STYLES */
+        /* MEMBER & BLOOD & FOOTER */
         .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         .mem-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: 0.3s; }
         .mem-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
@@ -453,7 +293,6 @@
         .mem-icon { width: 25px; color: var(--secondary); text-align: center; margin-right: 10px; }
         .mem-label { font-weight: 600; margin-right: 5px; color: #636e72; font-family: 'Tiro Bangla'; }
         .mem-val { color: #2d3436; font-family: 'Tiro Bangla'; }
-
         .blood-hero { background: linear-gradient(135deg, #ff7675, #d63031); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(214, 48, 49, 0.3); }
         .blood-search-box { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
         .b-select { padding: 12px 20px; border-radius: 30px; border: none; font-size: 16px; outline: none; width: 200px; color: #333; }
@@ -471,35 +310,30 @@
         .b-total-stat { text-align: center; margin-bottom: 15px; font-size: 13px; font-family: 'Tiro Bangla'; color: #2c3e50; background: #ffeaa750; padding: 5px; border-radius: 5px; }
         .btn-call { display: block; width: 100%; text-align: center; background: var(--primary); color: white; padding: 10px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; }
         .btn-call:hover { background: var(--secondary); }
-
         .floor-title-bar { background: white; padding: 15px 25px; border-radius: 10px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; }
         .room-card { background: white; padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #eee; position: relative; }
         .room-card:hover { transform: translateY(-5px); border-color: var(--secondary); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .r-icon { font-size: 32px; color: #b2bec3; margin-bottom: 10px; }
         .r-icon.active { color: var(--accent); }
-        .room-badge { position: absolute; top: 10px; right: 10px; background: #dfe6e9; font-size: 10px; padding: 2px 6px; border-radius: 4px; }
-
+        /* Badge styling handled in new CSS block above */
         .footer-compact { background: #2d3436; color: #b2bec3; padding: 15px; border-radius: 10px; margin-top: 30px; text-align: center; font-size: 12px; border-bottom: 3px solid var(--secondary); }
         .footer-compact a { color: var(--white); text-decoration: none; font-weight: bold; transition: 0.3s; }
         .footer-compact a:hover { color: var(--secondary); text-decoration: underline; }
 
-        /* MODAL STYLES */
+        /* MODALS */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-content { background: white; width: 95%; max-width: 500px; border-radius: 15px; overflow: hidden; max-height: 90vh; overflow-y: auto; animation: popUp 0.3s; }
         @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: 1; opacity: 1; } }
         .modal-head { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .modal-body { padding: 15px; }
-
         .input-group { margin-bottom: 15px; }
         .input-group label { display: block; font-size: 12px; font-weight: bold; color: #636e72; margin-bottom: 5px; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px; border: 1px solid #dfe6e9; border-radius: 6px; font-family: 'Tiro Bangla'; outline: none; transition: 0.3s; }
-        
         .btn-full { width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; font-family: 'Tiro Bangla'; }
         .btn-save { background: var(--secondary); color: white; }
         .btn-del { background: #d63031; color: white; }
         .calc-placeholder { background: white; padding: 20px; border-radius: 10px; min-height: 300px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-
         .em-list { list-style: none; padding: 0; }
         .em-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #eee; transition: 0.2s; cursor: pointer; }
         .em-item:last-child { border-bottom: none; }
@@ -507,34 +341,6 @@
         .em-icon { width: 40px; height: 40px; background: #ffeaa7; color: #fdcb6e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 18px; flex-shrink: 0; }
         .em-text h4 { font-family: 'Tiro Bangla'; color: #2d3436; margin-bottom: 2px; font-size: 15px; }
         .em-text p { font-size: 13px; color: #636e72; font-weight: bold; }
-
-        /* Rules Box Styling (Explicit) */
-        .rules-box {
-            background: white; 
-            border-radius: 15px; 
-            padding: 20px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-            border-left: 5px solid #ff7675; 
-            margin-bottom: 30px;
-        }
-        .rules-box h3 {
-            font-family:'Tiro Bangla'; 
-            color:#d63031; 
-            margin-bottom:15px;
-        }
-        .rules-box ul {
-            list-style:none; 
-            font-family:'Tiro Bangla'; 
-            font-size:14px; 
-            color:#555;
-        }
-        .rules-box ul li {
-            margin-bottom:10px;
-        }
-        .rules-box ul li i {
-            color:green; 
-            margin-right:8px;
-        }
 
         @media(max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 260px; }
@@ -545,50 +351,15 @@
             .greeting-badge { margin-left: 0; margin-top: 5px; }
         }
 
-        /* ================= DARK MODE STYLES (FIXED) ================= */
-        body.dark-mode {
-            background-color: #121212;
-            color: #dfe6e9;
-            --bg: #121212;
-            --white: #1e272e;
-        }
-        
+        /* DARK MODE */
+        body.dark-mode { background-color: #121212; color: #dfe6e9; --bg: #121212; --white: #1e272e; }
         body.dark-mode .main { background-color: #121212; }
-        
-        /* Sidebar Fix */
         body.dark-mode .sidebar { background-color: #000000; box-shadow: 4px 0 10px rgba(255,255,255,0.05); }
         body.dark-mode .nav-links li a { color: #b2bec3; }
-        body.dark-mode .nav-links li a:hover, 
-        body.dark-mode .nav-links li a.active { 
-            color: #ffffff; 
-            background: rgba(255,255,255,0.1); 
-        }
+        body.dark-mode .nav-links li a:hover, body.dark-mode .nav-links li a.active { color: #ffffff; background: rgba(255,255,255,0.1); }
         body.dark-mode .menu-label { color: #a4b0be; }
         body.dark-mode .submenu { background: #1e272e; }
-        
-        /* Components Backgrounds */
-        body.dark-mode .datetime-container,
-        body.dark-mode .stat-card-new,
-        body.dark-mode .fac-card,
-        body.dark-mode .mem-card,
-        body.dark-mode .b-card,
-        body.dark-mode .room-card,
-        body.dark-mode .map-section,
-        body.dark-mode .prayer-section,
-        body.dark-mode .footer-compact,
-        body.dark-mode .calc-placeholder,
-        body.dark-mode .modal-content,
-        body.dark-mode .floor-title-bar,
-        body.dark-mode .notice-board-wrapper,
-        body.dark-mode .prayer-item,
-        body.dark-mode .rules-box {
-            background-color: #1e272e !important;
-            color: #dfe6e9;
-            border-color: #4b4b4b;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        /* Text Color Fixes for Dark Mode */
+        body.dark-mode .datetime-container, body.dark-mode .stat-card-new, body.dark-mode .fac-card, body.dark-mode .mem-card, body.dark-mode .b-card, body.dark-mode .room-card, body.dark-mode .map-section, body.dark-mode .prayer-section, body.dark-mode .footer-compact, body.dark-mode .calc-placeholder, body.dark-mode .modal-content, body.dark-mode .floor-title-bar, body.dark-mode .notice-board-wrapper, body.dark-mode .prayer-item, body.dark-mode .rules-box, body.dark-mode .cred-box, body.dark-mode .user-status-card { background-color: #1e272e !important; color: #dfe6e9; border-color: #4b4b4b; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #dfe6e9 !important; }
         body.dark-mode p, body.dark-mode span, body.dark-mode label, body.dark-mode li { color: #b2bec3; }
         body.dark-mode .stat-num-new { color: #81ecec; }
@@ -598,70 +369,90 @@
         body.dark-mode .dt-text p { color: #b2bec3; }
         body.dark-mode .dt-text h4 { color: #81ecec; }
         body.dark-mode .notice-text { color: #ffeaa7; }
-        
-        /* FIX: Single Room Icon Visibility in Dark Mode */
-        body.dark-mode .stat-icon-new {
-            background-color: #2d3436 !important; 
-        }
-        body.dark-mode .stat-icon-new[style*="color:#2d3436"] {
-            color: #dfe6e9 !important; 
-        }
-        
-        /* FIX: Developer Name Visibility */
-        body.dark-mode .footer-compact a {
-            color: #00cec9 !important;
-        }
-        
-        /* Prayer Item Hover */
+        body.dark-mode .stat-icon-new { background-color: #2d3436 !important; }
+        body.dark-mode .stat-icon-new[style*="color:#2d3436"] { color: #dfe6e9 !important; }
+        body.dark-mode .footer-compact a { color: #00cec9 !important; }
         body.dark-mode .prayer-item:hover { background-color: #4b4b4b; }
-        
-        /* Inputs & Forms */
-        body.dark-mode input, 
-        body.dark-mode select, 
-        body.dark-mode textarea {
-            background-color: #2d3436;
-            color: white;
-            border-color: #636e72;
-        }
-        
-        /* Emergency List */
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background-color: #2d3436; color: white; border-color: #636e72; }
         body.dark-mode .em-item { border-bottom-color: #4b4b4b; }
         body.dark-mode .em-item:hover { background-color: #2d3436; }
-        
-        /* Blood Finder Fixes */
         body.dark-mode .b-name { color: #81ecec; }
         body.dark-mode .b-total-stat { background: #2d3436; color: #dfe6e9; }
         body.dark-mode .b-dates { background: #2d3436; }
         body.dark-mode .b-select { background: #2d3436; color: white; border: 1px solid #636e72; }
-        
-        /* Rules Section Fix */
         body.dark-mode .rules-box ul li { color: #dfe6e9 !important; }
         body.dark-mode .rules-box h3 { color: #ff7675 !important; }
         body.dark-mode .rules-box i { color: #00b894; }
-
+        body.dark-mode .cred-copy-box { background-color: #2d3436; border-color: #636e72; }
+        /* Ensure user status card icon dark mode color */
+        body.dark-mode .us-icon { background: #2d3436 !important; color: #00cec9 !important; }
+        body.dark-mode .user-status-card.admin-mode .us-icon { background: #2d3436 !important; color: #6c5ce7 !important; }
     </style>
 </head>
 <body>
 
-    <!-- ================= LOGIN OVERLAY ================= -->
+    <!-- ================= DUAL LOGIN OVERLAY ================= -->
     <div id="login-overlay">
-        <div class="login-box">
-            <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
-            <p style="margin-bottom: 20px; color:#777;">লগিন করুন</p>
+        <div class="login-card">
+            <div class="login-header">
+                <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
+                <p>স্মার্ট হোস্টেল ম্যানেজমেন্ট সিস্টেম</p>
+            </div>
             
-            <div class="login-input-group">
-                <label>ইউজারনেম</label>
-                <input type="text" id="login-user" placeholder="Enter Username">
+            <div class="login-tabs">
+                <button class="tab-btn active" onclick="switchTab('admin')">এডমিন লগইন</button>
+                <button class="tab-btn" onclick="switchTab('border')">বর্ডার লগইন</button>
             </div>
 
-            <div class="login-input-group">
-                <label>পাসওয়ার্ড</label>
-                <input type="password" id="login-pass" placeholder="Enter Password">
-                <i class="fas fa-eye toggle-pass" onclick="togglePass()"></i>
-            </div>
+            <div class="login-body">
+                <!-- Admin Login Form -->
+                <div id="admin-form" class="login-form active">
+                    <div class="input-group-login">
+                        <label>এডমিন ইউজারনেম</label>
+                        <input type="text" id="admin-user" placeholder="Username">
+                    </div>
+                    <div class="input-group-login">
+                        <label>পাসওয়ার্ড</label>
+                        <input type="password" id="admin-pass" placeholder="Password">
+                        <i class="fas fa-eye toggle-pass" onclick="togglePass('admin-pass', this)"></i>
+                    </div>
+                    <button class="btn-login" onclick="checkAdminLogin()">লগইন করুন (Admin)</button>
+                </div>
 
-            <button class="login-btn" onclick="checkLogin()">লগিন</button>
-            <div class="login-error" id="login-msg">ভুল ইউজারনেম বা পাসওয়ার্ড!</div>
+                <!-- Border Login Form -->
+                <div id="border-form" class="login-form">
+                    <div class="input-group-login">
+                        <label>বর্ডার ইউজারনেম</label>
+                        <input type="text" id="border-user" placeholder="Username">
+                    </div>
+                    <div class="input-group-login">
+                        <label>পাসওয়ার্ড</label>
+                        <input type="password" id="border-pass" placeholder="Password">
+                        <i class="fas fa-eye toggle-pass" onclick="togglePass('border-pass', this)"></i>
+                    </div>
+                    <button class="btn-login" onclick="checkBorderLogin()">লগইন করুন (Border)</button>
+                </div>
+
+                <div class="error-msg" id="login-msg">তথ্য সঠিক নয়!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREDENTIALS MODAL (AUTO POPUP AFTER ADDING BORDER) -->
+    <div id="credModal">
+        <div class="cred-box">
+            <h3 style="color:#00cec9; margin-bottom:10px;">লগইন তথ্য তৈরি হয়েছে!</h3>
+            <p style="font-size:13px; color:#636e72">এই তথ্যটি কপি করে বর্ডারকে দিন</p>
+            
+            <div class="cred-copy-box">
+                <div class="cred-line"><strong>User:</strong> <span id="gen-user">...</span></div>
+                <div class="cred-line"><strong>Pass:</strong> <span id="gen-pass">...</span></div>
+            </div>
+            
+            <div style="display:flex; gap:10px;">
+                <button class="btn-full" style="background:#0984e3; color:white; flex:1;" onclick="copyCreds()"><i class="fas fa-copy"></i> পুরোটা কপি করুন</button>
+                <button class="btn-full" style="background:#2d3436; color:white; flex:1;" onclick="closeCredModal()">ঠিক আছে</button>
+            </div>
         </div>
     </div>
     <!-- ================= END LOGIN OVERLAY ================= -->
@@ -677,7 +468,7 @@
                 </h3>
             </a>
             <div style="display:flex; align-items:center; gap:15px;">
-                 <!-- Dark Mode Button Mobile -->
+                <i class="fas fa-sign-out-alt" onclick="logout()" style="font-size: 20px; cursor: pointer; color:#fab1a0;" title="লগআউট"></i>
                 <i class="fas fa-moon" id="theme-toggle-mob" onclick="toggleTheme()" style="font-size: 20px; cursor: pointer; color:white;"></i>
                 <i class="fas fa-bars" style="font-size: 24px; cursor: pointer;" onclick="toggleSidebar()"></i>
             </div>
@@ -690,7 +481,6 @@
                     <i class="fas fa-hotel fa-2x" style="color: var(--secondary)"></i>
                     <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
                 </a>
-                <!-- Dark Mode Button Sidebar -->
                 <div onclick="toggleTheme()" style="margin-top:10px; cursor:pointer; background:rgba(255,255,255,0.1); padding:5px 10px; border-radius:20px; display:inline-block; font-size:12px;">
                     <i class="fas fa-moon" id="theme-icon-side"></i> থিম পরিবর্তন
                 </div>
@@ -705,6 +495,8 @@
                 <li><a onclick="showSection('member-list')"><i class="fas fa-users"></i> সদস্য তালিকা</a></li>
                 <li><a onclick="showSection('blood-finder')"><i class="fas fa-heartbeat" style="color:#ff7675"></i> রক্ত খুঁজুন</a></li>
                 <li><a onclick="openEmergency()"><i class="fas fa-phone-alt" style="color:#00cec9"></i> জরুরি সেবা</a></li>
+                <!-- LOGOUT BUTTON IN MAIN MENU (MOVED UP) -->
+                <li><a onclick="logout()" style="color:#fab1a0;"><i class="fas fa-sign-out-alt"></i> লগআউট</a></li>
             </ul>
     
             <div class="menu-label">Connect</div>
@@ -732,432 +524,152 @@
             </ul>
         </nav>
     
-    
-    
-    
         <!-- MAIN CONTENT -->
         <div class="main">
     
             <!-- 1. HOME -->
             <div id="home" class="section active">
                 
-                <!-- DATE & TIME BAR -->
+                <!-- USER IDENTITY CARD -->
+                <div class="user-status-card" id="user-status-display">
+                    <div class="us-icon"><i class="fas fa-user-circle"></i></div>
+                    <div class="us-info">
+                        <small>লগইন অবস্থায় আছেন</small>
+                        <h3 id="logged-user-name">লোড হচ্ছে...</h3>
+                    </div>
+                </div>
+
                 <div class="datetime-container">
-                    <div class="dt-box">
-                        <div class="dt-icon"><i class="far fa-calendar-alt"></i></div>
-                        <div class="dt-text">
-                            <h4 id="live-date">...</h4>
-                            <p>আজকের তারিখ</p>
-                        </div>
-                    </div>
-                    <div class="dt-box">
-                        <div class="dt-icon"><i class="far fa-clock"></i></div>
-                        <div class="dt-text">
-                            <h4 id="live-time">...</h4>
-                            <p>বর্তমান সময়</p>
-                        </div>
-                    </div>
+                    <div class="dt-box"><div class="dt-icon"><i class="far fa-calendar-alt"></i></div><div class="dt-text"><h4 id="live-date">...</h4><p>আজকের তারিখ</p></div></div>
+                    <div class="dt-box"><div class="dt-icon"><i class="far fa-clock"></i></div><div class="dt-text"><h4 id="live-time">...</h4><p>বর্তমান সময়</p></div></div>
                     <div class="greeting-badge" id="greeting-text">শুভ দিন</div>
                 </div>
     
-            <!-- NOTICE BOARD -->
-            <div class="notice-board-wrapper">
-                <span class="notice-label"><i class="fas fa-bullhorn"></i> নোটিশ</span>
-                <marquee class="notice-text" behavior="scroll" direction="left" scrollamount="5">
-            ছবিকুঞ্জ ছাত্রাবাসে আপনাকে স্বাগতম - শরিফুল
-                </marquee>
-            </div>
+                <div class="notice-board-wrapper">
+                    <span class="notice-label"><i class="fas fa-bullhorn"></i> নোটিশ</span>
+                    <marquee class="notice-text" behavior="scroll" direction="left" scrollamount="5">ছবিকুঞ্জ ছাত্রাবাসে আপনাকে স্বাগতম - শরিফুল</marquee>
+                </div>
     
-                <!-- WEATHER CARD -->
                 <div class="weather-card">
                     <div class="w-header">
-                        <div class="w-loc">
-                            <h3><i class="fas fa-map-marker-alt"></i> বগুড়া, বাংলাদেশ</h3>
-                            <p id="weather-desc">আকাশ পরিষ্কার</p>
-                        </div>
+                        <div class="w-loc"><h3><i class="fas fa-map-marker-alt"></i> বগুড়া, বাংলাদেশ</h3><p id="weather-desc">আকাশ পরিষ্কার</p></div>
                         <i class="fas fa-cloud-sun w-icon" id="weather-icon"></i>
                     </div>
-                    <div class="w-main">
-                        <div class="w-temp" id="weather-temp">--°C</div>
-                    </div>
-                    <div class="w-details">
-                        <span><i class="fas fa-wind"></i> <span id="wind-speed">-- km/h</span></span>
-                        <span><i class="fas fa-tint"></i> <span id="humidity">--%</span></span>
-                    </div>
+                    <div class="w-main"><div class="w-temp" id="weather-temp">--°C</div></div>
+                    <div class="w-details"><span><i class="fas fa-wind"></i> <span id="wind-speed">-- km/h</span></span><span><i class="fas fa-tint"></i> <span id="humidity">--%</span></span></div>
                 </div>
     
-                <!-- Slider -->
                 <div class="slider-wrapper">
-                    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000');">
-                        <div class="slide-content"><h1>ছবিকুঞ্জ ছাত্রাবাসে স্বাগতম</h1><p>একটি আদর্শ ও নিরাপদ ছাত্রাবাস</p></div>
-                    </div>
-                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000');">
-                        <div class="slide-content"><h1>আধুনিক সুযোগ সুবিধা</h1><p>২৪ ঘণ্টা বিদ্যুৎ ও পানির সুব্যবস্থা</p></div>
-                    </div>
-                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522771753014-df70f1c270c4?q=80&w=1000');">
-                        <div class="slide-content"><h1>মনোরম পরিবেশ</h1><p>পড়াশোনার জন্য শান্ত ও নিরিবিলি পরিবেশ</p></div>
-                    </div>
+                    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000');"><div class="slide-content"><h1>ছবিকুঞ্জ ছাত্রাবাসে স্বাগতম</h1><p>একটি আদর্শ ও নিরাপদ ছাত্রাবাস</p></div></div>
+                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000');"><div class="slide-content"><h1>আধুনিক সুযোগ সুবিধা</h1><p>২৪ ঘণ্টা বিদ্যুৎ ও পানির সুব্যবস্থা</p></div></div>
+                    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522771753014-df70f1c270c4?q=80&w=1000');"><div class="slide-content"><h1>মনোরম পরিবেশ</h1><p>পড়াশোনার জন্য শান্ত ও নিরিবিলি পরিবেশ</p></div></div>
                 </div>
     
-                <!-- STATS SECTION -->
                 <h3 style="font-family:'Tiro Bangla'; color:var(--primary); margin-bottom:15px; border-left:4px solid var(--secondary); padding-left:10px;">বর্তমান অবস্থা</h3>
                 <div class="stats-grid">
-                    <!-- Total Members -->
-                    <div class="stat-card-new">
-                        <div class="stat-icon-new" style="color:#0984e3; background:#0984e320">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-num-new" id="stat-mem">0</div>
-                        <div class="stat-label-new">মোট সদস্য</div>
-                    </div>
+                    <div class="stat-card-new"><div class="stat-icon-new" style="color:#0984e3; background:#0984e320"><i class="fas fa-users"></i></div><div class="stat-num-new" id="stat-mem">0</div><div class="stat-label-new">মোট সদস্য</div></div>
+                    <div class="stat-card-new"><div class="stat-icon-new" style="color:#6c5ce7; background:#6c5ce720"><i class="fas fa-door-open"></i></div><div class="stat-num-new" id="stat-room">0</div><div class="stat-label-new">মোট রুম</div></div>
+                    <div class="stat-card-new"><div class="stat-icon-new" style="color:#fdcb6e; background:#fdcb6e20"><i class="fas fa-bed"></i></div><div class="stat-num-new" id="stat-seat">0</div><div class="stat-label-new">খালি সিট</div></div>
+                    <div class="stat-card-new"><div class="stat-icon-new" style="color:#00cec9; background:#00cec920"><i class="fas fa-user-friends"></i></div><div class="stat-num-new" id="stat-double">0</div><div class="stat-label-new">ডাবল রুম</div></div>
+                    <div class="stat-card-new"><div class="stat-icon-new" style="color:#2d3436; background:#2d343620"><i class="fas fa-user"></i></div><div class="stat-num-new" id="stat-single">0</div><div class="stat-label-new">সিঙ্গেল রুম</div></div>
+                    <div class="stat-card-new"><div class="stat-icon-new" style="color:#e17055; background:#e1705520"><i class="fas fa-layer-group"></i></div><div class="stat-num-new" id="stat-floor">0</div><div class="stat-label-new">মোট তলা</div></div>
+                </div>
     
-                    <!-- Total Rooms -->
-                    <div class="stat-card-new">
-                        <div class="stat-icon-new" style="color:#6c5ce7; background:#6c5ce720">
-                            <i class="fas fa-door-open"></i>
-                        </div>
-                        <div class="stat-num-new" id="stat-room">0</div>
-                        <div class="stat-label-new">মোট রুম</div>
-                    </div>
-    
-                    <!-- Empty Seats -->
-                    <div class="stat-card-new">
-                        <div class="stat-icon-new" style="color:#fdcb6e; background:#fdcb6e20">
-                            <i class="fas fa-bed"></i>
-                        </div>
-                        <div class="stat-num-new" id="stat-seat">0</div>
-                        <div class="stat-label-new">খালি সিট</div>
-                    </div>
-    
-                    <!-- Double Rooms -->
-                    <div class="stat-card-new">
-                        <div class="stat-icon-new" style="color:#00cec9; background:#00cec920">
-                            <i class="fas fa-user-friends"></i>
-                        </div>
-                        <div class="stat-num-new" id="stat-double">0</div>
-                        <div class="stat-label-new">ডাবল রুম</div>
-                    </div>
-    
-                    <!-- Single Rooms -->
-                    <div class="stat-card-new">
-                        <div class="stat-icon-new" style="color:#2d3436; background:#2d343620">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="stat-num-new" id="stat-single">0</div>
-                        <div class="stat-label-new">সিঙ্গেল রুম</div>
-                    </div>
-    
-                    <!-- Total Floors -->
-                    <div class="stat-card-new">
-                        <div class="stat-icon-new" style="color:#e17055; background:#e1705520">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <div class="stat-num-new" id="stat-floor">0</div>
-                        <div class="stat-label-new">মোট তলা</div>
+                <div style="margin-bottom: 30px;">
+                    <h3 style="font-family:'Tiro Bangla'; color:var(--primary); border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">আমাদের সুবিধাসমূহ</h3>
+                    <div class="facilities-grid">
+                        <div class="fac-card"><i class="fas fa-wifi"></i><h4>হাই-স্পিড ওয়াইফাই</h4></div>
+                        <div class="fac-card"><i class="fas fa-bolt"></i><h4>বিদ্যুৎ ব্যবস্থা</h4></div>
+                        <div class="fac-card"><i class="fas fa-water"></i><h4>বিশুদ্ধ পানি</h4></div>
+                        <div class="fac-card"><i class="fas fa-book-reader"></i><h4>পড়ার পরিবেশ</h4></div>
+                        <div class="fac-card"><i class="fas fa-utensils"></i><h4>মিল ব্যবস্থা</h4></div>
+                        <div class="fac-card"><i class="fas fa-fire"></i><h4>রান্নার ব্যবস্থা</h4></div>
+                        <div class="fac-card"><i class="fas fa-tv"></i><h4>টিভির ব্যবস্থা</h4></div>
+                        <div class="fac-card"><i class="fas fa-newspaper"></i><h4>পত্রিকার ব্যবস্থা</h4></div>
+                        <div class="fac-card"><i class="fas fa-box-open"></i><h4>স্টোর রুম ব্যবস্থা</h4></div>
+                        <div class="fac-card"><i class="fas fa-warehouse"></i><h4>গ্যারেজ ব্যবস্থা</h4></div>
                     </div>
                 </div>
     
-                <!-- Facilities -->
-    <div style="margin-bottom: 30px;">
-        <h3 style="font-family:'Tiro Bangla'; color:var(--primary); border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">
-            আমাদের সুবিধাসমূহ
-        </h3>
-    
-        <div class="facilities-grid">
-            <!-- Existing Facilities -->
-            <div class="fac-card">
-                <i class="fas fa-wifi"></i>
-                <h4>হাই-স্পিড ওয়াইফাই</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-bolt"></i>
-                <h4>বিদ্যুৎ ব্যবস্থা</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-water"></i>
-                <h4>বিশুদ্ধ পানি</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-book-reader"></i>
-                <h4>পড়ার পরিবেশ</h4>
-            </div>
-    
-            <!-- New Facilities -->
-            <div class="fac-card">
-                <i class="fas fa-utensils"></i>
-                <h4>মিল ব্যবস্থা</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-fire"></i>
-                <h4>রান্নার ব্যবস্থা</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-tv"></i>
-                <h4>টিভির ব্যবস্থা</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-newspaper"></i>
-                <h4>পত্রিকার ব্যবস্থা</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-box-open"></i>
-                <h4>স্টোর রুম ব্যবস্থা</h4>
-            </div>
-    
-            <div class="fac-card">
-                <i class="fas fa-warehouse"></i>
-                <h4>গ্যারেজ ব্যবস্থা</h4>
-            </div>
-        </div>
-    </div>
-    
-                <!-- MAP SECTION -->
                 <div class="map-section">
-                    <div class="map-header">
-                        <h3><i class="fas fa-map-marked-alt" style="color:var(--danger); margin-right:8px;"></i> লোকেশন ও ঠিকানা</h3>
-                        <p style="font-size:13px; color:#555; margin-top:5px;"><i class="fas fa-map-pin"></i> জহুরুল নগর, বগুড়া</p>
-                    </div>
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.648174542289!2d89.37059727599723!3d24.87586564463878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc54ad8e49b805%3A0x6b9d629a8a619028!2sJahurul%20Nagar%2C%20Bogura!5e0!3m2!1sen!2sbd!4v1709400000000!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                    <div class="map-header"><h3><i class="fas fa-map-marked-alt" style="color:var(--danger); margin-right:8px;"></i> লোকেশন ও ঠিকানা</h3><p style="font-size:13px; color:#555; margin-top:5px;"><i class="fas fa-map-pin"></i> জহুরুল নগর, বগুড়া</p></div>
+                    <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.648174542289!2d89.37059727599723!3d24.87586564463878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc54ad8e49b805%3A0x6b9d629a8a619028!2sJahurul%20Nagar%2C%20Bogura!5e0!3m2!1sen!2sbd!4v1709400000000!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
                 </div>
     
-                
-    
-                <!-- SUNRISE & SUNSET -->
                 <div class="sun-grid">
-                    <div class="sun-card sun-rise">
-                        <i class="fas fa-sun sun-icon"></i>
-                        <div class="sun-time" id="sunrise-time">...</div>
-                        <div class="sun-label">সূর্যোদয় (আজ)</div>
-                    </div>
-                    <div class="sun-card sun-set">
-                        <i class="fas fa-moon sun-icon"></i>
-                        <div class="sun-time" id="sunset-time">...</div>
-                        <div class="sun-label">সূর্যাস্ত (আজ)</div>
-                    </div>
+                    <div class="sun-card sun-rise"><i class="fas fa-sun sun-icon"></i><div class="sun-time" id="sunrise-time">...</div><div class="sun-label">সূর্যোদয় (আজ)</div></div>
+                    <div class="sun-card sun-set"><i class="fas fa-moon sun-icon"></i><div class="sun-time" id="sunset-time">...</div><div class="sun-label">সূর্যাস্ত (আজ)</div></div>
                 </div>
     
-                <!-- PRAYER TIMES -->
                 <div class="prayer-section">
-                    <div class="prayer-header">
-                        <h3 style="font-family:'Tiro Bangla'; color:var(--primary)"><i class="fas fa-mosque"></i> নামাজের সময়সূচী</h3>
-                        <span style="font-size:12px; color:#777; font-family:'Tiro Bangla'">বগুড়া জেলা</span>
-                    </div>
-                    <ul class="prayer-list" id="prayer-list-container">
-                        <li class="prayer-item"><span class="p-name">লোড হচ্ছে...</span></li>
-                    </ul>
+                    <div class="prayer-header"><h3 style="font-family:'Tiro Bangla'; color:var(--primary)"><i class="fas fa-mosque"></i> নামাজের সময়সূচী</h3><span style="font-size:12px; color:#777; font-family:'Tiro Bangla'">বগুড়া জেলা</span></div>
+                    <ul class="prayer-list" id="prayer-list-container"><li class="prayer-item"><span class="p-name">লোড হচ্ছে...</span></li></ul>
                 </div>
     
-    
-                <!-- Rules (UPDATED STYLE) -->
-    <div class="rules-box">
-        <h3><i class="fas fa-exclamation-circle"></i> মেসের নিয়মাবলী</h3>
-    
-        <div class="rule-group">
-            <h4><i class="fas fa-money-bill-wave"></i> অর্থ সংক্রান্ত নিয়ম</h4>
-            <ul>
-                <li>১–৫ তারিখের মধ্যে মিলের বকেয়া টাকা পরিশোধ করতে হবে।</li>
-                <li>অর্ধেক মাসের মধ্যেই চলতি মাসের মিলের টাকা পরিশোধ করতে হবে।</li>
-                <li>১০ তারিখের মধ্যে মেস ভাড়া পরিশোধ করতে হবে।</li>
-            </ul>
-        </div>
-    
-        <div class="rule-group">
-            <h4><i class="fas fa-clock"></i> সময় সংক্রান্ত নিয়ম</h4>
-            <ul>
-                <li>রাত ১২:০০ টার মধ্যে মেসে প্রবেশ করতে হবে।</li>
-            </ul>
-        </div>
-    
-        <div class="rule-group">
-            <h4><i class="fas fa-users"></i> শৃঙ্খলা ও আচরণ</h4>
-            <ul>
-                <li>মেসে হৈচৈ বা উচ্চস্বরে গান বাজানো যাবে না।</li>
-                <li>সিনিয়রদের যথাযথ সম্মান ও শালীন আচরণ বজায় রাখতে হবে।</li>
-                <li>মেসের শান্ত পরিবেশ বজায় রাখা সবার দায়িত্ব।</li>
-            </ul>
-        </div>
-    
-        <div class="rule-group">
-            <h4><i class="fas fa-broom"></i> পরিষ্কার-পরিচ্ছন্নতা</h4>
-            <ul>
-                <li>নিজের রুম ও মেস পরিষ্কার পরিচ্ছন্ন রাখতে হবে।</li>
-                <li>রান্নার চুলা ও বাথরুম ব্যবহার শেষে পরিষ্কার করে রাখতে হবে।</li>
-            </ul>
-        </div>
-    
-        <div class="rule-group">
-            <h4><i class="fas fa-ban"></i> নিষেধাজ্ঞা ও নিরাপত্তা</h4>
-            <ul>
-                <li>মেসের অভ্যন্তরে ধুমপান ও মাদকসেবন সম্পূর্ণ নিষিদ্ধ।</li>
-                <li>মেসে বাইরের লেডিস গেস্ট অনুমোদিত নয়।</li>
-                <li>বিদ্যুৎ ও পানি অপচয় করা যাবে না।</li>
-                <li>মেসের কোনো জিনিস নষ্ট হলে বা সমস্যা হলে কর্তৃপক্ষকে জানাতে হবে।</li>
-            </ul>
-        </div>
-    </div>
-    
-    
-                <!-- COMPACT FOOTER -->
-                <div class="footer-compact">
-                    Design By <a href="javascript:void(0);" class="designer-link">MD SHARIFUL ISLAM</a>. © ২০২৬ ছবিকুঞ্জ ছাত্রাবাস - জহরুল নগর,বগুড়া।
+                <div class="rules-box">
+                    <h3><i class="fas fa-exclamation-circle"></i> মেসের নিয়মাবলী</h3>
+                    <div class="rule-group"><h4><i class="fas fa-money-bill-wave"></i> অর্থ সংক্রান্ত নিয়ম</h4><ul><li>১–৫ তারিখের মধ্যে মিলের বকেয়া টাকা পরিশোধ করতে হবে।</li><li>অর্ধেক মাসের মধ্যেই চলতি মাসের মিলের টাকা পরিশোধ করতে হবে।</li><li>১০ তারিখের মধ্যে মেস ভাড়া পরিশোধ করতে হবে।</li></ul></div>
+                    <div class="rule-group"><h4><i class="fas fa-clock"></i> সময় সংক্রান্ত নিয়ম</h4><ul><li>রাত ১২:০০ টার মধ্যে মেসে প্রবেশ করতে হবে।</li></ul></div>
+                    <div class="rule-group"><h4><i class="fas fa-users"></i> শৃঙ্খলা ও আচরণ</h4><ul><li>মেসে হৈচৈ বা উচ্চস্বরে গান বাজানো যাবে না।</li><li>সিনিয়রদের যথাযথ সম্মান ও শালীন আচরণ বজায় রাখতে হবে।</li><li>মেসের শান্ত পরিবেশ বজায় রাখা সবার দায়িত্ব।</li></ul></div>
+                    <div class="rule-group"><h4><i class="fas fa-broom"></i> পরিষ্কার-পরিচ্ছন্নতা</h4><ul><li>নিজের রুম ও মেস পরিষ্কার পরিচ্ছন্ন রাখতে হবে।</li><li>রান্নার চুলা ও বাথরুম ব্যবহার শেষে পরিষ্কার করে রাখতে হবে।</li></ul></div>
+                    <div class="rule-group"><h4><i class="fas fa-ban"></i> নিষেধাজ্ঞা ও নিরাপত্তা</h4><ul><li>মেসের অভ্যন্তরে ধুমপান ও মাদকসেবন সম্পূর্ণ নিষিদ্ধ।</li><li>মেসে বাইরের লেডিস গেস্ট অনুমোদিত নয়।</li><li>বিদ্যুৎ ও পানি অপচয় করা যাবে না।</li><li>মেসের কোনো জিনিস নষ্ট হলে বা সমস্যা হলে কর্তৃপক্ষকে জানাতে হবে।</li></ul></div>
                 </div>
     
+                <div class="footer-compact">Design By <a href="javascript:void(0);" class="designer-link">MD SHARIFUL ISLAM</a>. © ২০২৬ ছবিকুঞ্জ ছাত্রাবাস - জহরুল নগর,বগুড়া।</div>
             </div>
             
-            <!-- HTML for the popup -->
-    <div class="sharifulinfo-modal" id="sharifulinfoModal">
-      <div class="sharifulinfo-modal-content">
-        <div class="sharifulinfo-modal-inner">
-          <span class="sharifulinfo-close">&times;</span>
-          
-          <div class="sharifulinfo-header">
-            <div class="sharifulinfo-image-container">
-              <img src="https://i.imgur.com/mm2jLrd.png" alt="MD SHARIFUL ISLAM" class="sharifulinfo-image">
-              <div class="sharifulinfo-image-overlay"></div>
-            </div>
-            <h2 class="sharifulinfo-name">MD SHARIFUL ISLAM</h2>
-            <p class="sharifulinfo-department">DEPARTMENT OF PHYSICS</p>
-            <p class="sharifulinfo-session">SESSION: 24-25</p>
-            <div class="sharifulinfo-profession-container">
-              <p class="sharifulinfo-profession">Professional Web Designer & Developer</p>
-            </div>
-          </div>
-          
-          <div class="sharifulinfo-social">
-            <a href="https://www.facebook.com/share/1G1KQHWXH9/" target="_blank" class="sharifulinfo-social-link">
-              <i class="fab fa-facebook-f"></i>
-              <span>Facebook</span>
-            </a>
-            <a href="https://m.me/msharifulvisionary" target="_blank" class="sharifulinfo-social-link">
-              <i class="fab fa-facebook-messenger"></i>
-              <span>Messenger</span>
-            </a>
-            <a href="https://wa.me/8801735757143" target="_blank" class="sharifulinfo-social-link">
-              <i class="fab fa-whatsapp"></i>
-              <span>WhatsApp</span>
-            </a>
-            <a href="mailto:msharifulvisionary@gmail.com" class="sharifulinfo-social-link">
-              <i class="fas fa-envelope"></i>
-              <span>Email</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-            <!-- 2. FLOOR SECTIONS -->
-            <div id="floor-g" class="section">
-                <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">নিচ তলা (Ground)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">4 Rooms</span></div>
-                <div class="room-grid" id="grid-g">Loading...</div>
-            </div>
-            <div id="floor-1" class="section">
-                <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">6 Rooms</span></div>
-                <div class="room-grid" id="grid-1">Loading...</div>
-            </div>
-            <div id="floor-2" class="section">
-                <div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">২য় তলা (2nd Floor)</h2><span class="badge" style="background:#dfe6e9; padding:5px;">6 Rooms</span></div>
-                <div class="room-grid" id="grid-2">Loading...</div>
-            </div>
-    
-            <!-- 3. MEMBER LIST -->
-            <div id="member-list" class="section">
-                <h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2>
-                <div class="member-grid" id="all-member-container">
-                    <!-- JS Generated Cards -->
+            <div class="sharifulinfo-modal" id="sharifulinfoModal" style="display: none;">
+              <div class="sharifulinfo-modal-content">
+                <div class="sharifulinfo-modal-inner">
+                  <span class="sharifulinfo-close">&times;</span>
+                  <div class="sharifulinfo-header">
+                    <div class="sharifulinfo-image-container"><img src="https://i.imgur.com/mm2jLrd.png" alt="MD SHARIFUL ISLAM" class="sharifulinfo-image"><div class="sharifulinfo-image-overlay"></div></div>
+                    <h2 class="sharifulinfo-name">MD SHARIFUL ISLAM</h2><p class="sharifulinfo-department">DEPARTMENT OF PHYSICS</p><p class="sharifulinfo-session">SESSION: 24-25</p><div class="sharifulinfo-profession-container"><p class="sharifulinfo-profession">Professional Web Designer & Developer</p></div>
+                  </div>
+                  <div class="sharifulinfo-social">
+                    <a href="https://www.facebook.com/share/1G1KQHWXH9/" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
+                    <a href="https://m.me/msharifulvisionary" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-facebook-messenger"></i><span>Messenger</span></a>
+                    <a href="https://wa.me/8801735757143" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+                    <a href="mailto:msharifulvisionary@gmail.com" class="sharifulinfo-social-link"><i class="fas fa-envelope"></i><span>Email</span></a>
+                  </div>
                 </div>
+              </div>
             </div>
     
-            <!-- 4. BLOOD FINDER -->
+            <div id="floor-g" class="section"><div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">নিচ তলা (Ground)</h2><span class="floor-room-badge"><i class="fas fa-door-open"></i> 4 Rooms</span></div><div class="room-grid" id="grid-g">Loading...</div></div>
+            <div id="floor-1" class="section"><div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2><span class="floor-room-badge"><i class="fas fa-door-open"></i> 6 Rooms</span></div><div class="room-grid" id="grid-1">Loading...</div></div>
+            <div id="floor-2" class="section"><div class="floor-title-bar"><h2 style="font-family:'Tiro Bangla'">২য় তলা (2nd Floor)</h2><span class="floor-room-badge"><i class="fas fa-door-open"></i> 6 Rooms</span></div><div class="room-grid" id="grid-2">Loading...</div></div>
+    
+            <div id="member-list" class="section"><h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2><div class="member-grid" id="all-member-container"></div></div>
+    
             <div id="blood-finder" class="section">
                 <div class="blood-hero">
-                    <i class="fas fa-heartbeat fa-3x" style="margin-bottom:10px;"></i>
-                    <h1>রক্ত খুঁজুন</h1>
-                    <p>জরুরি প্রয়োজনে মেসের ডোনার খুঁজে বের করুন</p>
-                    <div class="blood-search-box">
-                        <select id="search-blood" class="b-select" onchange="searchBlood()">
-                            <option value="">গ্রুপ নির্বাচন করুন</option>
-                            <option value="A+">A+</option><option value="A-">A-</option>
-                            <option value="B+">B+</option><option value="B-">B-</option>
-                            <option value="O+">O+</option><option value="O-">O-</option>
-                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                        </select>
-                    </div>
+                    <i class="fas fa-heartbeat fa-3x" style="margin-bottom:10px;"></i><h1>রক্ত খুঁজুন</h1><p>জরুরি প্রয়োজনে মেসের ডোনার খুঁজে বের করুন</p>
+                    <div class="blood-search-box"><select id="search-blood" class="b-select" onchange="searchBlood()"><option value="">গ্রুপ নির্বাচন করুন</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option></select></div>
                 </div>
-                <div id="blood-results" class="blood-result-grid">
-                    <p style="text-align:center; width:100%; color:#777; grid-column: 1/-1;">ফলাফল দেখার জন্য গ্রুপ সিলেক্ট করুন</p>
-                </div>
+                <div id="blood-results" class="blood-result-grid"><p style="text-align:center; width:100%; color:#777; grid-column: 1/-1;">ফলাফল দেখার জন্য গ্রুপ সিলেক্ট করুন</p></div>
             </div>
     
-            <!-- 5. PLACEHOLDERS -->
-            <div id="calc-dm" class="section calc-placeholder"></div>
-            <div id="calc-dr" class="section calc-placeholder"></div>
-            <div id="calc-mc" class="section calc-placeholder"></div>
-            <div id="calc-mr" class="section calc-placeholder"></div>
-            <div id="calc-cb" class="section calc-placeholder"></div>
-    
+            <div id="calc-dm" class="section calc-placeholder"></div><div id="calc-dr" class="section calc-placeholder"></div><div id="calc-mc" class="section calc-placeholder"></div><div id="calc-mr" class="section calc-placeholder"></div><div id="calc-cb" class="section calc-placeholder"></div>
         </div>
     
         <!-- MODALS -->
-        
-        <!-- Bogura Emergency Modal -->
         <div class="modal" id="emergencyModal">
             <div class="modal-content">
                 <div class="modal-head" style="background:#e17055"><h3 style="font-family:'Tiro Bangla'">বগুড়া জরুরি সেবা</h3><i class="fas fa-times" onclick="closeModal('emergencyModal')" style="cursor:pointer"></i></div>
                 <div class="modal-body">
                     <ul class="em-list">
-                        <li class="em-item" onclick="callNumber('999')">
-                            <div class="em-icon"><i class="fas fa-user-shield"></i></div>
-                            <div class="em-text"><h4>জাতীয় জরুরি সেবা</h4><p>৯৯৯</p></div>
-                        </li>
-                         <li class="em-item" onclick="callNumber('05162404')">
-                            <div class="em-icon" style="background:#2c3e50; color:white;"><i class="fas fa-landmark"></i></div>
-                            <div class="em-text"><h4>জেলা প্রশাসকের কার্যালয়</h4><p>০৫১-৬২৪০৪</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('01713374092')">
-                            <div class="em-icon" style="background:#3498db; color:white"><i class="fas fa-taxi"></i></div>
-                            <div class="em-text"><h4>বগুড়া সদর থানা (OC)</h4><p>০ ১৭১৩-৩৭৪০৯২</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('01777711200')">
-                            <div class="em-icon" style="background:#27ae60; color:white;"><i class="fas fa-shield-alt"></i></div>
-                            <div class="em-text"><h4>RAB-12, বগুড়া</h4><p>০১৭৭৭-৭১১২০০</p></div>
-                        </li>
-                         <li class="em-item" onclick="callNumber('01320000400')">
-                            <div class="em-icon" style="background:#e67e22; color:white;"><i class="fas fa-road"></i></div>
-                            <div class="em-text"><h4>হাইওয়ে পুলিশ</h4><p>০১৩২-০০০০৪০০</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('05166222')">
-                            <div class="em-icon" style="background:#ff7675; color:white"><i class="fas fa-fire-extinguisher"></i></div>
-                            <div class="em-text"><h4>ফায়ার সার্ভিস বগুড়া</h4><p>০৫১-৬৬২২২</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('05169000')">
-                            <div class="em-icon" style="background:#74b9ff; color:white"><i class="fas fa-hospital-alt"></i></div>
-                            <div class="em-text"><h4>শজিমেক হাসপাতাল</h4><p>০৫১-৬৯০০০</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('05162460')">
-                            <div class="em-icon" style="background:#00b894; color:white"><i class="fas fa-hospital"></i></div>
-                            <div class="em-text"><h4>মোহাম্মদ আলী হাসপাতাল</h4><p>০৫১-৬২৪৬০</p></div>
-                        </li>
-                         <li class="em-item" onclick="callNumber('16603')">
-                            <div class="em-icon" style="background:#f1c40f; color:white"><i class="fas fa-bolt"></i></div>
-                            <div class="em-text"><h4>নেসকো (বিদ্যুৎ)</h4><p>১৬৬০৩</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('16496')">
-                            <div class="em-icon" style="background:#2d3436; color:white"><i class="fas fa-burn"></i></div>
-                            <div class="em-text"><h4>পশ্চিমাঞ্চল গ্যাস</h4><p>১৬৪৯৬</p></div>
-                        </li>
-                        <li class="em-item" onclick="callNumber('01320155060')">
-                            <div class="em-icon" style="background:#0984e3; color:white"><i class="fas fa-hiking"></i></div>
-                            <div class="em-text"><h4>টুরিস্ট পুলিশ বগুড়া</h4><p>০১৩২০-১৫৫০৬০</p></div>
-                        </li>
+                        <li class="em-item" onclick="callNumber('999')"><div class="em-icon"><i class="fas fa-user-shield"></i></div><div class="em-text"><h4>জাতীয় জরুরি সেবা</h4><p>৯৯৯</p></div></li>
+                        <li class="em-item" onclick="callNumber('05162404')"><div class="em-icon" style="background:#2c3e50; color:white;"><i class="fas fa-landmark"></i></div><div class="em-text"><h4>জেলা প্রশাসকের কার্যালয়</h4><p>০৫১-৬২৪০৪</p></div></li>
+                        <li class="em-item" onclick="callNumber('01713374092')"><div class="em-icon" style="background:#3498db; color:white"><i class="fas fa-taxi"></i></div><div class="em-text"><h4>বগুড়া সদর থানা (OC)</h4><p>০ ১৭১৩-৩৭৪০৯২</p></div></li>
+                        <li class="em-item" onclick="callNumber('01777711200')"><div class="em-icon" style="background:#27ae60; color:white;"><i class="fas fa-shield-alt"></i></div><div class="em-text"><h4>RAB-12, বগুড়া</h4><p>০১৭৭৭-৭১১২০০</p></div></li>
+                        <li class="em-item" onclick="callNumber('01320000400')"><div class="em-icon" style="background:#e67e22; color:white;"><i class="fas fa-road"></i></div><div class="em-text"><h4>হাইওয়ে পুলিশ</h4><p>০১৩২-০০০০৪০০</p></div></li>
+                        <li class="em-item" onclick="callNumber('05166222')"><div class="em-icon" style="background:#ff7675; color:white"><i class="fas fa-fire-extinguisher"></i></div><div class="em-text"><h4>ফায়ার সার্ভিস বগুড়া</h4><p>০৫১-৬৬২২২</p></div></li>
+                        <li class="em-item" onclick="callNumber('05169000')"><div class="em-icon" style="background:#74b9ff; color:white"><i class="fas fa-hospital-alt"></i></div><div class="em-text"><h4>শজিমেক হাসপাতাল</h4><p>০৫১-৬৯০০০</p></div></li>
+                        <li class="em-item" onclick="callNumber('05162460')"><div class="em-icon" style="background:#00b894; color:white"><i class="fas fa-hospital"></i></div><div class="em-text"><h4>মোহাম্মদ আলী হাসপাতাল</h4><p>০৫১-৬২৪৬০</p></div></li>
+                        <li class="em-item" onclick="callNumber('16603')"><div class="em-icon" style="background:#f1c40f; color:white"><i class="fas fa-bolt"></i></div><div class="em-text"><h4>নেসকো (বিদ্যুৎ)</h4><p>১৬৬০৩</p></div></li>
+                        <li class="em-item" onclick="callNumber('16496')"><div class="em-icon" style="background:#2d3436; color:white"><i class="fas fa-burn"></i></div><div class="em-text"><h4>পশ্চিমাঞ্চল গ্যাস</h4><p>১৬৪৯৬</p></div></li>
+                        <li class="em-item" onclick="callNumber('01320155060')"><div class="em-icon" style="background:#0984e3; color:white"><i class="fas fa-hiking"></i></div><div class="em-text"><h4>টুরিস্ট পুলিশ বগুড়া</h4><p>০১৩২০-১৫৫০৬০</p></div></li>
                     </ul>
                 </div>
             </div>
@@ -1176,6 +688,8 @@
                 <div class="modal-body">
                     <form id="profileForm">
                         <input type="hidden" id="p-id">
+                        <input type="hidden" id="p-username"> <!-- Hidden credentials storage -->
+                        <input type="hidden" id="p-password">
                         <div class="input-group"><label>নাম</label> <input type="text" id="p-name"></div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                             <div class="input-group"><label>ফোন</label> <input type="text" id="p-phone"></div>
@@ -1185,32 +699,16 @@
                             </div>
                         </div>
                         <div class="input-group"><label>ঠিকানা</label> <input type="text" id="p-address"></div>
-                        
-                        <!-- NEW FIELDS -->
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                             <div class="input-group">
                                 <label>পেশা</label> 
-                                <select id="p-profession">
-                                    <option value="">Select</option>
-                                    <option value="ছাত্র">ছাত্র</option>
-                                    <option value="কর্মজীবী/ চাকুরীজীবী">কর্মজীবী/ চাকুরীজীবী</option>
-                                    <option value="অন্যান্য">অন্যান্য</option>
-                                </select>
+                                <select id="p-profession"><option value="">Select</option><option value="ছাত্র">ছাত্র</option><option value="কর্মজীবী/ চাকুরীজীবী">কর্মজীবী/ চাকুরীজীবী</option><option value="অন্যান্য">অন্যান্য</option></select>
                             </div>
                             <div class="input-group">
                                 <label>বর্তমান অধ্যায়নরত শ্রেনী</label> 
-                                <select id="p-class">
-                                    <option value="">Select</option>
-                                    <option value="অনার্স ১ম বর্ষ">অনার্স ১ম বর্ষ</option>
-                                    <option value="অনার্স ২য় বর্ষ">অনার্স ২য় বর্ষ</option>
-                                    <option value="অনার্স ৩য় বর্ষ">অনার্স ৩য় বর্ষ</option>
-                                    <option value="অনার্স ৪র্থ বর্ষ">অনার্স ৪র্থ বর্ষ</option>
-                                    <option value="মাস্টার্স">মাস্টার্স</option>
-                                    <option value="অন্যান্য">অন্যান্য</option>
-                                </select>
+                                <select id="p-class"><option value="">Select</option><option value="অনার্স ১ম বর্ষ">অনার্স ১ম বর্ষ</option><option value="অনার্স ২য় বর্ষ">অনার্স ২য় বর্ষ</option><option value="অনার্স ৩য় বর্ষ">অনার্স ৩য় বর্ষ</option><option value="অনার্স ৪র্থ বর্ষ">অনার্স ৪র্থ বর্ষ</option><option value="মাস্টার্স">মাস্টার্স</option><option value="অন্যান্য">অন্যান্য</option></select>
                             </div>
                         </div>
-    
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                             <div class="input-group"><label>কলেজ</label> <input type="text" id="p-college"></div>
                             <div class="input-group"><label>ডিপার্টমেন্ট</label> <input type="text" id="p-dept"></div>
@@ -1224,8 +722,11 @@
                             </div>
                         </div>
                         <div class="input-group"><label>নোট</label> <textarea id="p-note" rows="2"></textarea></div>
-                        <button type="button" class="btn-full btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> সেভ করুন</button>
-                        <button type="button" class="btn-full btn-del" onclick="delMember()"><i class="fas fa-trash"></i> ডিলিট করুন</button>
+                        <!-- BUTTONS (Will be hidden for Border if not own profile) -->
+                        <div id="admin-actions">
+                            <button type="button" class="btn-full btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> সেভ করুন</button>
+                            <button type="button" class="btn-full btn-del" id="btn-delete-mem" onclick="delMember()"><i class="fas fa-trash"></i> ডিলিট করুন</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -1234,64 +735,92 @@
     </div> 
     <!-- END WRAPPER -->
 
-    <!-- ================= LOGIN & LOGIC SCRIPT ================= -->
+    <!-- ================= DUAL LOGIN SCRIPT ================= -->
     <script>
-        // LOGIN CREDENTIALS
-        const AUTH_USER = "cobikunjomess";
-        const AUTH_PASS = "123@cobikunjomess";
+        // ADMIN CREDENTIALS
+        const ADMIN_USER = "cobikunjomess";
+        const ADMIN_PASS = "123@cobikunjomess";
 
-        // DOM ELEMENTS
-        const loginOverlay = document.getElementById('login-overlay');
-        const websiteContainer = document.getElementById('main-website-container');
-        const loginMsg = document.getElementById('login-msg');
-
-        // CHECK IF ALREADY LOGGED IN
-        document.addEventListener('DOMContentLoaded', () => {
-            if(localStorage.getItem('isLoggedIn') === 'true') {
-                showWebsite();
-            }
-        });
-
-        // LOGIN FUNCTION
-        function checkLogin() {
-            const u = document.getElementById('login-user').value;
-            const p = document.getElementById('login-pass').value;
-
-            if(u === AUTH_USER && p === AUTH_PASS) {
-                localStorage.setItem('isLoggedIn', 'true');
-                showWebsite();
+        // TAB SWITCHER
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
+            
+            if(tab === 'admin') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('admin-form').classList.add('active');
             } else {
-                loginMsg.style.display = 'block';
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('border-form').classList.add('active');
             }
+            document.getElementById('login-msg').style.display = 'none';
         }
 
-        // SHOW WEBSITE FUNCTION
-        function showWebsite() {
-            loginOverlay.style.display = 'none';
-            websiteContainer.style.display = 'block';
-        }
-
-        // TOGGLE PASSWORD VISIBILITY
-        function togglePass() {
-            var x = document.getElementById("login-pass");
-            var icon = document.querySelector(".toggle-pass");
-            if (x.type === "password") {
-                x.type = "text";
+        // TOGGLE PASS
+        function togglePass(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
                 icon.classList.remove("fa-eye");
                 icon.classList.add("fa-eye-slash");
             } else {
-                x.type = "password";
+                input.type = "password";
                 icon.classList.remove("fa-eye-slash");
                 icon.classList.add("fa-eye");
             }
         }
+
+        function checkAdminLogin() {
+            const u = document.getElementById('admin-user').value;
+            const p = document.getElementById('admin-pass').value;
+            if(u === ADMIN_USER && p === ADMIN_PASS) {
+                localStorage.setItem('userRole', 'admin');
+                showWebsite();
+            } else {
+                showLoginError();
+            }
+        }
+
+        function showLoginError() {
+            const msg = document.getElementById('login-msg');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+        }
+
+        function showWebsite() {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('main-website-container').style.display = 'block';
+        }
+
+        function logout() {
+            if(confirm("আপনি কি লগআউট করতে চান?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        function closeCredModal() {
+            document.getElementById('credModal').style.display = 'none';
+        }
+        
+        function copyCreds() {
+            const u = document.getElementById('gen-user').innerText;
+            const p = document.getElementById('gen-pass').innerText;
+            const text = "ইউজারনেম: " + u + "\nপাসওয়ার্ড: " + p;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert("কপি হয়েছে!");
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
+        }
     </script>
 
 
-    <!-- LOGIC -->
+    <!-- LOGIC WITH BORDER LOGIN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCMGOvFyxnjqhKbM0wj0GKYT4JM6jIc6M4",
@@ -1306,10 +835,41 @@
 
         let allMembersData = {}; 
 
+        // LOGIN CHECK ON LOAD
+        window.addEventListener('load', () => {
+            const role = localStorage.getItem('userRole');
+            if(role) showWebsite();
+        });
+
+        // BORDER LOGIN FUNCTION
+        window.checkBorderLogin = async () => {
+            const u = document.getElementById('border-user').value.trim();
+            const p = document.getElementById('border-pass').value.trim();
+            
+            if(!u || !p) { showLoginError(); return; }
+
+            try {
+                const q = query(collection(db, "members"), where("username", "==", u), where("password", "==", p));
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    localStorage.setItem('userRole', 'member');
+                    localStorage.setItem('currentUser', u); // Store username for self-edit check
+                    showWebsite();
+                } else {
+                    showLoginError();
+                }
+            } catch(e) {
+                console.error("Login Error:", e);
+                alert("লগইন সমস্যা! ইন্টারনেট চেক করুন।");
+            }
+        }
+
+        // Updated Floor Config
         const floors = {
-            'g': { name: "নিচ তলা", rooms: [{n:'রুম ১',c:2,id:'g_r1'},{n:'রুম ২',c:2,id:'g_r2'},{n:'রুম ৩',c:2,id:'g_r3'},{n:'রুম ৪',c:1,id:'g_r4'}] },
-            '1': { name: "১ম তলা", rooms: [{n:'রুম ১',c:1,id:'f1_r1'},{n:'রুম ২',c:1,id:'f1_r2'},{n:'রুম ৩',c:2,id:'f1_r3'},{n:'রুম ৪',c:2,id:'f1_r4'},{n:'রুম ৫',c:2,id:'f1_r5'},{n:'রুম ৬',c:2,id:'f1_r6'}] },
-            '2': { name: "২য় তলা", rooms: [{n:'রুম ১',c:1,id:'f2_r1'},{n:'রুম ২',c:1,id:'f2_r2'},{n:'রুম ৩',c:2,id:'f2_r3'},{n:'রুম ৪',c:2,id:'f2_r4'},{n:'রুম ৫',c:2,id:'f2_r5'},{n:'রুম ৬',c:2,id:'f2_r6'}] }
+            'g': { name: "নিচ তলা", rooms: [{n:'রুম ১',c:2,id:'g_r1'}, {n:'রুম ২',c:2,id:'g_r2'}, {n:'রুম ৩',c:1,id:'g_r3'}, {n:'রুম ৪',c:2,id:'g_r4'}] },
+            '1': { name: "১ম তলা", rooms: [{n:'রুম ১',c:2,id:'f1_r1'}, {n:'রুম ২',c:1,id:'f1_r2'}, {n:'রুম ৩',c:2,id:'f1_r3'}, {n:'রুম ৪',c:1,id:'f1_r4'}, {n:'রুম ৫',c:2,id:'f1_r5'}, {n:'রুম ৬',c:2,id:'f1_r6'}] },
+            '2': { name: "২য় তলা", rooms: [{n:'রুম ১',c:2,id:'f2_r1'}, {n:'রুম ২',c:1,id:'f2_r2'}, {n:'রুম ৩',c:2,id:'f2_r3'}, {n:'রুম ৪',c:1,id:'f2_r4'}, {n:'রুম ৫',c:2,id:'f2_r5'}, {n:'রুম ৬',c:2,id:'f2_r6'}] }
         };
 
         window.initApp = async () => {
@@ -1317,6 +877,7 @@
             allMembersData = {};
             snap.forEach(doc => allMembersData[doc.id] = doc.data());
             
+            updateUserStatus(); // NEW: Update the welcome card
             updateDashboardStats();
             renderFloor('g', 'grid-g');
             renderFloor('1', 'grid-1');
@@ -1326,92 +887,32 @@
             fetchPrayerTimes(); 
         }
 
-        async function fetchWeather() {
-            try {
-                // Bogura Coordinates: 24.8481 N, 89.3730 E
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=24.8481&longitude=89.3730&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m");
-                const data = await res.json();
+        // NEW FUNCTION: UPDATE USER STATUS DISPLAY
+        function updateUserStatus() {
+            const role = localStorage.getItem('userRole');
+            const userDisplay = document.getElementById('logged-user-name');
+            const iconDisplay = document.querySelector('.us-icon i');
+            const statusCard = document.querySelector('.user-status-card');
+
+            if (role === 'admin') {
+                userDisplay.innerText = "অ্যাডমিন (Admin)";
+                iconDisplay.className = "fas fa-user-shield";
+                statusCard.classList.add('admin-mode');
+            } else if (role === 'member') {
+                const u = localStorage.getItem('currentUser');
+                let memberName = "বর্ডার (Member)";
                 
-                const current = data.current;
-                const temp = Math.round(current.temperature_2m);
-                const wind = Math.round(current.wind_speed_10m);
-                const hum = current.relative_humidity_2m;
-                const code = current.weather_code;
-
-                document.getElementById('weather-temp').innerText = temp + "°C";
-                document.getElementById('wind-speed').innerText = wind + " km/h";
-                document.getElementById('humidity').innerText = hum + "%";
+                // Try to find name from data
+                for(let key in allMembersData) {
+                    if(allMembersData[key].username === u) {
+                        memberName = allMembersData[key].name;
+                        break;
+                    }
+                }
                 
-                let iconClass = "fa-cloud-sun";
-                let desc = "আংশিক মেঘলা";
-                if(code === 0) { iconClass = "fa-sun"; desc = "রৌদ্রোজ্জ্বল"; }
-                else if(code >= 1 && code <= 3) { iconClass = "fa-cloud-sun"; desc = "আংশিক মেঘলা"; }
-                else if(code >= 45 && code <= 48) { iconClass = "fa-smog"; desc = "কুয়াশাচ্ছন্ন"; }
-                else if(code >= 51 && code <= 67) { iconClass = "fa-cloud-rain"; desc = "বৃষ্টিপাত"; }
-                else if(code >= 80 && code <= 99) { iconClass = "fa-poo-storm"; desc = "ঝড়ো বৃষ্টি"; }
-
-                document.getElementById('weather-icon').className = `fas ${iconClass} w-icon`;
-                document.getElementById('weather-desc').innerText = desc;
-
-            } catch(e) {
-                console.log("Weather Error:", e);
-                document.getElementById('weather-temp').innerText = "--";
-            }
-        }
-
-        // --- PRAYER TIME API FUNCTION ---
-        window.fetchPrayerTimes = async () => {
-            try {
-                // Method 1 = University of Islamic Sciences, Karachi (Used in BD)
-                const res = await fetch("https://api.aladhan.com/v1/timings/today?latitude=24.8481&longitude=89.3730&method=1");
-                const data = await res.json();
-                const t = data.data.timings;
-
-                const toBanglaTime = (timeStr) => {
-                    const [h, m] = timeStr.split(':');
-                    let hours = parseInt(h);
-                    let suffix = 'সকাল';
-                    if(hours >= 12 && hours < 15) suffix = 'দুপুর';
-                    else if(hours >= 15 && hours < 18) suffix = 'বিকাল';
-                    else if(hours >= 18 && hours < 20) suffix = 'সন্ধ্যা';
-                    else if(hours >= 20) suffix = 'রাত';
-                    else if(hours < 5) suffix = 'রাত';
-                    else if(hours >= 5) suffix = 'সকাল';
-
-                    hours = hours % 12;
-                    hours = hours ? hours : 12; 
-                    const bnNum = (n) => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
-                    return `${bnNum(hours)}:${bnNum(m)} ${suffix}`;
-                };
-
-                // Set Sun Times
-                document.getElementById('sunrise-time').innerText = toBanglaTime(t.Sunrise);
-                document.getElementById('sunset-time').innerText = toBanglaTime(t.Sunset);
-
-                // Set Prayer List
-                const prayers = [
-                    {n: 'ফজর', t: toBanglaTime(t.Fajr)},
-                    {n: 'যোহর', t: toBanglaTime(t.Dhuhr)},
-                    {n: 'আসর', t: toBanglaTime(t.Asr)},
-                    {n: 'মাগরিব', t: toBanglaTime(t.Maghrib)},
-                    {n: 'এশা', t: toBanglaTime(t.Isha)}
-                ];
-
-                let listHtml = '';
-                prayers.forEach(p => {
-                    listHtml += `
-                    <li class="prayer-item">
-                        <span class="p-name"><i class="far fa-clock"></i> ${p.n}</span>
-                        <span style="font-weight:bold">${p.t}</span>
-                    </li>`;
-                });
-                document.getElementById('prayer-list-container').innerHTML = listHtml;
-
-            } catch(e) {
-                console.log("Prayer API Error:", e);
-                document.getElementById('sunrise-time').innerText = "--:--";
-                document.getElementById('sunset-time').innerText = "--:--";
-                document.getElementById('prayer-list-container').innerHTML = '<li class="prayer-item">তথ্য লোড করা যায়নি (নেটওয়ার্ক চেক করুন)</li>';
+                userDisplay.innerText = memberName;
+                iconDisplay.className = "fas fa-user";
+                statusCard.classList.remove('admin-mode');
             }
         }
 
@@ -1421,9 +922,13 @@
             floors[key].rooms.forEach(r => {
                 let active = false;
                 for(let i=1; i<=r.c; i++) if(allMembersData[`${r.id}_s${i}`]) active = true;
+                
+                // Determine Badge Class
+                const badgeClass = r.c === 1 ? 'badge-single' : 'badge-double';
+                
                 html += `
                 <div class="room-card" onclick="openRoom('${r.id}', '${r.n}', ${r.c})">
-                    <span class="room-badge">${r.c===1?'Single':'Double'}</span>
+                    <span class="room-badge ${badgeClass}">${r.c===1?'Single':'Double'}</span>
                     <i class="fas fa-door-open r-icon ${active?'active':''}"></i>
                     <h4 style="font-family:'Tiro Bangla'">${r.n}</h4>
                 </div>`;
@@ -1432,19 +937,41 @@
         }
 
         window.openRoom = (rid, rname, cap) => {
+            const role = localStorage.getItem('userRole');
+            const currentUser = localStorage.getItem('currentUser');
             document.getElementById('rm-header').innerText = rname;
             let html = '';
             for(let i=1; i<=cap; i++) {
                 const mid = `${rid}_s${i}`;
                 const m = allMembersData[mid];
+                
+                let actionText = '';
+                let isClickable = false;
+
+                // LOGIC: Admin sees edit/add everywhere. Member sees edit ONLY if it is their profile.
+                if (role === 'admin') {
+                    actionText = m ? '(এডিট)' : '(যুক্ত করুন)';
+                    isClickable = true;
+                } else if (role === 'member') {
+                    if (m && m.username === currentUser) {
+                        actionText = '(আমার তথ্য এডিট)'; // Show edit option for self
+                        isClickable = true;
+                    } else if (m) {
+                        actionText = ''; // Read-only for others
+                        isClickable = true; // Can click to view, but edit will be disabled
+                    }
+                }
+
+                const clickAction = isClickable ? `onclick="editMem('${mid}', '${rname}')"` : '';
+
                 html += `
-                <div style="display:flex; align-items:center; padding:10px; border-bottom:1px solid #eee; cursor:pointer" onclick="editMem('${mid}', '${rname}')">
+                <div style="display:flex; align-items:center; padding:10px; border-bottom:1px solid #eee; cursor:pointer" ${clickAction}>
                     <div style="width:40px; height:40px; border-radius:50%; background:${m?'#00cec9':'#eee'}; color:white; display:flex; align-items:center; justify-content:center; margin-right:15px">
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
                         <div style="font-weight:bold; font-family:'Tiro Bangla'">${m ? m.name : 'ফাঁকা সিট'}</div>
-                        <div style="font-size:12px; color:#777">সিট নং ${i} ${m?'(এডিট)':'(যুক্ত করুন)'}</div>
+                        <div style="font-size:12px; color:#777">সিট নং ${i} ${actionText}</div>
                     </div>
                 </div>`;
             }
@@ -1453,12 +980,36 @@
         }
 
         window.editMem = (mid, rname) => {
+            const role = localStorage.getItem('userRole');
+            const currentUser = localStorage.getItem('currentUser');
+            
             document.getElementById('roomModal').style.display = 'none';
             document.getElementById('profileModal').style.display = 'flex';
             document.getElementById('profileForm').reset();
             document.getElementById('p-id').value = mid;
             
             const m = allMembersData[mid];
+            
+            // PERMISSION LOGIC
+            const adminActions = document.getElementById('admin-actions');
+            const deleteBtn = document.getElementById('btn-delete-mem');
+            const form = document.getElementById('profileForm');
+
+            if(role === 'admin') {
+                form.classList.remove('disabled-form');
+                adminActions.style.display = 'block';
+                deleteBtn.style.display = 'block'; // Admin can delete
+            } else if (role === 'member' && m && m.username === currentUser) {
+                // Own profile: Enable form, Show Save, Hide Delete
+                form.classList.remove('disabled-form');
+                adminActions.style.display = 'block';
+                deleteBtn.style.display = 'none'; // Member cannot delete self
+            } else {
+                // Other's profile: Read only
+                form.classList.add('disabled-form');
+                adminActions.style.display = 'none';
+            }
+
             if(m) {
                 document.getElementById('p-name').value = m.name||'';
                 document.getElementById('p-phone').value = m.phone||'';
@@ -1473,11 +1024,24 @@
                 document.getElementById('p-last').value = m.last_blood||'';
                 document.getElementById('p-total-donations').value = m.total_donations||'';
                 document.getElementById('p-note').value = m.note||'';
+                document.getElementById('p-username').value = m.username||'';
+                document.getElementById('p-password').value = m.password||'';
             }
         }
 
         window.saveProfile = async () => {
             const id = document.getElementById('p-id').value;
+            let username = document.getElementById('p-username').value;
+            let password = document.getElementById('p-password').value;
+            
+            // GENERATE CREDENTIALS IF NEW OR EMPTY
+            let isNewCreds = false;
+            if(!username || !password) {
+                username = "user_" + id; 
+                password = Math.floor(100000 + Math.random() * 900000).toString();
+                isNewCreds = true;
+            }
+
             const data = {
                 name: document.getElementById('p-name').value,
                 phone: document.getElementById('p-phone').value,
@@ -1491,19 +1055,30 @@
                 join_date: document.getElementById('p-join').value,
                 last_blood: document.getElementById('p-last').value,
                 total_donations: document.getElementById('p-total-donations').value,
-                note: document.getElementById('p-note').value
+                note: document.getElementById('p-note').value,
+                username: username,
+                password: password
             };
+
             try {
                 await setDoc(doc(db, "members", id), data);
                 allMembersData[id] = data;
-                alert("তথ্য সফলভাবে সেভ হয়েছে!");
+                
                 document.getElementById('profileModal').style.display = 'none';
                 initApp();
+
+                // Show Credentials if Admin and New/Edited
+                if(localStorage.getItem('userRole') === 'admin') {
+                     document.getElementById('gen-user').innerText = username;
+                     document.getElementById('gen-pass').innerText = password;
+                     document.getElementById('credModal').style.display = 'flex';
+                }
+
             } catch(e) { alert("Error: " + e.message); }
         }
 
         window.delMember = async () => {
-            if(confirm("মেম্বার ডিলিট করতে চান?")) {
+            if(confirm("মেম্বার ডিলিট করলে তার লগইন এক্সেস বন্ধ হয়ে যাবে। নিশ্চিত?")) {
                 const id = document.getElementById('p-id').value;
                 await deleteDoc(doc(db, "members", id));
                 delete allMembersData[id];
@@ -1564,24 +1139,10 @@
                     </div>
                     <div class="mem-body">
                         <div class="mem-name">${m.name}</div>
-                        
-                        <div class="mem-info-row">
-                            <div class="mem-icon"><i class="fas fa-briefcase"></i></div>
-                            <div><span class="mem-label">পেশা:</span> <span class="mem-val">${m.profession || '-'}</span></div>
-                        </div>
-                        <div class="mem-info-row">
-                            <div class="mem-icon"><i class="fas fa-book-open"></i></div>
-                            <div><span class="mem-label">শ্রেণী:</span> <span class="mem-val">${m.current_class || '-'}</span></div>
-                        </div>
-
-                        <div class="mem-info-row">
-                            <div class="mem-icon"><i class="fas fa-university"></i></div>
-                            <div><span class="mem-label">কলেজ:</span> <span class="mem-val">${m.college||'-'}</span></div>
-                        </div>
-                        <div class="mem-info-row">
-                            <div class="mem-icon"><i class="fas fa-graduation-cap"></i></div>
-                            <div><span class="mem-label">বিভাগ/সেশন:</span> <span class="mem-val">${m.dept||''} (${m.session||'-'})</span></div>
-                        </div>
+                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-briefcase"></i></div><div><span class="mem-label">পেশা:</span> <span class="mem-val">${m.profession || '-'}</span></div></div>
+                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-book-open"></i></div><div><span class="mem-label">শ্রেণী:</span> <span class="mem-val">${m.current_class || '-'}</span></div></div>
+                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-university"></i></div><div><span class="mem-label">কলেজ:</span> <span class="mem-val">${m.college||'-'}</span></div></div>
+                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-graduation-cap"></i></div><div><span class="mem-label">বিভাগ/সেশন:</span> <span class="mem-val">${m.dept||''} (${m.session||'-'})</span></div></div>
                         <div class="mem-info-row">
                             <div class="mem-icon"><i class="fas fa-phone"></i></div>
                             <div style="display:flex; align-items:center; justify-content:space-between; width:100%">
@@ -1589,10 +1150,7 @@
                                 ${m.phone ? `<button onclick="callNumber('${m.phone}')" style="border:none; background:#00cec9; color:white; border-radius:4px; padding:2px 6px; cursor:pointer; font-size:10px;"><i class="fas fa-copy"></i></button>` : ''}
                             </div>
                         </div>
-                        <div class="mem-info-row">
-                            <div class="mem-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div><span class="mem-label">ঠিকানা:</span> <span class="mem-val">${m.address||'-'}</span></div>
-                        </div>
+                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-map-marker-alt"></i></div><div><span class="mem-label">ঠিকানা:</span> <span class="mem-val">${m.address||'-'}</span></div></div>
                     </div>
                 </div>`;
             }
@@ -1610,7 +1168,6 @@
                 const m = allMembersData[key];
                 if(m.blood === grp) {
                     found = true;
-                    
                     let lastDateStr = "এখনো রক্ত দেননি";
                     let nextDateStr = "যেকোনো সময়";
                     let isEligible = true;
@@ -1619,44 +1176,22 @@
                         const lastDate = new Date(m.last_blood);
                         const nextDate = new Date(lastDate);
                         nextDate.setDate(lastDate.getDate() + 120);
-
                         lastDateStr = getBanglaDate(lastDate);
                         nextDateStr = getBanglaDate(nextDate);
-
-                        if(new Date() < nextDate) {
-                            isEligible = false;
-                        }
+                        if(new Date() < nextDate) { isEligible = false; }
                     }
 
                     const totalDonated = m.total_donations ? m.total_donations.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]) : '০';
 
                     html += `
                     <div class="b-card">
-                        <div class="b-card-head">
-                            <div class="b-name">${m.name}</div>
-                            <span class="b-eligibility ${isEligible ? 'elig-yes' : 'elig-no'}">
-                                ${isEligible ? 'এখন রক্ত দিতে পারবে' : 'এখন রক্ত দিতে পারবে না'}
-                            </span>
-                        </div>
-                        
-                        <div class="b-total-stat">
-                            <i class="fas fa-layer-group"></i> মোট রক্তদান: <b>${totalDonated}</b> বার
-                        </div>
-
+                        <div class="b-card-head"><div class="b-name">${m.name}</div><span class="b-eligibility ${isEligible ? 'elig-yes' : 'elig-no'}">${isEligible ? 'এখন রক্ত দিতে পারবে' : 'এখন রক্ত দিতে পারবে না'}</span></div>
+                        <div class="b-total-stat"><i class="fas fa-layer-group"></i> মোট রক্তদান: <b>${totalDonated}</b> বার</div>
                         <div class="b-dates">
-                            <div class="b-date-box">
-                                <span class="b-date-label">সর্বশেষ রক্তদান:</span>
-                                <span class="b-date-val">${lastDateStr}</span>
-                            </div>
-                            <div class="b-date-box">
-                                <span class="b-date-label">পরবর্তী তারিখ:</span>
-                                <span class="b-date-val">${nextDateStr}</span>
-                            </div>
+                            <div class="b-date-box"><span class="b-date-label">সর্বশেষ রক্তদান:</span><span class="b-date-val">${lastDateStr}</span></div>
+                            <div class="b-date-box"><span class="b-date-label">পরবর্তী তারিখ:</span><span class="b-date-val">${nextDateStr}</span></div>
                         </div>
-
-                        <a onclick="callNumber('${m.phone}')" class="btn-call">
-                            <i class="fas fa-phone-alt"></i> কল করুন
-                        </a>
+                        <a onclick="callNumber('${m.phone}')" class="btn-call"><i class="fas fa-phone-alt"></i> কল করুন</a>
                     </div>`;
                 }
             }
@@ -1665,9 +1200,74 @@
 
         window.callNumber = (num) => {
             if(!num) { alert("নাম্বার নেই!"); return; }
-            navigator.clipboard.writeText(num).then(() => {
-                window.location.href = "tel:" + num;
-            });
+            navigator.clipboard.writeText(num).then(() => { window.location.href = "tel:" + num; });
+        }
+
+        // FETCH APIS
+        async function fetchWeather() {
+            try {
+                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=24.8481&longitude=89.3730&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m");
+                const data = await res.json();
+                const current = data.current;
+                const temp = Math.round(current.temperature_2m);
+                const wind = Math.round(current.wind_speed_10m);
+                const hum = current.relative_humidity_2m;
+                const code = current.weather_code;
+
+                document.getElementById('weather-temp').innerText = temp + "°C";
+                document.getElementById('wind-speed').innerText = wind + " km/h";
+                document.getElementById('humidity').innerText = hum + "%";
+                
+                let iconClass = "fa-cloud-sun"; let desc = "আংশিক মেঘলা";
+                if(code === 0) { iconClass = "fa-sun"; desc = "রৌদ্রোজ্জ্বল"; }
+                else if(code >= 1 && code <= 3) { iconClass = "fa-cloud-sun"; desc = "আংশিক মেঘলা"; }
+                else if(code >= 45 && code <= 48) { iconClass = "fa-smog"; desc = "কুয়াশাচ্ছন্ন"; }
+                else if(code >= 51 && code <= 67) { iconClass = "fa-cloud-rain"; desc = "বৃষ্টিপাত"; }
+                else if(code >= 80 && code <= 99) { iconClass = "fa-poo-storm"; desc = "ঝড়ো বৃষ্টি"; }
+
+                document.getElementById('weather-icon').className = `fas ${iconClass} w-icon`;
+                document.getElementById('weather-desc').innerText = desc;
+            } catch(e) { console.log("Weather Error:", e); document.getElementById('weather-temp').innerText = "--"; }
+        }
+
+        window.fetchPrayerTimes = async () => {
+            try {
+                const res = await fetch("https://api.aladhan.com/v1/timings/today?latitude=24.8481&longitude=89.3730&method=1");
+                const data = await res.json();
+                const t = data.data.timings;
+
+                const toBanglaTime = (timeStr) => {
+                    const [h, m] = timeStr.split(':');
+                    let hours = parseInt(h);
+                    let suffix = 'সকাল';
+                    if(hours >= 12 && hours < 15) suffix = 'দুপুর';
+                    else if(hours >= 15 && hours < 18) suffix = 'বিকাল';
+                    else if(hours >= 18 && hours < 20) suffix = 'সন্ধ্যা';
+                    else if(hours >= 20) suffix = 'রাত';
+                    else if(hours < 5) suffix = 'রাত';
+                    else if(hours >= 5) suffix = 'সকাল';
+                    hours = hours % 12; hours = hours ? hours : 12; 
+                    const bnNum = (n) => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+                    return `${bnNum(hours)}:${bnNum(m)} ${suffix}`;
+                };
+
+                document.getElementById('sunrise-time').innerText = toBanglaTime(t.Sunrise);
+                document.getElementById('sunset-time').innerText = toBanglaTime(t.Sunset);
+
+                const prayers = [
+                    {n: 'ফজর', t: toBanglaTime(t.Fajr)},
+                    {n: 'যোহর', t: toBanglaTime(t.Dhuhr)},
+                    {n: 'আসর', t: toBanglaTime(t.Asr)},
+                    {n: 'মাগরিব', t: toBanglaTime(t.Maghrib)},
+                    {n: 'এশা', t: toBanglaTime(t.Isha)}
+                ];
+
+                let listHtml = '';
+                prayers.forEach(p => {
+                    listHtml += `<li class="prayer-item"><span class="p-name"><i class="far fa-clock"></i> ${p.n}</span><span style="font-weight:bold">${p.t}</span></li>`;
+                });
+                document.getElementById('prayer-list-container').innerHTML = listHtml;
+            } catch(e) { console.log("Prayer API Error:", e); }
         }
 
         initApp();
@@ -1689,7 +1289,6 @@
             document.getElementById('emergencyModal').style.display = 'flex';
         }
 
-        // Auto Slider
         let sIdx = 0;
         const slides = document.querySelectorAll('.slide');
         function runSlide() {
@@ -1699,26 +1298,18 @@
         }
         setInterval(runSlide, 4000);
 
-        // --- DARK MODE LOGIC ---
         function toggleTheme() {
             const body = document.body;
             body.classList.toggle('dark-mode');
-            
-            // Update Icons
             const isDark = body.classList.contains('dark-mode');
             const iconClass = isDark ? 'fa-sun' : 'fa-moon';
-            
             const mobIcon = document.getElementById('theme-toggle-mob');
             if(mobIcon) mobIcon.className = `fas ${iconClass}`;
-            
             const sideIcon = document.getElementById('theme-icon-side');
             if(sideIcon) sideIcon.className = `fas ${iconClass}`;
-            
-            // Save preference
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
-        // Check Preference on Load
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             if(savedTheme === 'dark') {
@@ -1730,87 +1321,45 @@
             }
         });
 
-        // --- CLOCK FUNCTION (BANGLA) ---
         function updateTime() {
             const now = new Date();
-            const days = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
             const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
-
             const toBn = n => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
-
             const dayDate = toBn(now.getDate());
             const monthName = months[now.getMonth()];
             const year = toBn(now.getFullYear());
-
             let hours = now.getHours();
             let minutes = now.getMinutes();
             let period = "";
             let greeting = "শুভ দিন";
-
             if (hours >= 5 && hours < 12) { period = "সকাল"; greeting = "শুভ সকাল"; }
             else if (hours >= 12 && hours < 16) { period = "দুপুর"; greeting = "শুভ দুপুর"; }
             else if (hours >= 16 && hours < 18) { period = "বিকেল"; greeting = "শুভ বিকেল"; }
             else if (hours >= 18 && hours < 20) { period = "সন্ধ্যা"; greeting = "শুভ সন্ধ্যা"; }
             else { period = "রাত"; greeting = "শুভ রাত্রি"; }
-
             let showHours = hours % 12;
             if(showHours === 0) showHours = 12;
-
             const timeStr = `${toBn(showHours)}:${toBn(minutes < 10 ? '0'+minutes : minutes)} ${period}`;
             const dateStr = `${dayDate} ${monthName} ${year}`;
-
             document.getElementById('live-date').innerText = dateStr;
             document.getElementById('live-time').innerText = timeStr;
             document.getElementById('greeting-text').innerText = greeting;
         }
         setInterval(updateTime, 1000);
-        updateTime(); // Initial call
+        updateTime(); 
     </script>
     
-    <!-- JavaScript -->
-<script>
-// Get modal element
-const sharifulinfoModal = document.getElementById('sharifulinfoModal');
-
-// Function to open modal
-function openSharifulinfoModal() {
-  sharifulinfoModal.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-}
-
-// Function to close modal
-function closeSharifulinfoModal() {
-  sharifulinfoModal.style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-// Close modal when clicking on X
-document.querySelector('.sharifulinfo-close').addEventListener('click', closeSharifulinfoModal);
-
-// Close modal when clicking outside of it
-window.addEventListener('click', function(event) {
-  if (event.target === sharifulinfoModal) {
-    closeSharifulinfoModal();
-  }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') {
-    closeSharifulinfoModal();
-  }
-});
-
-// Update your footer link to use this function
-document.addEventListener('DOMContentLoaded', function() {
-  const designerLink = document.querySelector('.designer-link');
-  if (designerLink) {
-    designerLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      openSharifulinfoModal();
+    <script>
+    const sharifulinfoModal = document.getElementById('sharifulinfoModal');
+    function openSharifulinfoModal() { sharifulinfoModal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+    function closeSharifulinfoModal() { sharifulinfoModal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+    document.querySelector('.sharifulinfo-close').addEventListener('click', closeSharifulinfoModal);
+    window.addEventListener('click', function(event) { if (event.target === sharifulinfoModal) { closeSharifulinfoModal(); } });
+    document.addEventListener('keydown', function(event) { if (event.key === 'Escape') { closeSharifulinfoModal(); } });
+    document.addEventListener('DOMContentLoaded', function() {
+      const designerLink = document.querySelector('.designer-link');
+      if (designerLink) { designerLink.addEventListener('click', function(e) { e.preventDefault(); openSharifulinfoModal(); }); }
     });
-  }
-});
-</script>
+    </script>
 </body>
 </html>
