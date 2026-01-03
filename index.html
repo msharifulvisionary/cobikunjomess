@@ -1832,7 +1832,144 @@
         }
     }
     </style>
+<style>
+    /* ================= MEAL MENU WIDGET CSS ================= */
+    .meal-menu-card {
+        background: white;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        overflow: hidden;
+        border-left: 5px solid #00cec9; /* Secondary Color */
+        animation: fadeIn 0.5s ease;
+    }
 
+    .meal-header {
+        background: linear-gradient(135deg, #00cec9, #0984e3);
+        padding: 15px 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .meal-header h3 {
+        font-family: 'Tiro Bangla';
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .meal-date-info {
+        text-align: right;
+        font-size: 12px;
+    }
+
+    .meal-date-info span {
+        display: block;
+        font-weight: bold;
+    }
+
+    .meal-body {
+        padding: 20px;
+    }
+
+    .meal-row {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #eee;
+    }
+
+    .meal-row:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .meal-time-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: #f1f2f6;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .meal-details {
+        flex: 1;
+    }
+
+    .meal-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #636e72;
+        font-family: 'Tiro Bangla';
+        margin-bottom: 3px;
+        display: block;
+    }
+
+    .meal-items {
+        font-size: 15px;
+        color: #2d3436;
+        font-family: 'Tiro Bangla';
+        font-weight: 500;
+    }
+
+    .shopper-info {
+        background: #fff3cd;
+        color: #856404;
+        padding: 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 15px;
+        font-family: 'Tiro Bangla';
+    }
+
+    .btn-edit-menu {
+        background: rgba(255,255,255,0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: 0.3s;
+        display: none; /* JavaScript দিয়ে লগইন চেক করে শো করা হবে */
+    }
+
+    .btn-edit-menu:hover {
+        background: white;
+        color: #0984e3;
+    }
+
+    /* Dark Mode Support for Menu */
+    body.dark-mode .meal-menu-card {
+        background: #1e272e;
+        border-left-color: #0984e3;
+    }
+    body.dark-mode .meal-title {
+        color: #b2bec3;
+    }
+    body.dark-mode .meal-items {
+        color: #dfe6e9;
+    }
+    body.dark-mode .meal-time-icon {
+        background: #2d3436;
+        color: #00cec9;
+    }
+    body.dark-mode .shopper-info {
+        background: #2d3436;
+        color: #ffeaa7;
+        border: 1px solid #fdcb6e;
+    }
+</style>
 </head>
 <body>
   
@@ -1966,6 +2103,8 @@
                         <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly%20Mil%20Management/" target="_blank">মাসিক খরচ হিসাব</a></li>
                         <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly%20Chal%20Management/" target="_blank">মাসিক চাল হিসাব</a></li>
                         <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Daily%20mil%20and%20Rice%20Management/" target="_blank">দৈনিক চাল ও মিল হিসাব</a></li>
+                                                <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly_Bajar_Hishab/" target="_blank">মাসিক বাজার  হিসাব</a></li>
+                                                                        <li><a href="https://msharifulvisionary.github.io/mess-mil-management-system/Public/Monthly _ExtraBajar_Hishab/" target="_blank">মাসিক অতিরিক্ত বাজার হিসাব</a></li>
                         <li><a href="" target="_blank">অন্যান্য</a></li>
                     </ul>
                 </li>
@@ -2004,6 +2143,92 @@
                     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000');"><div class="slide-content"><h1>আধুনিক সুযোগ সুবিধা</h1><p>২৪ ঘণ্টা বিদ্যুৎ ও পানির সুব্যবস্থা</p></div></div>
                     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522771753014-df70f1c270c4?q=80&w=1000');"><div class="slide-content"><h1>মনোরম পরিবেশ</h1><p>পড়াশোনার জন্য শান্ত ও নিরিবিলি পরিবেশ</p></div></div>
                 </div>
+                
+               <!-- DAILY MEAL MENU SECTION -->
+<div class="meal-menu-card">
+    <div class="meal-header">
+        <div>
+            <h3><i class="fas fa-utensils"></i> আজকের খাবার</h3>
+            <button class="btn-edit-menu" id="edit-menu-btn" onclick="openMenuModal()">
+                <i class="fas fa-edit"></i> এডিট মেনু
+            </button>
+        </div>
+        <div class="meal-date-info">
+            <span id="menu-day-name">লোড হচ্ছে...</span>
+            <small id="menu-full-date">...</small>
+        </div>
+    </div>
+    <div class="meal-body">
+        <!-- Breakfast -->
+        <div class="meal-row">
+            <div class="meal-time-icon" style="color: #e67e22;"><i class="fas fa-coffee"></i></div>
+            <div class="meal-details">
+                <span class="meal-title">সকাল</span>
+                <span class="meal-items" id="view-breakfast">মেনু আপডেট করা হয়নি</span>
+            </div>
+        </div>
+        <!-- Lunch -->
+        <div class="meal-row">
+            <div class="meal-time-icon" style="color: #f1c40f;"><i class="fas fa-sun"></i></div>
+            <div class="meal-details">
+                <span class="meal-title">দুপুর</span>
+                <span class="meal-items" id="view-lunch">মেনু আপডেট করা হয়নি</span>
+            </div>
+        </div>
+        <!-- Dinner -->
+        <div class="meal-row">
+            <div class="meal-time-icon" style="color: #2c3e50;"><i class="fas fa-moon"></i></div>
+            <div class="meal-details">
+                <span class="meal-title">রাত</span>
+                <span class="meal-items" id="view-dinner">মেনু আপডেট করা হয়নি</span>
+            </div>
+        </div>
+        
+        <!-- Shopper Info -->
+        <div class="shopper-info">
+            <i class="fas fa-shopping-basket"></i> আজকের বাজারকারী: <strong id="view-shopper">নির্ধারণ করা হয়নি</strong>
+        </div>
+    </div>
+</div>
+
+<!-- MEAL EDIT MODAL -->
+<div class="modal" id="menuModal">
+    <div class="modal-content">
+        <div class="modal-head" style="background: linear-gradient(135deg, #00cec9, #0984e3);">
+            <h3 style="font-family:'Tiro Bangla'">মেনু এডিট করুন</h3>
+            <i class="fas fa-times" onclick="closeModal('menuModal')" style="cursor:pointer"></i>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:12px; color:#666; margin-bottom:10px; text-align:center;" id="modal-date-display"></p>
+            <form id="menuForm">
+                <div class="input-group">
+                    <label>সকালের নাস্তা</label>
+                    <input type="text" id="edit-breakfast" placeholder="যেমন: খিচুড়ি / রুটি-ভাজি">
+                </div>
+                <div class="input-group">
+                    <label>দুপুরের খাবার</label>
+                    <input type="text" id="edit-lunch" placeholder="যেমন: সাদা ভাত, মুরগি, ডাল">
+                </div>
+                <div class="input-group">
+                    <label>রাতের খাবার</label>
+                    <input type="text" id="edit-dinner" placeholder="যেমন: সাদা ভাত, ডিম, ভর্তা">
+                </div>
+                <div class="input-group">
+                    <label>আজকের বাজারকারী (নাম)</label>
+<div class="input-group">
+    <label>আজকের বাজারকারী</label>
+    <!-- সিলেক্ট অপশনের বদলে ইনপুট ফিল্ড -->
+    <input type="text" id="edit-shopper" placeholder="বাজারকারীর নাম লিখুন">
+</div>
+                </div>
+                <button type="button" class="btn-full btn-save" onclick="saveMenu()">
+                    <i class="fas fa-save"></i> সেভ করুন
+                </button>
+            </form>
+        </div>
+    </div>
+</div> 
+                
                 <h3 style="font-family:'Tiro Bangla'; color:var(--primary); margin-bottom:15px; border-left:4px solid var(--secondary); padding-left:10px;">বর্তমান অবস্থা</h3>
                 <div class="stats-grid">
                     <div class="stat-card-new"><div class="stat-icon-new" style="color:#0984e3; background:#0984e320"><i class="fas fa-users"></i></div><div class="stat-num-new" id="stat-mem">0</div><div class="stat-label-new">মোট সদস্য</div></div>
@@ -2485,7 +2710,111 @@ function switchTab(tab) {
                 ] 
             }
         };
-        
+        // ================= DAILY MEAL MENU LOGIC =================
+
+// ১. আজকের তারিখ বের করার ফাংশন (ফরম্যাট: YYYY-MM-DD)
+// এটি ডাটাবেজের ডকুমেন্ট আইডি হিসেবে ব্যবহৃত হবে
+function getTodayDocId() {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// ২. বাংলা তারিখ এবং বার দেখানোর ফাংশন (UI এর জন্য)
+function updateMenuDateDisplay() {
+    const d = new Date();
+    const days = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
+    const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+    
+    const dayName = days[d.getDay()];
+    const dateStr = `${d.getDate().toString().replace(/\d/g, n=>"০১২৩৪৫৬৭৮৯"[n])} ${months[d.getMonth()]} ${d.getFullYear().toString().replace(/\d/g, n=>"০১২৩৪৫৬৭৮৯"[n])}`;
+    
+    document.getElementById('menu-day-name').innerText = dayName;
+    document.getElementById('menu-full-date').innerText = dateStr;
+    document.getElementById('modal-date-display').innerText = `তারিখ: ${dateStr} (${dayName})`;
+}
+
+// ৩. মেনু লোড করার ফাংশন
+window.loadDailyMenu = async () => {
+    updateMenuDateDisplay();
+    const docId = getTodayDocId();
+    
+    try {
+        const docRef = doc(db, "daily_menus", docId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            document.getElementById('view-breakfast').innerText = data.breakfast || 'কিছু দেওয়া হয়নি';
+            document.getElementById('view-lunch').innerText = data.lunch || 'কিছু দেওয়া হয়নি';
+            document.getElementById('view-dinner').innerText = data.dinner || 'কিছু দেওয়া হয়নি';
+            document.getElementById('view-shopper').innerText = data.shopper || 'নির্ধারণ করা হয়নি';
+        } else {
+            // ডাটা না থাকলে রিসেট
+            document.getElementById('view-breakfast').innerText = 'মেনু আপডেট করা হয়নি';
+            document.getElementById('view-lunch').innerText = 'মেনু আপডেট করা হয়নি';
+            document.getElementById('view-dinner').innerText = 'মেনু আপডেট করা হয়নি';
+            document.getElementById('view-shopper').innerText = 'নির্ধারণ করা হয়নি';
+        }
+    } catch (e) {
+        console.error("Error loading menu:", e);
+    }
+    
+    // লগইন চেক করে এডিট বাটন শো করা
+    const role = localStorage.getItem('userRole');
+    if (role === 'admin' || role === 'member') {
+        document.getElementById('edit-menu-btn').style.display = 'inline-block';
+    } else {
+        document.getElementById('edit-menu-btn').style.display = 'none';
+    }
+}
+
+// ৪. মেনু এডিট মডাল ওপেন করা (আপডেট করা হয়েছে)
+window.openMenuModal = async () => {
+    // বর্তমান ভ্যালুগুলো নিয়ে আসার হেল্পার ফাংশন
+    const getVal = (id) => document.getElementById(id).innerText;
+    const isDefault = (text) => text === 'মেনু আপডেট করা হয়নি' || text === 'নির্ধারণ করা হয়নি' || text === 'কিছু দেওয়া হয়নি';
+
+    // ইনপুট ফিল্ডে বর্তমান ডাটা সেট করা
+    document.getElementById('edit-breakfast').value = isDefault(getVal('view-breakfast')) ? '' : getVal('view-breakfast');
+    document.getElementById('edit-lunch').value = isDefault(getVal('view-lunch')) ? '' : getVal('view-lunch');
+    document.getElementById('edit-dinner').value = isDefault(getVal('view-dinner')) ? '' : getVal('view-dinner');
+    
+    // বাজারকারীর নাম ইনপুট ফিল্ডে সেট করা (আগে ড্রপডাউন ছিল, এখন টেক্সট)
+    document.getElementById('edit-shopper').value = isDefault(getVal('view-shopper')) ? '' : getVal('view-shopper');
+    
+    // মডাল ওপেন
+    document.getElementById('menuModal').style.display = 'flex';
+}
+
+// ৫. মেনু সেভ করার ফাংশন
+window.saveMenu = async () => {
+    const docId = getTodayDocId();
+    const menuData = {
+        breakfast: document.getElementById('edit-breakfast').value,
+        lunch: document.getElementById('edit-lunch').value,
+        dinner: document.getElementById('edit-dinner').value,
+        shopper: document.getElementById('edit-shopper').value,
+        updatedAt: new Date()
+    };
+
+    try {
+        await setDoc(doc(db, "daily_menus", docId), menuData);
+        playSound('save'); // আপনার আগের সাউন্ড ফাংশন ব্যবহার করা হলো
+        document.getElementById('menuModal').style.display = 'none';
+        loadDailyMenu(); // সাথে সাথে আপডেট দেখাবে
+        alert("মেনু আপডেট হয়েছে!");
+    } catch (e) {
+        console.error("Error saving menu:", e);
+        alert("সেভ করতে সমস্যা হয়েছে!");
+    }
+}
+
+// অ্যাপ স্টার্ট হওয়ার সময় মেনু লোড করুন
+// আপনার আগের কোডের initApp() ফাংশনের ভেতরে সবার শেষে এই লাইনটি যুক্ত করুন:
+// loadDailyMenu();
         window.initApp = async () => {
             const snap = await getDocs(collection(db, "members"));
             allMembersData = {};
@@ -2498,6 +2827,7 @@ function switchTab(tab) {
             renderAllMemberList();
             fetchWeather();
             fetchPrayerTimes();
+            loadDailyMenu();
         }
         
         function updateUserStatus() {
@@ -3243,4 +3573,3 @@ function switchTab(tab) {
 </script>
 </body>
 </html>
-
