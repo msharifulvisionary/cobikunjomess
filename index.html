@@ -8,6 +8,68 @@
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00cec9">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- INSTALL MODAL CSS -->
+<style>
+    #install-modal {
+        display: none; /* শুরুতে হাইড থাকবে */
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 1000000;
+        border-left: 5px solid #00cec9;
+        animation: slideUp 0.5s ease;
+    }
+    @keyframes slideUp {
+        from { bottom: -100px; opacity: 0; }
+        to { bottom: 20px; opacity: 1; }
+    }
+    .install-content h3 {
+        font-family: 'Tiro Bangla';
+        margin: 0 0 5px 0;
+        color: #2c3e50;
+    }
+    .install-content p {
+        font-size: 13px;
+        color: #636e72;
+        margin-bottom: 15px;
+    }
+    .install-btns {
+        display: flex;
+        gap: 10px;
+    }
+    .btn-install-yes {
+        flex: 1;
+        background: #00cec9;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .btn-install-no {
+        flex: 1;
+        background: #dfe6e9;
+        color: #2d3436;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
     <!-- CSS Styling -->
     <style>
         /* ================= NEW DUAL LOGIN CSS ================= */
@@ -1753,10 +1815,43 @@
                 padding: 10px;
             }
         }
-</style>
+    /* PRINT MEDIA QUERY FOR PDF DOWNLOAD */
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #print-area, #print-area * {
+            visibility: visible;
+        }
+        #print-area {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background: white;
+            color: black;
+        }
+        /* Hide buttons/sidebar in print */
+        .sidebar, .mobile-header, .login-overlay, .modal, .btn-full {
+            display: none !important;
+        }
+    }
+    </style>
 
 </head>
 <body>
+  
+  <!-- INSTALL APP POPUP MODAL -->
+<div id="install-modal">
+    <div class="install-content">
+        <h3>অ্যাপটি ইন্সটল করুন</h3>
+        <p>সহজে ব্যবহারের জন্য এবং অফলাইনে এক্সেস পেতে অ্যাপটি ইন্সটল করুন।</p>
+        <div class="install-btns">
+            <button class="btn-install-yes" onclick="installPWA()">ইন্সটল করুন</button>
+            <button class="btn-install-no" onclick="closeInstallModal()">পরে করবো</button>
+        </div>
+    </div>
+</div>
     <!-- ================= DUAL LOGIN OVERLAY ================= -->
     <div id="login-overlay">
         <div class="login-card">
@@ -2052,7 +2147,22 @@
                 </div>
             </div>
             <!-- ================= END FLOOR LAYOUTS ================= -->
-            <div id="member-list" class="section"><h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2><div class="member-grid" id="all-member-container"></div></div>
+            <div id="member-list" class="section">
+                <h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2>
+                <!-- ADDED: Search & Download Buttons -->
+                <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <div class="input-group-login" style="flex: 2; margin-bottom: 0;">
+                        <input type="text" id="mem-search-box" placeholder="নাম দিয়ে সদস্য খুঁজুন..." onkeyup="window.searchMember()" style="padding: 12px; border: 1px solid #ccc; font-family: 'Tiro Bangla';">
+                    </div>
+                    <button class="btn-full" style="flex: 1; width: auto; margin:0; background: #e17055; color: white;" onclick="window.printMembers()">
+                        <i class="fas fa-file-pdf"></i> PDF ডাউনলোড
+                    </button>
+                    <button class="btn-full" style="flex: 1; width: auto; margin:0; background: #27ae60; color: white;" onclick="window.downloadCSV()">
+                        <i class="fas fa-file-excel"></i> Excel ডাউনলোড
+                    </button>
+                </div>
+                <div class="member-grid" id="all-member-container"></div>
+            </div>
             <div id="blood-finder" class="section">
                 <div class="blood-hero">
                     <i class="fas fa-heartbeat fa-3x" style="margin-bottom:10px;"></i><h1>রক্ত খুঁজুন</h1><p>জরুরি প্রয়োজনে মেসের ডোনার খুঁজে বের করুন</p>
@@ -2062,6 +2172,8 @@
             </div>
             <div id="calc-dm" class="section calc-placeholder"></div><div id="calc-dr" class="section calc-placeholder"></div><div id="calc-mc" class="section calc-placeholder"></div><div id="calc-mr" class="section calc-placeholder"></div><div id="calc-cb" class="section calc-placeholder"></div>
         </div>
+        <!-- HIDDEN PRINT AREA -->
+        <div id="print-area"></div>
         <!-- MODALS -->
         <!-- UPDATED EMERGENCY NUMBERS FOR BOGURA -->
         <div class="modal" id="emergencyModal">
@@ -2406,7 +2518,7 @@
             renderFloor('g');
             renderFloor('1');
             renderFloor('2');
-            renderAllMemberList();
+            renderAllMemberList(); // Render list initially
             fetchWeather();
             fetchPrayerTimes();
         }
@@ -2752,11 +2864,19 @@
             return durationText;
         }
         
-        function renderAllMemberList() {
+        function renderAllMemberList(searchTerm = '') {
             const container = document.getElementById('all-member-container');
             let html = '';
+            let term = searchTerm.toLowerCase();
+
             for(let key in allMembersData) {
                 const m = allMembersData[key];
+                
+                // Search Filter Logic
+                if (term && !m.name.toLowerCase().includes(term)) {
+                    continue; // Skip if doesn't match
+                }
+
                 // Calculate duration in mess
                 const duration = getDurationInMess(m.join_date);
                 
@@ -2784,7 +2904,106 @@
                         </div>
                     </div>`;
             }
+            
+            if(html === '') {
+                html = '<div style="text-align:center; padding:20px; color:#777; grid-column:1/-1;">কোন সদস্য পাওয়া যায়নি</div>';
+            }
             container.innerHTML = html;
+        }
+
+        // Expose Search function globally
+        window.searchMember = () => {
+            const box = document.getElementById('mem-search-box');
+            renderAllMemberList(box.value);
+        }
+
+        // --- PDF GENERATION LOGIC (Native Print for Bengali Support) ---
+        window.printMembers = () => {
+            const printArea = document.getElementById('print-area');
+            let tableHTML = `
+                <div style="text-align:center; margin-bottom:20px;">
+                    <h1 style="font-family:'Tiro Bangla'; color:#2c3e50;">ছবিকুঞ্জ ছাত্রাবাস</h1>
+                    <p>জহুরুল নগর, বগুড়া</p>
+                    <h3 style="border-bottom:2px solid #00cec9; display:inline-block; margin-top:10px;">সদস্য তালিকা</h3>
+                </div>
+                <table style="width:100%; border-collapse: collapse; font-family:'Tiro Bangla'; font-size:12px;">
+                    <thead>
+                        <tr style="background:#2c3e50; color:white;">
+                            <th style="border:1px solid #ccc; padding:8px;">নাম</th>
+                            <th style="border:1px solid #ccc; padding:8px;">ফোন</th>
+                            <th style="border:1px solid #ccc; padding:8px;">ব্লাড</th>
+                            <th style="border:1px solid #ccc; padding:8px;">পেশা</th>
+                            <th style="border:1px solid #ccc; padding:8px;">শ্রেণী</th>
+                            <th style="border:1px solid #ccc; padding:8px;">কলেজ/প্রতিষ্ঠান</th>
+                            <th style="border:1px solid #ccc; padding:8px;">বিভাগ ও সেশন</th>
+                            <th style="border:1px solid #ccc; padding:8px;">মেসে থাকার সময়</th>
+                            <th style="border:1px solid #ccc; padding:8px;">ঠিকানা</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for(let key in allMembersData) {
+                const m = allMembersData[key];
+                const duration = getDurationInMess(m.join_date);
+                tableHTML += `
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.name}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.phone || '-'}</td>
+                        <td style="border:1px solid #ccc; padding:6px; text-align:center;">${m.blood || '-'}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.profession || '-'}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.current_class || '-'}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.college || '-'}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.dept || ''} ${m.session ? '('+m.session+')' : ''}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${duration}</td>
+                        <td style="border:1px solid #ccc; padding:6px;">${m.address || '-'}</td>
+                    </tr>
+                `;
+            }
+
+            tableHTML += `</tbody></table>`;
+            tableHTML += `<div style="margin-top:20px; text-align:right; font-size:10px; color:#555;">Printed on: ${new Date().toLocaleString('bn-BD')}</div>`;
+            
+            printArea.innerHTML = tableHTML;
+            window.print();
+            // Clear print area after printing is done (optional, but keeps DOM clean)
+            // printArea.innerHTML = ''; 
+        }
+
+        // --- EXCEL/CSV DOWNLOAD LOGIC ---
+        window.downloadCSV = () => {
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Add BOM for Bengali support
+            csvContent += "Name,Phone,Blood Group,Profession,Class,College,Department,Session,Duration,Address,Note\n";
+
+            for(let key in allMembersData) {
+                const m = allMembersData[key];
+                const duration = getDurationInMess(m.join_date);
+                // Escape commas to prevent breaking CSV
+                const clean = (text) => text ? `"${text.toString().replace(/"/g, '""')}"` : "";
+                
+                const row = [
+                    clean(m.name),
+                    clean(m.phone),
+                    clean(m.blood),
+                    clean(m.profession),
+                    clean(m.current_class),
+                    clean(m.college),
+                    clean(m.dept),
+                    clean(m.session),
+                    clean(duration),
+                    clean(m.address),
+                    clean(m.note)
+                ].join(",");
+                csvContent += row + "\n";
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Chobikunjo_Members.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
         
         window.searchBlood = () => {
@@ -3063,5 +3282,58 @@
             }
         });
     </script>
+    
+    <script>
+    // --- SERVICE WORKER REGISTRATION (OFFLINE SUPPORT) ---
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then((reg) => console.log('Service Worker Registered'))
+                .catch((err) => console.log('SW Error:', err));
+        });
+    }
+
+    // --- INSTALL PROMPT LOGIC ---
+    let deferredPrompt;
+    const installModal = document.getElementById('install-modal');
+
+    // 1. Listen for the install prompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        
+        // 2. Show the modal after 5 seconds (5000 ms)
+        setTimeout(() => {
+            // Check if app is already installed
+            if (!window.matchMedia('(display-mode: standalone)').matches) {
+                installModal.style.display = 'block';
+            }
+        }, 5000);
+    });
+
+    // 3. Action when user clicks "Install"
+    async function installPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+        }
+        installModal.style.display = 'none';
+    }
+
+    // 4. Action when user clicks "Later"
+    function closeInstallModal() {
+        installModal.style.display = 'none';
+    }
+
+    // 5. Hide modal if app is already installed
+    window.addEventListener('appinstalled', () => {
+        installModal.style.display = 'none';
+        console.log('PWA was installed');
+    });
+</script>
 </body>
 </html>
