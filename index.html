@@ -1854,39 +1854,45 @@
                 <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
                 <p>স্মার্ট মেস ম্যানেজমেন্ট সিস্টেম</p>
             </div>
-            <div class="login-tabs">
-                <button class="tab-btn active" onclick="switchTab('admin')">এডমিন লগইন</button>
-                <button class="tab-btn" onclick="switchTab('border')">বর্ডার লগইন</button>
-            </div>
-            <div class="login-body">
-                <!-- Admin Login Form -->
-                <div id="admin-form" class="login-form active">
-                    <div class="input-group-login">
-                        <label>এডমিন ইউজারনেম</label>
-                        <input type="text" id="admin-user" placeholder="Username">
-                    </div>
-                    <div class="input-group-login">
-                        <label>পাসওয়ার্ড</label>
-                        <input type="password" id="admin-pass" placeholder="Password">
-                        <i class="fas fa-eye toggle-pass" onclick="togglePass('admin-pass', this)"></i>
-                    </div>
-                    <button class="btn-login" onclick="checkAdminLogin()">লগইন করুন (Admin)</button>
-                </div>
-                <!-- Border Login Form -->
-                <div id="border-form" class="login-form">
-                    <div class="input-group-login">
-                        <label>বর্ডার ইউজারনেম</label>
-                        <input type="text" id="border-user" placeholder="Username">
-                    </div>
-                    <div class="input-group-login">
-                        <label>পাসওয়ার্ড</label>
-                        <input type="password" id="border-pass" placeholder="Password">
-                        <i class="fas fa-eye toggle-pass" onclick="togglePass('border-pass', this)"></i>
-                    </div>
-                    <button class="btn-login" onclick="checkBorderLogin()">লগইন করুন (Border)</button>
-                </div>
-                <div class="error-msg" id="login-msg">তথ্য সঠিক নয়!</div>
-            </div>
+<!-- login-tabs এর ভেতরের কোড পরিবর্তন করুন -->
+<div class="login-tabs">
+    <!-- বর্ডার বাটনটি প্রথমে এবং active থাকবে -->
+    <button class="tab-btn active" onclick="switchTab('border')">বর্ডার লগইন</button>
+    <!-- এডমিন বাটনটি পরে থাকবে -->
+    <button class="tab-btn" onclick="switchTab('admin')">এডমিন লগইন</button>
+</div>
+
+<div class="login-body">
+    <!-- Admin Login Form (এখান থেকে active ক্লাস সরিয়ে দিন) -->
+    <div id="admin-form" class="login-form">
+        <div class="input-group-login">
+            <label>এডমিন ইউজারনেম</label>
+            <input type="text" id="admin-user" placeholder="Username">
+        </div>
+        <div class="input-group-login">
+            <label>পাসওয়ার্ড</label>
+            <input type="password" id="admin-pass" placeholder="Password">
+            <i class="fas fa-eye toggle-pass" onclick="togglePass('admin-pass', this)"></i>
+        </div>
+        <button class="btn-login" onclick="checkAdminLogin()">লগইন করুন (Admin)</button>
+    </div>
+
+    <!-- Border Login Form (এখানে active ক্লাস যুক্ত করুন) -->
+    <div id="border-form" class="login-form active">
+        <div class="input-group-login">
+            <label>বর্ডার ইউজারনেম</label>
+            <input type="text" id="border-user" placeholder="Username">
+        </div>
+        <div class="input-group-login">
+            <label>পাসওয়ার্ড</label>
+            <input type="password" id="border-pass" placeholder="Password">
+            <i class="fas fa-eye toggle-pass" onclick="togglePass('border-pass', this)"></i>
+        </div>
+        <button class="btn-login" onclick="checkBorderLogin()">লগইন করুন (Border)</button>
+    </div>
+    
+    <div class="error-msg" id="login-msg">তথ্য সঠিক নয়!</div>
+</div>
         </div>
     </div>
     <!-- CREDENTIALS MODAL (AUTO POPUP AFTER ADDING BORDER) -->
@@ -2198,6 +2204,9 @@
                         <input type="hidden" id="p-id">
                         <input type="hidden" id="p-username">
                         <input type="hidden" id="p-password">
+                        <input type="hidden" id="p-room-name">
+                        <input type="hidden" id="p-seat-no">
+                        
                         <div class="input-group"><label>নাম</label> <input type="text" id="p-name"></div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                             <div class="input-group"><label>ফোন</label> <input type="text" id="p-phone"></div>
@@ -2320,18 +2329,22 @@
         const ADMIN_USER = "cobikunjomess";
         const ADMIN_PASS = "123@cobikunjomess";
         
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
-            if(tab === 'admin') {
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.getElementById('admin-form').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                document.getElementById('border-form').classList.add('active');
-            }
-            document.getElementById('login-msg').style.display = 'none';
-        }
+        // TAB SWITCHER (আপডেট করা হয়েছে)
+function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
+    
+    if(tab === 'border') {
+        // বর্ডার এখন প্রথম বাটন (index 0)
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('border-form').classList.add('active');
+    } else {
+        // এডমিন এখন দ্বিতীয় বাটন (index 1)
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('admin-form').classList.add('active');
+    }
+    document.getElementById('login-msg').style.display = 'none';
+}
         
         function togglePass(id, icon) {
             const input = document.getElementById(id);
@@ -2566,7 +2579,8 @@
                         isClickable = true;
                     }
                 }
-                const clickAction = isClickable ? `onclick="editMem('${mid}', '${rname}')"` : '';
+                // PASSING rname (ROOM NUMBER) and i (SEAT NUMBER) to editMem
+                const clickAction = isClickable ? `onclick="editMem('${mid}', '${rname}', ${i})"` : '';
                 html += `
                     <div style="display:flex; align-items:center; padding:10px; border-bottom:1px solid #eee; cursor:pointer" ${clickAction}>
                         <div style="width:40px; height:40px; border-radius:50%; background:${m?'#00cec9':'#eee'}; color:white; display:flex; align-items:center; justify-content:center; margin-right:15px">
@@ -2582,13 +2596,18 @@
             document.getElementById('roomModal').style.display = 'flex';
         }
         
-        window.editMem = (mid, rname) => {
+        window.editMem = (mid, rname, seatNo) => {
             const role = localStorage.getItem('userRole');
             const currentUser = localStorage.getItem('currentUser');
             document.getElementById('roomModal').style.display = 'none';
             document.getElementById('profileModal').style.display = 'flex';
             document.getElementById('profileForm').reset();
             document.getElementById('p-id').value = mid;
+            
+            // Setting hidden values for Room Name and Seat Number
+            document.getElementById('p-room-name').value = rname;
+            document.getElementById('p-seat-no').value = seatNo;
+            
             const m = allMembersData[mid];
             
             const adminActions = document.getElementById('admin-actions');
@@ -2674,10 +2693,15 @@
             let username = document.getElementById('p-username').value;
             let password = document.getElementById('p-password').value;
             
-            // Generate NEW credentials ONLY if username is empty (meaning new member)
+            // GENERATE CREDENTIALS IF NEW MEMBER
             if(!username || username === "") {
-                const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-                username = "user_" + id + "_" + randomSuffix; // Appending random number makes username unique
+                const roomName = document.getElementById('p-room-name').value; // e.g., "201"
+                const seatNo = document.getElementById('p-seat-no').value;     // e.g., "1"
+                const randomSuffix = Math.floor(1000 + Math.random() * 9000);  // e.g., "4589"
+                
+                // FORMAT: user_ROOM_SEAT_RANDOM
+                // This ensures uniqueness per room/floor and per new entry
+                username = `user_${roomName}_${seatNo}_${randomSuffix}`;
                 password = Math.floor(100000 + Math.random() * 900000).toString();
             }
             
@@ -2706,9 +2730,6 @@
                 playSound('save');
                 initApp();
                 
-                // Show Credentials if Admin. Since new username logic is applied, 
-                // we show popup if it was a new entry or edit. 
-                // But specifically for new entries, it will show the fresh credentials.
                 if(localStorage.getItem('userRole') === 'admin') {
                     document.getElementById('gen-user').innerText = username;
                     document.getElementById('gen-pass').innerText = password;
@@ -3222,3 +3243,4 @@
 </script>
 </body>
 </html>
+
