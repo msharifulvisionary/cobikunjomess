@@ -7,17 +7,17 @@
     <meta name="google-site-verification" content="1bu69QoSVVC71OX1UUO7fTuAYYF4fNjcXp-_2OgwfBA" />
     <title>ছবিকুঞ্জ ছাত্রাবাস - স্মার্ট মেস ম্যানেজমেন্ট সিস্টেম</title>
     <!-- SEO Meta Tags -->
-<meta name="description" content="ছবিকুঞ্জ ছাত্রাবাস - বগুড়ার জহুরুল নগরে অবস্থিত একটি আদর্শ ছাত্রাবাস। এখানে ছাত্রদের থাকার সুব্যবস্থা, ২৪ ঘণ্টা বিদ্যুৎ, পানি ও ওয়াইফাই সুবিধা রয়েছে। Chobikunjo Mess Management System.">
-<meta name="keywords" content="ছবিকুঞ্জ, ছবিকুঞ্জ মেস, ছবিকুঞ্জ ছাত্রাবাস, chobikunjo, chobikunjo mess, cobikunjo, cobikunjo mess, mess in bogura, student mess bogra, smart mess system">
+<meta name="description" content="ছবিকুঞ্জ ছাত্রাবাস - বগুড়ার জহুরুল নগরে অবস্থিত একটি আদর্শ ছাত্রাবাস। Chobikunjo Mess Management System.">
+<meta name="keywords" content="ছবিকুঞ্জ, ছবিকুঞ্জ মেস, mess in bogura, student mess bogra, smart mess system">
 <meta name="author" content="MD SHARIFUL ISLAM">
 <meta name="robots" content="index, follow">
 
-<!-- Open Graph / Facebook (ফেসবুকে লিংক শেয়ার করলে সুন্দর দেখাবে) -->
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://msharifulvisionary.github.io/cobikunjomess/">
 <meta property="og:title" content="ছবিকুঞ্জ ছাত্রাবাস - স্মার্ট মেস ম্যানেজমেন্ট সিস্টেম">
 <meta property="og:description" content="বগুড়ার জহুরুল নগরে অবস্থিত আধুনিক সুযোগ সুবিধা সম্পন্ন ছাত্রাবাস।">
-<meta property="og:image" content="https://i.imgur.com/puYOVI1.png"> <!-- এখানে মেসের ভালো একটা ছবি বা লোগোর লিংক দিবেন -->
+<meta property="og:image" content="https://i.imgur.com/puYOVI1.png">
 
 <!-- Canonical Link -->
 <link rel="canonical" href="https://msharifulvisionary.github.io/cobikunjomess/">
@@ -32,7 +32,7 @@
 <!-- INSTALL MODAL CSS -->
 <style>
     #install-modal {
-        display: none; /* শুরুতে হাইড থাকবে */
+        display: none;
         position: fixed;
         bottom: 20px;
         left: 50%;
@@ -238,6 +238,7 @@
             max-width:400px;
             width:90%;
             border-top: 5px solid #00cec9;
+            animation: popUp 0.3s;
         }
         .cred-copy-box {
             background:#f1f2f6;
@@ -399,7 +400,7 @@
             background: #fff;
         }
         .rules-content.open {
-            max-height: 1000px; /* Large enough value */
+            max-height: 1000px;
         }
         .rules-inner {
             padding: 0 20px 20px 20px;
@@ -410,7 +411,7 @@
         
     </style>
     <style>
-        /* Shariful Modal CSS (FIXED DISPLAY) */
+        /* Shariful Modal CSS */
         .sharifulinfo-modal {
             display: none;
             position: fixed;
@@ -659,7 +660,7 @@
             min-height: 100vh;
             transition: background 0.3s, color 0.3s;
         }
-        /* --- SIDEBAR (UPDATED FOR SCROLLING) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: var(--sidebar-w);
             background: #1e272e;
@@ -668,11 +669,10 @@
             color: white;
             transition: 0.3s;
             z-index: 1000;
-            overflow-y: auto; /* Enable Scroll */
+            overflow-y: auto;
             box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            padding-bottom: 80px; /* Crucial for Mobile Scroll to bottom */
+            padding-bottom: 80px;
         }
-        /* Custom Scrollbar for Sidebar */
         .sidebar::-webkit-scrollbar {
             width: 5px;
         }
@@ -1375,7 +1375,6 @@
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        /* UPDATED: We removed .room-grid generic class styling that was here before, because we will use the specific grid layouts below. But we keep .room-card styling for the individual room boxes. */
         .room-card {
             background: white;
             padding: 20px;
@@ -1386,7 +1385,6 @@
             border: 1px solid #eee;
             position: relative;
             overflow: hidden;
-            /* Flex layout to center content */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1704,7 +1702,6 @@
         body.dark-mode .rules-header-toggle:hover {
             background: #2d3436;
         }
-        /* Dark mode support for specific grid rooms */
         body.dark-mode .static-room.dining {
             background-color: #353b48 !important;
             color: #dfe6e9;
@@ -1729,26 +1726,19 @@
             background-color: #2d3436;
         }
     </style>
-    <!-- ==================== INSERTED GRID LAYOUT STYLES ==================== -->
-    
-    
     <style>
     .grid-container {
         display: grid;
         gap: 15px;
-        grid-template-columns: repeat(3, 1fr); /* ৩টি সমান কলাম */
+        grid-template-columns: repeat(3, 1fr);
         margin-top: 20px;
     }
-
-    /* Generic container for room-card placement */
     .room-slot {
         min-height: 80px;
         display: flex;
         align-items: stretch;
         justify-content: stretch;
     }
-
-    /* Styles for static elements */
     .static-room {
         background: #ffffff;
         border: 2px solid #2c3e50;
@@ -1764,8 +1754,6 @@
         font-family: 'Tiro Bangla', sans-serif;
         color: #2c3e50;
     }
-
-    /* বিশেষ রুমের কালার স্কিম */
     .dining {
         background-color: #eef2f3;
         border-color: #bdc3c7;
@@ -1784,22 +1772,16 @@
         font-size: 0.9em;
         border-color: #74b9ff;
     }
-
-    /* ১০৩ নম্বর রুমের কন্টেইনার স্টাইল */
     .room-103-container {
         display: flex;
         flex-direction: column;
     }
-
-    /* ১ তলার লেআউট (স্কেচ অনুযায়ী) */
     .f1-grid {
         grid-template-areas: 
             "r101 stairs r104"
             "dining dining common-bath"
             "r102 kitchen r103-group";
     }
-
-    /* রেস্পন্সিভ মোবাইল ভিউ */
     @media (max-width: 500px) {
         .static-room {
             font-size: 1em;
@@ -1809,7 +1791,6 @@
             gap: 10px;
         }
     }
-            /* ২য় ও ৩য় তলার গ্রিড লেআউট */
         .f23-grid {
             grid-template-areas: 
                 "r1 stairs r6"
@@ -1831,7 +1812,6 @@
                 padding: 10px;
             }
         }
-    /* PRINT MEDIA QUERY FOR PDF DOWNLOAD */
     @media print {
         body * {
             visibility: hidden;
@@ -1847,7 +1827,6 @@
             background: white;
             color: black;
         }
-        /* Hide buttons/sidebar in print */
         .sidebar, .mobile-header, .login-overlay, .modal, .btn-full {
             display: none !important;
         }
@@ -1857,7 +1836,7 @@
 </head>
 <body>
   
-  <!-- INSTALL APP POPUP MODAL -->
+<!-- INSTALL APP POPUP MODAL -->
 <div id="install-modal">
     <div class="install-content">
         <h3>অ্যাপটি ইন্সটল করুন</h3>
@@ -1955,7 +1934,6 @@
             <div class="menu-label">Main Menu</div>
             <ul class="nav-links">
                 <li><a onclick="showSection('home')" class="active"><i class="fas fa-home"></i> হোম পেজ</a></li>
-                <!-- UPDATED FLOOR NAMES IN MENU -->
                 <li><a onclick="showSection('floor-g')"><i class="fas fa-layer-group"></i> ১ম তলা (1st Floor)</a></li>
                 <li><a onclick="showSection('floor-1')"><i class="fas fa-layer-group"></i> ২য় তলা (2nd Floor)</a></li>
                 <li><a onclick="showSection('floor-2')"><i class="fas fa-layer-group"></i> ৩য় তলা (3rd Floor)</a></li>
@@ -1991,7 +1969,6 @@
         <div class="main">
             <!-- 1. HOME -->
             <div id="home" class="section active">
-                <!-- USER IDENTITY CARD -->
                 <div class="user-status-card" id="user-status-display">
                     <div class="us-icon"><i class="fas fa-user-circle"></i></div>
                     <div class="us-info">
@@ -2030,7 +2007,6 @@
                     <div class="stat-card-new"><div class="stat-icon-new" style="color:#2d3436; background:#2d343620"><i class="fas fa-user"></i></div><div class="stat-num-new" id="stat-single">0</div><div class="stat-label-new">সিঙ্গেল রুম</div></div>
                     <div class="stat-card-new"><div class="stat-icon-new" style="color:#e17055; background:#e1705520"><i class="fas fa-layer-group"></i></div><div class="stat-num-new" id="stat-floor">0</div><div class="stat-label-new">মোট তলা</div></div>
                 </div>
-                <!-- FOOD MENU SECTION REMOVED AS PER INSTRUCTION -->
                 
                 <div style="margin-bottom: 30px;">
                     <h3 style="font-family:'Tiro Bangla'; color:var(--primary); border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">আমাদের সুবিধাসমূহ</h3>
@@ -2059,7 +2035,6 @@
                     <div class="prayer-header"><h3 style="font-family:'Tiro Bangla'; color:var(--primary)"><i class="fas fa-mosque"></i> নামাজের সময়সূচী</h3><span style="font-size:12px; color:#777; font-family:'Tiro Bangla'">বগুড়া জেলা</span></div>
                     <ul class="prayer-list" id="prayer-list-container"><li class="prayer-item"><span class="p-name">লোড হচ্ছে...</span></li></ul>
                 </div>
-                <!-- UPDATED COLLAPSIBLE RULES SECTION -->
                 <div class="rules-box">
                     <div class="rules-header-toggle" onclick="toggleRules()">
                         <h3><i class="fas fa-exclamation-circle"></i> মেসের নিয়মাবলী</h3>
@@ -2095,7 +2070,6 @@
                 </div>
             </div>
             <!-- ================= REPLACED FLOOR LAYOUTS ================= -->
-            <!-- 1st Floor (Using Modified Grid Layout for Room 103 Baths) -->
 <div id="floor-g" class="section">
     <div class="floor-title-bar">
         <h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2>
@@ -2120,7 +2094,6 @@
     </div>
 </div>
 
-            <!-- 2nd Floor (Using Grid Layout) -->
             <div id="floor-1" class="section">
                 <div class="floor-title-bar">
                     <h2 style="font-family:'Tiro Bangla'">২য় তলা (2nd Floor)</h2>
@@ -2141,7 +2114,6 @@
                     <div class="room-slot" style="grid-area: r5;" id="slot-f1_205">Loading...</div>
                 </div>
             </div>
-            <!-- 3rd Floor (Using Grid Layout) -->
             <div id="floor-2" class="section">
                 <div class="floor-title-bar">
                     <h2 style="font-family:'Tiro Bangla'">৩য় তলা (3rd Floor)</h2>
@@ -2165,7 +2137,6 @@
             <!-- ================= END FLOOR LAYOUTS ================= -->
             <div id="member-list" class="section">
                 <h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2>
-                <!-- ADDED: Search & Download Buttons -->
                 <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                     <div class="input-group-login" style="flex: 2; margin-bottom: 0;">
                         <input type="text" id="mem-search-box" placeholder="নাম দিয়ে সদস্য খুঁজুন..." onkeyup="window.searchMember()" style="padding: 12px; border: 1px solid #ccc; font-family: 'Tiro Bangla';">
@@ -2191,7 +2162,6 @@
         <!-- HIDDEN PRINT AREA -->
         <div id="print-area"></div>
         <!-- MODALS -->
-        <!-- UPDATED EMERGENCY NUMBERS FOR BOGURA -->
         <div class="modal" id="emergencyModal">
             <div class="modal-content">
                 <div class="modal-head" style="background:#e17055"><h3 style="font-family:'Tiro Bangla'">বগুড়া জরুরি সেবা</h3><i class="fas fa-times" onclick="closeModal('emergencyModal')" style="cursor:pointer"></i></div>
@@ -2226,7 +2196,7 @@
                 <div class="modal-body">
                     <form id="profileForm">
                         <input type="hidden" id="p-id">
-                        <input type="hidden" id="p-username"> <!-- Hidden credentials storage -->
+                        <input type="hidden" id="p-username">
                         <input type="hidden" id="p-password">
                         <div class="input-group"><label>নাম</label> <input type="text" id="p-name"></div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
@@ -2242,7 +2212,6 @@
                                 <label>পেশা</label>
                                 <select id="p-profession"><option value="">Select</option><option value="ছাত্র">ছাত্র</option><option value="কর্মজীবী/ চাকুরীজীবী">কর্মজীবী/ চাকুরীজীবী</option><option value="অন্যান্য">অন্যান্য</option></select>
                             </div>
-                            <!-- UPDATED CLASS OPTIONS -->
                             <div class="input-group">
                                 <label>বর্তমান অধ্যায়নরত শ্রেনী</label>
                                 <select id="p-class">
@@ -2273,12 +2242,10 @@
                             </div>
                         </div>
                         <div class="input-group"><label>নোট</label> <textarea id="p-note" rows="2"></textarea></div>
-                        <!-- NEW: Duration in Mess Calculation -->
                         <div class="input-group" id="duration-display">
                             <label>মেসে থাকার সময়কাল</label>
                             <div style="padding: 10px; background: #f8f9fa; border-radius: 6px; font-family: 'Tiro Bangla';" id="duration-text">-</div>
                         </div>
-                        <!-- BUTTONS (Will be hidden for Border if not own profile) -->
                         <div id="admin-actions">
                             <button type="button" class="btn-full btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> সেভ করুন</button>
                             <button type="button" class="btn-full btn-del" id="btn-delete-mem" onclick="delMember()"><i class="fas fa-trash"></i> ডিলিট করুন</button>
@@ -2291,10 +2258,8 @@
     <!-- END WRAPPER -->
     <!-- ================= DUAL LOGIN SCRIPT ================= -->
     <script>
-        // SOUND FUNCTIONS (VOLUME INCREASED)
         function playSound(type) {
             try {
-                // Create audio context
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
@@ -2302,67 +2267,59 @@
                 oscillator.connect(gainNode);
                 gainNode.connect(audioContext.destination);
                 
-                // Different sounds for different actions with INCREASED VOLUME (0.6)
                 if (type === 'login') {
-                    // Login sound - pleasant notification sound
                     oscillator.type = 'sine';
-                    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-                    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.2); // E5
-                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
                     oscillator.start(audioContext.currentTime);
                     oscillator.stop(audioContext.currentTime + 0.3);
                 } 
                 else if (type === 'logout') {
-                    // Logout sound - slightly different tone
                     oscillator.type = 'sine';
-                    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime); // E5
-                    oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.2); // C5
-                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
                     oscillator.start(audioContext.currentTime);
                     oscillator.stop(audioContext.currentTime + 0.3);
                 }
                 else if (type === 'save') {
-                    // Save sound - success tone
                     oscillator.type = 'triangle';
-                    oscillator.frequency.setValueAtTime(392, audioContext.currentTime); // G4
-                    oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.1); // C5
-                    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.2); // E5
-                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    oscillator.frequency.setValueAtTime(392, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.1);
+                    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
                     oscillator.start(audioContext.currentTime);
                     oscillator.stop(audioContext.currentTime + 0.4);
                 }
                 else if (type === 'delete') {
-                    // Delete sound - warning tone
                     oscillator.type = 'sawtooth';
-                    oscillator.frequency.setValueAtTime(349.23, audioContext.currentTime); // F4
-                    oscillator.frequency.setValueAtTime(311.13, audioContext.currentTime + 0.1); // D#4
-                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    oscillator.frequency.setValueAtTime(349.23, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(311.13, audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
                     oscillator.start(audioContext.currentTime);
                     oscillator.stop(audioContext.currentTime + 0.3);
                 }
                 else if (type === 'copy') {
-                    // Copy sound - short beep
                     oscillator.type = 'square';
-                    oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // A5
-                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Volume Up slightly less
+                    oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
                     oscillator.start(audioContext.currentTime);
                     oscillator.stop(audioContext.currentTime + 0.1);
                 }
             } catch (e) {
-                console.log("Audio not supported in this browser:", e);
+                console.log("Audio not supported:", e);
             }
         }
         
-        // ADMIN CREDENTIALS
         const ADMIN_USER = "cobikunjomess";
         const ADMIN_PASS = "123@cobikunjomess";
         
-        // TAB SWITCHER
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
@@ -2376,7 +2333,6 @@
             document.getElementById('login-msg').style.display = 'none';
         }
         
-        // TOGGLE PASS
         function togglePass(id, icon) {
             const input = document.getElementById(id);
             if (input.type === "password") {
@@ -2437,7 +2393,6 @@
             });
         }
     </script>
-    <!-- LOGIC WITH BORDER LOGIN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -2455,13 +2410,11 @@
         const db = getFirestore(app);
         let allMembersData = {};
         
-        // LOGIN CHECK ON LOAD
         window.addEventListener('load', () => {
             const role = localStorage.getItem('userRole');
             if(role) showWebsite();
         });
         
-        // BORDER LOGIN FUNCTION
         window.checkBorderLogin = async () => {
             const u = document.getElementById('border-user').value.trim();
             const p = document.getElementById('border-pass').value.trim();
@@ -2475,7 +2428,7 @@
                 if (!querySnapshot.empty) {
                     playSound('login');
                     localStorage.setItem('userRole', 'member');
-                    localStorage.setItem('currentUser', u); // Store username for self-edit check
+                    localStorage.setItem('currentUser', u); 
                     showWebsite();
                 } else {
                     showLoginError();
@@ -2486,7 +2439,6 @@
             }
         }
         
-        // Updated Floor Config to match Grid IDs
         const floors = {
             'g': { 
                 name: "১ম তলা", 
@@ -2521,25 +2473,20 @@
             }
         };
         
-        // FOOD MENU REMOVED
-        
         window.initApp = async () => {
             const snap = await getDocs(collection(db, "members"));
             allMembersData = {};
             snap.forEach(doc => allMembersData[doc.id] = doc.data());
-            updateUserStatus(); // NEW: Update the welcome card
+            updateUserStatus();
             updateDashboardStats();
-            // Updated Render calls (No specific container ID passed as second arg,
-            // logic finds slots by ID now)
             renderFloor('g');
             renderFloor('1');
             renderFloor('2');
-            renderAllMemberList(); // Render list initially
+            renderAllMemberList();
             fetchWeather();
             fetchPrayerTimes();
         }
         
-        // NEW FUNCTION: UPDATE USER STATUS DISPLAY
         function updateUserStatus() {
             const role = localStorage.getItem('userRole');
             const userDisplay = document.getElementById('logged-user-name');
@@ -2553,7 +2500,6 @@
             } else if (role === 'member') {
                 const u = localStorage.getItem('currentUser');
                 let memberName = "বর্ডার (Member)";
-                // Try to find name from data
                 for(let key in allMembersData) {
                     if(allMembersData[key].username === u) {
                         memberName = allMembersData[key].name;
@@ -2566,19 +2512,15 @@
             }
         }
         
-        // UPDATED: Render Logic for GRID Layout
         function renderFloor(key) {
             floors[key].rooms.forEach(r => {
-                // Find the specific slot in the HTML grid for this room
                 const slotId = `slot-${r.id}`;
                 const container = document.getElementById(slotId);
                 if(container) {
                     let occupiedCount = 0;
                     for(let i=1; i<=r.c; i++) if(allMembersData[`${r.id}_s${i}`]) occupiedCount++;
-                    // Determine Badge Class
                     const badgeClass = r.c === 1 ? 'badge-single' : 'badge-double';
                     
-                    // OCCUPANCY VISUAL LOGIC (Gradient Background)
                     let bgStyle = 'background: white;';
                     if(occupiedCount > 0) {
                         const pct = (occupiedCount / r.c) * 100;
@@ -2591,7 +2533,6 @@
                         bgStyle = 'background: #2d3436;';
                     }
                     
-                    // Inject the room card logic INSIDE the grid slot
                     const html = `
                         <div class="room-card" style="${bgStyle}" onclick="openRoom('${r.id}', '${r.n}', ${r.c})">
                             <span class="room-badge ${badgeClass}">${r.c===1?'Single':'Double'}</span>
@@ -2613,17 +2554,16 @@
                 const m = allMembersData[mid];
                 let actionText = '';
                 let isClickable = false;
-                // LOGIC: Admin sees edit/add everywhere. Member sees edit ONLY if it is their profile.
                 if (role === 'admin') {
                     actionText = m ? '(এডিট)' : '(যুক্ত করুন)';
                     isClickable = true;
                 } else if (role === 'member') {
                     if (m && m.username === currentUser) {
-                        actionText = '(আমার তথ্য এডিট)'; // Show edit option for self
+                        actionText = '(আমার তথ্য এডিট)';
                         isClickable = true;
                     } else if (m) {
-                        actionText = ''; // Read-only for others
-                        isClickable = true; // Can click to view, but edit will be disabled
+                        actionText = '';
+                        isClickable = true;
                     }
                 }
                 const clickAction = isClickable ? `onclick="editMem('${mid}', '${rname}')"` : '';
@@ -2651,22 +2591,25 @@
             document.getElementById('p-id').value = mid;
             const m = allMembersData[mid];
             
-            // PERMISSION LOGIC
             const adminActions = document.getElementById('admin-actions');
             const deleteBtn = document.getElementById('btn-delete-mem');
             const form = document.getElementById('profileForm');
             
+            // Clear credentials hidden fields if new member
+            if (!m) {
+                document.getElementById('p-username').value = "";
+                document.getElementById('p-password').value = "";
+            }
+
             if(role === 'admin') {
                 form.classList.remove('disabled-form');
                 adminActions.style.display = 'block';
-                deleteBtn.style.display = 'block'; // Admin can delete
+                deleteBtn.style.display = 'block';
             } else if (role === 'member' && m && m.username === currentUser) {
-                // Own profile: Enable form, Show Save, Hide Delete
                 form.classList.remove('disabled-form');
                 adminActions.style.display = 'block';
-                deleteBtn.style.display = 'none'; // Member cannot delete self
+                deleteBtn.style.display = 'none';
             } else {
-                // Other's profile: Read only
                 form.classList.add('disabled-form');
                 adminActions.style.display = 'none';
             }
@@ -2688,15 +2631,12 @@
                 document.getElementById('p-username').value = m.username||'';
                 document.getElementById('p-password').value = m.password||'';
                 
-                // Calculate and display duration in mess
                 updateDurationDisplay(m.join_date);
             } else {
-                // For new member, hide duration display
                 document.getElementById('duration-display').style.display = 'none';
             }
         }
         
-        // Function to calculate and display duration in mess
         function updateDurationDisplay(joinDate) {
             if (!joinDate) {
                 document.getElementById('duration-text').textContent = '-';
@@ -2705,8 +2645,6 @@
             
             const join = new Date(joinDate);
             const now = new Date();
-            
-            // Calculate difference in months
             let years = now.getFullYear() - join.getFullYear();
             let months = now.getMonth() - join.getMonth();
             
@@ -2714,8 +2652,6 @@
                 years--;
                 months += 12;
             }
-            
-            // Adjust for days
             const daysDiff = now.getDate() - join.getDate();
             if (daysDiff < 0) {
                 months--;
@@ -2724,17 +2660,10 @@
                     months += 12;
                 }
             }
-            
             let durationText = '';
-            if (years > 0) {
-                durationText += years + ' বছর ';
-            }
-            if (months > 0) {
-                durationText += months + ' মাস';
-            }
-            if (years === 0 && months === 0) {
-                durationText = 'নতুন সদস্য';
-            }
+            if (years > 0) durationText += years + ' বছর ';
+            if (months > 0) durationText += months + ' মাস';
+            if (years === 0 && months === 0) durationText = 'নতুন সদস্য';
             
             document.getElementById('duration-text').textContent = durationText;
             document.getElementById('duration-display').style.display = 'block';
@@ -2745,12 +2674,11 @@
             let username = document.getElementById('p-username').value;
             let password = document.getElementById('p-password').value;
             
-            // GENERATE CREDENTIALS IF NEW OR EMPTY
-            let isNewCreds = false;
-            if(!username || !password) {
-                username = "user_" + id;
+            // Generate NEW credentials ONLY if username is empty (meaning new member)
+            if(!username || username === "") {
+                const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+                username = "user_" + id + "_" + randomSuffix; // Appending random number makes username unique
                 password = Math.floor(100000 + Math.random() * 900000).toString();
-                isNewCreds = true;
             }
             
             const data = {
@@ -2775,12 +2703,12 @@
                 await setDoc(doc(db, "members", id), data);
                 allMembersData[id] = data;
                 document.getElementById('profileModal').style.display = 'none';
-                
-                // Play save sound
                 playSound('save');
-                
                 initApp();
-                // Show Credentials if Admin and New/Edited
+                
+                // Show Credentials if Admin. Since new username logic is applied, 
+                // we show popup if it was a new entry or edit. 
+                // But specifically for new entries, it will show the fresh credentials.
                 if(localStorage.getItem('userRole') === 'admin') {
                     document.getElementById('gen-user').innerText = username;
                     document.getElementById('gen-pass').innerText = password;
@@ -2797,15 +2725,11 @@
                 await deleteDoc(doc(db, "members", id));
                 delete allMembersData[id];
                 document.getElementById('profileModal').style.display = 'none';
-                
-                // Play delete sound
                 playSound('delete');
-                
                 initApp();
             }
         }
         
-        // --- STATS CALCULATION LOGIC ---
         function updateDashboardStats() {
             let totalFloors = 0;
             let totalRooms = 0;
@@ -2840,43 +2764,19 @@
             return `${day} ${month} ${year}`;
         }
         
-        // UPDATED: Function to calculate duration in mess for member list
         function getDurationInMess(joinDate) {
             if (!joinDate) return "-";
-            
             const join = new Date(joinDate);
             const now = new Date();
-            
-            // Calculate difference in months
             let years = now.getFullYear() - join.getFullYear();
             let months = now.getMonth() - join.getMonth();
-            
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            // Adjust for days
+            if (months < 0) { years--; months += 12; }
             const daysDiff = now.getDate() - join.getDate();
-            if (daysDiff < 0) {
-                months--;
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
-            }
-            
+            if (daysDiff < 0) { months--; if (months < 0) { years--; months += 12; } }
             let durationText = '';
-            if (years > 0) {
-                durationText += years + ' বছর ';
-            }
-            if (months > 0) {
-                durationText += months + ' মাস';
-            }
-            if (years === 0 && months === 0) {
-                durationText = 'নতুন';
-            }
-            
+            if (years > 0) durationText += years + ' বছর ';
+            if (months > 0) durationText += months + ' মাস';
+            if (years === 0 && months === 0) durationText = 'নতুন';
             return durationText;
         }
         
@@ -2887,15 +2787,9 @@
 
             for(let key in allMembersData) {
                 const m = allMembersData[key];
-                
-                // Search Filter Logic
-                if (term && !m.name.toLowerCase().includes(term)) {
-                    continue; // Skip if doesn't match
-                }
+                if (term && !m.name.toLowerCase().includes(term)) continue;
 
-                // Calculate duration in mess
                 const duration = getDurationInMess(m.join_date);
-                
                 html += `
                     <div class="mem-card">
                         <div class="mem-head">
@@ -2920,20 +2814,15 @@
                         </div>
                     </div>`;
             }
-            
-            if(html === '') {
-                html = '<div style="text-align:center; padding:20px; color:#777; grid-column:1/-1;">কোন সদস্য পাওয়া যায়নি</div>';
-            }
+            if(html === '') html = '<div style="text-align:center; padding:20px; color:#777; grid-column:1/-1;">কোন সদস্য পাওয়া যায়নি</div>';
             container.innerHTML = html;
         }
 
-        // Expose Search function globally
         window.searchMember = () => {
             const box = document.getElementById('mem-search-box');
             renderAllMemberList(box.value);
         }
 
-        // --- PDF GENERATION LOGIC (Native Print for Bengali Support) ---
         window.printMembers = () => {
             const printArea = document.getElementById('print-area');
             let tableHTML = `
@@ -2979,22 +2868,17 @@
 
             tableHTML += `</tbody></table>`;
             tableHTML += `<div style="margin-top:20px; text-align:right; font-size:10px; color:#555;">Printed on: ${new Date().toLocaleString('bn-BD')}</div>`;
-            
             printArea.innerHTML = tableHTML;
             window.print();
-            // Clear print area after printing is done (optional, but keeps DOM clean)
-            // printArea.innerHTML = ''; 
         }
 
-        // --- EXCEL/CSV DOWNLOAD LOGIC ---
         window.downloadCSV = () => {
-            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Add BOM for Bengali support
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; 
             csvContent += "Name,Phone,Blood Group,Profession,Class,College,Department,Session,Duration,Address,Note\n";
 
             for(let key in allMembersData) {
                 const m = allMembersData[key];
                 const duration = getDurationInMess(m.join_date);
-                // Escape commas to prevent breaking CSV
                 const clean = (text) => text ? `"${text.toString().replace(/"/g, '""')}"` : "";
                 
                 const row = [
@@ -3074,7 +2958,6 @@
             });
         }
         
-        // FETCH APIS
         async function fetchWeather() {
             try {
                 const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=24.8481&longitude=89.3730&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m");
@@ -3154,7 +3037,6 @@
         
         initApp();
     </script>
-    <!-- UI & TIME SCRIPT -->
     <script>
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('show');
@@ -3181,7 +3063,6 @@
             document.getElementById('emergencyModal').style.display = 'flex';
         }
         
-        // Toggle Rules Function
         function toggleRules() {
             const content = document.getElementById('rules-content');
             const toggleBtn = document.querySelector('.rules-header-toggle');
@@ -3224,14 +3105,13 @@
         function updateTime() {
             const now = new Date();
             const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
-            // NEW: Days Array
             const days = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
             
             const toBn = n => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
             const dayDate = toBn(now.getDate());
             const monthName = months[now.getMonth()];
             const year = toBn(now.getFullYear());
-            const dayName = days[now.getDay()]; // Get Day Name
+            const dayName = days[now.getDay()];
             
             let hours = now.getHours();
             let minutes = now.getMinutes();
@@ -3256,7 +3136,6 @@
             let showHours = hours % 12;
             if(showHours === 0) showHours = 12;
             const timeStr = `${toBn(showHours)}:${toBn(minutes < 10 ? '0'+minutes : minutes)} ${period}`;
-            // UPDATED DATE STRING WITH DAY NAME
             const dateStr = `${dayName}, ${dayDate} ${monthName} ${year}`;
             
             document.getElementById('live-date').innerText = dateStr;
@@ -3300,7 +3179,6 @@
     </script>
     
     <script>
-    // --- SERVICE WORKER REGISTRATION (OFFLINE SUPPORT) ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
@@ -3309,27 +3187,20 @@
         });
     }
 
-    // --- INSTALL PROMPT LOGIC ---
     let deferredPrompt;
     const installModal = document.getElementById('install-modal');
 
-    // 1. Listen for the install prompt event
     window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
         e.preventDefault();
-        // Stash the event so it can be triggered later.
         deferredPrompt = e;
         
-        // 2. Show the modal after 5 seconds (5000 ms)
         setTimeout(() => {
-            // Check if app is already installed
             if (!window.matchMedia('(display-mode: standalone)').matches) {
                 installModal.style.display = 'block';
             }
         }, 5000);
     });
 
-    // 3. Action when user clicks "Install"
     async function installPWA() {
         if (deferredPrompt) {
             deferredPrompt.prompt();
@@ -3340,12 +3211,10 @@
         installModal.style.display = 'none';
     }
 
-    // 4. Action when user clicks "Later"
     function closeInstallModal() {
         installModal.style.display = 'none';
     }
 
-    // 5. Hide modal if app is already installed
     window.addEventListener('appinstalled', () => {
         installModal.style.display = 'none';
         console.log('PWA was installed');
