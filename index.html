@@ -4,499 +4,1759 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ছবিকুঞ্জ ছাত্রাবাস - স্মার্ট মেস ম্যানেজমেন্ট  সিস্টেম</title>
-    
+    <title>ছবিকুঞ্জ ছাত্রাবাস - স্মার্ট মেস ম্যানেজমেন্ট সিস্টেম</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <!-- CSS Styling -->
     <style>
         /* ================= NEW DUAL LOGIN CSS ================= */
         #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
             background: linear-gradient(135deg, #1e272e, #2c3e50);
-            z-index: 99999; display: flex; justify-content: center; align-items: center;
-            flex-direction: column; padding: 20px;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
         }
-
         .login-card {
-            background: white; width: 100%; max-width: 450px;
-            border-radius: 20px; overflow: hidden;
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            overflow: hidden;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             font-family: 'Poppins', 'Tiro Bangla', sans-serif;
             animation: popIn 0.5s ease;
         }
-
-        @keyframes popIn { from{transform: scale(0.9); opacity: 0;} to{transform: scale(1); opacity: 1;} }
-
+        @keyframes popIn {
+            from{transform: scale(0.9); opacity: 0;}
+            to{transform: scale(1); opacity: 1;}
+        }
         .login-header {
-            background: #00cec9; padding: 25px; text-align: center; color: white;
+            background: #00cec9;
+            padding: 25px;
+            text-align: center;
+            color: white;
         }
-        .login-header h2 { font-family: 'Tiro Bangla'; font-size: 24px; margin-bottom: 5px; }
-        .login-header p { font-size: 14px; opacity: 0.9; }
-
-        .login-tabs { display: flex; background: #f1f2f6; }
+        .login-header h2 {
+            font-family: 'Tiro Bangla';
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .login-tabs {
+            display: flex;
+            background: #f1f2f6;
+        }
         .tab-btn {
-            flex: 1; padding: 15px; border: none; background: transparent;
-            font-weight: bold; cursor: pointer; color: #636e72; font-family: 'Tiro Bangla'; font-size: 16px;
-            border-bottom: 3px solid transparent; transition: 0.3s;
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            cursor: pointer;
+            color: #636e72;
+            font-family: 'Tiro Bangla';
+            font-size: 16px;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
         }
-        .tab-btn.active { border-bottom-color: #00cec9; color: #00cec9; background: white; }
-
-        .login-body { padding: 30px; }
-        .login-form { display: none; }
-        .login-form.active { display: block; animation: fadeIn 0.3s; }
-
-        .input-group-login { position: relative; margin-bottom: 20px; }
-        .input-group-login label { display: block; font-size: 13px; font-weight: 600; color: #2d3436; margin-bottom: 8px; font-family: 'Tiro Bangla'; }
+        .tab-btn.active {
+            border-bottom-color: #00cec9;
+            color: #00cec9;
+            background: white;
+        }
+        .login-body {
+            padding: 30px;
+        }
+        .login-form {
+            display: none;
+        }
+        .login-form.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        .input-group-login {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .input-group-login label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+            font-family: 'Tiro Bangla';
+        }
         .input-group-login input {
-            width: 100%; padding: 12px 15px; border: 2px solid #dfe6e9;
-            border-radius: 8px; outline: none; transition: 0.3s; font-size: 15px;
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+            font-size: 15px;
         }
-        .input-group-login input:focus { border-color: #00cec9; }
+        .input-group-login input:focus {
+            border-color: #00cec9;
+        }
         .input-group-login i.toggle-pass {
-            position: absolute; right: 15px; top: 40px; color: #b2bec3; cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            color: #b2bec3;
+            cursor: pointer;
         }
-
         .btn-login {
-            width: 100%; padding: 12px; background: #2d3436; color: white;
-            border: none; border-radius: 8px; font-size: 16px; font-weight: 600; font-family: 'Tiro Bangla';
-            cursor: pointer; transition: 0.3s;
+            width: 100%;
+            padding: 12px;
+            background: #2d3436;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Tiro Bangla';
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .btn-login:hover { background: #00cec9; }
-
-        .error-msg { color: #d63031; font-size: 13px; text-align: center; margin-top: 10px; display: none; font-family: 'Tiro Bangla'; }
-
+        .btn-login:hover {
+            background: #00cec9;
+        }
+        .error-msg {
+            color: #d63031;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+            font-family: 'Tiro Bangla';
+        }
         /* CREDENTIAL MODAL */
-        #credModal { display: none; position: fixed; z-index: 100000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-        .cred-box { background:white; padding:30px; border-radius:15px; text-align:center; max-width:400px; width:90%; border-top: 5px solid #00cec9; }
-        .cred-copy-box { background:#f1f2f6; padding:15px; margin:15px 0; border-radius:8px; border:1px dashed #b2bec3; text-align:left; }
-        .cred-line { margin-bottom:5px; font-family: monospace; font-size:16px; word-break: break-all; }
-        
+        #credModal {
+            display: none;
+            position: fixed;
+            z-index: 100000;
+            left:0; top:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.8);
+            justify-content:center;
+            align-items:center;
+        }
+        .cred-box {
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            text-align:center;
+            max-width:400px;
+            width:90%;
+            border-top: 5px solid #00cec9;
+        }
+        .cred-copy-box {
+            background:#f1f2f6;
+            padding:15px;
+            margin:15px 0;
+            border-radius:8px;
+            border:1px dashed #b2bec3;
+            text-align:left;
+        }
+        .cred-line {
+            margin-bottom:5px;
+            font-family: monospace;
+            font-size:16px;
+            word-break: break-all;
+        }
         /* Hide Main Content Initially */
-        #main-website-container { display: none; }
-        
+        #main-website-container {
+            display: none;
+        }
         /* Disabled form style */
-        .disabled-form { pointer-events: none; opacity: 0.8; }
-        .disabled-form input, .disabled-form select, .disabled-form textarea { background-color: #f1f2f6; color: #555; }
-        
+        .disabled-form {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .disabled-form input, .disabled-form select, .disabled-form textarea {
+            background-color: #f1f2f6;
+            color: #555;
+        }
         /* Logout Button Style */
         .logout-btn {
-            background: #d6303120; color: #d63031 !important; margin-top: 20px; border: 1px solid #d63031;
-            text-align: center; border-radius: 6px; justify-content: center; font-weight: bold;
+            background: #d6303120;
+            color: #d63031 !important;
+            margin-top: 20px;
+            border: 1px solid #d63031;
+            text-align: center;
+            border-radius: 6px;
+            justify-content: center;
+            font-weight: bold;
         }
-        .logout-btn:hover { background: #d63031; color: white !important; }
-
+        .logout-btn:hover {
+            background: #d63031;
+            color: white !important;
+        }
         /* ================= NEW: USER STATUS CARD ================= */
         .user-status-card {
-            background: white; border-radius: 12px; padding: 15px 20px;
-            margin-bottom: 25px; display: flex; align-items: center; gap: 15px;
-            border-left: 5px solid #00cec9; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 5px solid #00cec9;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             animation: slideDown 0.5s ease;
         }
-        .user-status-card.admin-mode { border-left-color: #6c5ce7; background: #f8f9fa; }
-        
+        .user-status-card.admin-mode {
+            border-left-color: #6c5ce7;
+            background: #f8f9fa;
+        }
         .us-icon {
-            width: 50px; height: 50px; border-radius: 50%;
-            background: #00cec920; color: #00cec9;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
-        }
-        .user-status-card.admin-mode .us-icon { background: #6c5ce720; color: #6c5ce7; }
-        
-        .us-info h3 { font-family: 'Tiro Bangla'; font-size: 18px; margin: 0; color: var(--primary); }
-        .us-info small { font-size: 12px; color: #636e72; font-weight: bold; }
-
-        /* ================= NEW: BEAUTIFUL FLOOR ROOM COUNT BADGE ================= */
-        .floor-room-badge {
-            background: linear-gradient(135deg, #ff7675, #d63031);
-            color: white; padding: 6px 15px; border-radius: 30px;
-            font-size: 12px; font-weight: bold; letter-spacing: 0.5px;
-            box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
-            display: flex; align-items: center; gap: 6px;
-        }
-        .floor-room-badge i { font-size: 14px; }
-
-        /* ================= ROOM TYPE BADGES ================= */
-        .room-badge {
-            position: absolute; top: 10px; right: 10px;
-            font-size: 10px; padding: 3px 10px; border-radius: 20px;
-            color: white; font-weight: 600; letter-spacing: 0.5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-            text-transform: uppercase;
-        }
-        .badge-single { background: linear-gradient(135deg, #00b894, #00cec9); }
-        .badge-double { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
-
-        /* ================= COLLAPSIBLE RULES CSS ================= */
-        .rules-box {
-            background: white; padding: 0; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            border-left: 5px solid #ff7675; 
-            margin-bottom: 30px; overflow: hidden;
-        }
-        .rules-header-toggle {
-            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-            background: #fff; transition: 0.3s;
-        }
-        .rules-header-toggle:hover { background: #f9f9f9; }
-        .rules-header-toggle h3 { margin: 0; color: #c0392b; font-family:'Tiro Bangla'; }
-        .rules-chevron { transition: transform 0.3s ease; color: #636e72; }
-        .rules-content {
-            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #fff;
-        }
-        .rules-content.open { max-height: 1000px; /* Large enough value */ }
-        .rules-inner { padding: 0 20px 20px 20px; }
-        .rules-header-toggle.active .rules-chevron { transform: rotate(180deg); }
-
-    </style>
-
-    <style>
-    /* Shariful Modal CSS (FIXED DISPLAY) */
-    .sharifulinfo-modal { 
-        display: none; 
-        position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; 
-        background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); animation: sharifulinfo-fadeIn 0.4s ease; 
-        overflow-y: auto; padding: 20px 10px; box-sizing: border-box; 
-    }
-    .sharifulinfo-modal-content { position: relative; background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%); margin: auto; border-radius: 25px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1); width: 100%; max-width: 420px; animation: sharifulinfo-slideIn 0.5s ease; color: white; text-align: center; overflow: hidden; box-sizing: border-box; }
-    .sharifulinfo-modal-inner { padding: 30px 25px; position: relative; }
-    .sharifulinfo-modal-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; }
-    .sharifulinfo-close { position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.1); }
-    .sharifulinfo-close:hover { transform: scale(1.1) rotate(90deg); background: rgba(255, 255, 255, 0.2); color: #fdbb2d; }
-    .sharifulinfo-header { margin-bottom: 30px; }
-    .sharifulinfo-image-container { position: relative; display: inline-block; margin-bottom: 25px; }
-    .sharifulinfo-image { width: 160px; height: 160px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, 0.3); object-fit: cover; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.4s ease; position: relative; z-index: 2; }
-    .sharifulinfo-image:hover { transform: scale(1.05); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); }
-    .sharifulinfo-image-overlay { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%; background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d); z-index: 1; opacity: 0.5; animation: sharifulinfo-rotate 10s linear infinite; }
-    .sharifulinfo-name { font-size: 26px; margin: 15px 0 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); letter-spacing: 0.5px; }
-    .sharifulinfo-department { font-size: 18px; margin: 12px 0; font-weight: 600; color: #fdbb2d; letter-spacing: 1px; }
-    .sharifulinfo-session { font-size: 16px; margin: 10px 0; font-weight: 500; opacity: 0.9; }
-    .sharifulinfo-profession-container { margin: 20px 0; }
-    .sharifulinfo-profession { font-size: 16px; margin: 0; font-weight: 500; color: rgba(255, 255, 255, 0.95); padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border-radius: 30px; display: inline-block; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
-    .sharifulinfo-social { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-    .sharifulinfo-social-link { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 15px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 18px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); }
-    .sharifulinfo-social-link:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.2); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
-    .sharifulinfo-social-link:nth-child(1):hover { background: linear-gradient(135deg, rgba(59, 89, 152, 0.8), rgba(59, 89, 152, 0.9)); }
-    .sharifulinfo-social-link:nth-child(2):hover { background: linear-gradient(135deg, rgba(0, 132, 255, 0.8), rgba(0, 132, 255, 0.9)); }
-    .sharifulinfo-social-link:nth-child(3):hover { background: linear-gradient(135deg, rgba(37, 211, 102, 0.8), rgba(37, 211, 102, 0.9)); }
-    .sharifulinfo-social-link:nth-child(4):hover { background: linear-gradient(135deg, rgba(212, 70, 56, 0.8), rgba(212, 70, 56, 0.9)); }
-    .sharifulinfo-social-link i { font-size: 24px; margin-bottom: 8px; }
-    .sharifulinfo-social-link span { font-size: 12px; font-weight: 500; opacity: 0.9; }
-    @keyframes sharifulinfo-fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes sharifulinfo-slideIn { from { opacity: 0; transform: translateY(-30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes sharifulinfo-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @media (max-width: 480px) { .sharifulinfo-modal { padding: 10px 5px; } .sharifulinfo-modal-content { max-width: 95%; border-radius: 20px; } .sharifulinfo-modal-inner { padding: 25px 20px; } .sharifulinfo-image { width: 140px; height: 140px; } .sharifulinfo-name { font-size: 22px; } .sharifulinfo-social { grid-template-columns: 1fr 1fr; gap: 12px; } }
-    </style>
-
-    <style>
-        /* Existing Main Styles */
-        :root { --primary: #2c3e50; --secondary: #00cec9; --accent: #6c5ce7; --danger: #e17055; --bg: #f1f2f6; --white: #ffffff; --sidebar-w: 270px; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', 'Tiro Bangla', sans-serif; background: var(--bg); color: #2d3436; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
-
-        /* --- SIDEBAR (UPDATED FOR SCROLLING) --- */
-        .sidebar { 
-            width: var(--sidebar-w); background: #1e272e; height: 100vh; position: fixed; 
-            color: white; transition: 0.3s; z-index: 1000; 
-            overflow-y: auto; /* Enable Scroll */
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1); 
-            padding-bottom: 80px; /* Crucial for Mobile Scroll to bottom */
-        }
-        /* Custom Scrollbar for Sidebar */
-        .sidebar::-webkit-scrollbar { width: 5px; }
-        .sidebar::-webkit-scrollbar-track { background: #1e272e; }
-        .sidebar::-webkit-scrollbar-thumb { background: #636e72; border-radius: 10px; }
-
-        .brand { padding: 25px 20px; text-align: center; background: #00000020; border-bottom: 1px solid #ffffff10; }
-        .brand h2 { font-family: 'Tiro Bangla'; color: var(--secondary); margin-top: 10px; font-size: 20px; }
-        .brand-link { text-decoration: none; cursor: pointer; }
-        .menu-label { padding: 15px 25px 5px; font-size: 11px; text-transform: uppercase; color: #636e72; font-weight: bold; letter-spacing: 1px; }
-        .nav-links { list-style: none; padding-bottom: 20px; }
-        .nav-links li a { display: flex; align-items: center; padding: 12px 25px; color: #b2bec3; text-decoration: none; transition: 0.3s; font-size: 14px; border-left: 4px solid transparent; cursor: pointer; }
-        .nav-links li a:hover, .nav-links li a.active { background: #ffffff08; color: var(--white); border-left-color: var(--secondary); }
-        .nav-links li a i { width: 30px; font-size: 16px; color: var(--secondary); }
-        .submenu { display: none; background: #00000030; }
-        .submenu.open { display: block; }
-        .submenu a { padding-left: 60px !important; font-size: 13px !important; }
-        
-        .rule-group { margin-bottom: 18px; }
-        .rule-group h4 { color: #2c3e50; margin-bottom: 8px; font-size: 1.05rem; }
-        .rule-group ul { list-style: none; padding-left: 0; }
-        .rule-group ul li { padding: 6px 0; position: relative; padding-left: 22px; color: #444; }
-        .rule-group ul li::before { content: "✔"; position: absolute; left: 0; color: #27ae60; font-size: 14px; }
-
-        /* --- MAIN AREA --- */
-        .main { margin-left: var(--sidebar-w); padding: 20px; transition: 0.3s; flex: 1; padding-bottom: 60px; }
-        .mobile-header { display: none; background: var(--primary); padding: 15px; color: white; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; }
-        .mobile-header-title { text-decoration: none; color: white; }
-        .section { display: none; animation: fadeIn 0.4s ease; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: 0; } }
-
-        /* DATETIME */
-        .datetime-container { background: white; padding: 15px 25px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: flex-start; align-items: center; gap: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--secondary); animation: slideDown 0.5s ease; }
-        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .dt-box { display: flex; align-items: center; gap: 12px; }
-        .dt-icon { width: 42px; height: 42px; background: #f1f2f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; transition: 0.3s; }
-        .dt-box:hover .dt-icon { background: var(--secondary); color: white; }
-        .dt-text h4 { font-family: 'Tiro Bangla'; font-size: 18px; color: var(--primary); margin-bottom: 2px; }
-        .dt-text p { font-family: 'Tiro Bangla'; font-size: 12px; color: #636e72; font-weight: 500; }
-        .greeting-badge { background: var(--accent); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-family: 'Tiro Bangla'; margin-left: auto; }
-
-        /* NOTICE */
-        .notice-board-wrapper { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .notice-label { font-weight: bold; background: #d63031; color: white; padding: 2px 10px; border-radius: 4px; margin-right: 15px; font-size: 12px; white-space: nowrap; }
-        .notice-text { font-family: 'Tiro Bangla'; font-size: 14px; width: 100%; overflow: hidden; white-space: nowrap; }
-
-        /* SLIDER & STATS */
-        .slider-wrapper { position: relative; width: 100%; height: 320px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; background-size: cover; background-position: center; }
-        .slide.active { opacity: 1; }
-        .slide-content { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 30px 20px; color: white; }
-        .slide-content h1 { font-family: 'Tiro Bangla'; font-size: 28px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .stat-card-new { background: white; padding: 20px 15px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #f0f0f0; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .stat-card-new:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .stat-icon-new { font-size: 28px; margin-bottom: 10px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f2f6; }
-        .stat-num-new { font-size: 24px; font-weight: 700; color: var(--primary); line-height: 1; margin-bottom: 5px; }
-        .stat-label-new { font-size: 13px; color: #636e72; font-family: 'Tiro Bangla'; }
-
-        /* WEATHER & MAP */
-        .weather-card { background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; position: relative; box-shadow: 0 10px 20px rgba(9, 132, 227, 0.3); overflow: hidden; }
-        .weather-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; }
-        .w-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .w-loc h3 { font-family: 'Tiro Bangla'; font-size: 22px; }
-        .w-loc p { font-size: 12px; opacity: 0.9; }
-        .w-main { display: flex; align-items: center; gap: 20px; }
-        .w-temp { font-size: 45px; font-weight: bold; }
-        .w-icon { font-size: 40px; color: #dfe6e9; }
-        .w-details { margin-top: 20px; display: flex; gap: 20px; font-size: 13px; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 8px; width: fit-content; }
-        .map-section { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .map-header { border-bottom: 2px solid #f1f2f6; padding-bottom: 10px; margin-bottom: 15px; }
-        .map-header h3 { font-family: 'Tiro Bangla'; color: var(--primary); }
-        .map-container { width: 100%; height: 250px; border-radius: 10px; overflow: hidden; border: 1px solid #eee; }
-
-        /* FACILITIES & SUN/PRAYER */
-        .facilities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .fac-card { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
-        .fac-card:hover { transform: translateY(-5px); }
-        .fac-card i { font-size: 24px; color: var(--accent); margin-bottom: 10px; }
-        .fac-card h4 { font-size: 14px; font-family: 'Tiro Bangla'; }
-        .sun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; margin-bottom: 25px; }
-        .sun-card { padding: 20px; border-radius: 15px; color: white; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
-        .sun-rise { background: linear-gradient(135deg, #f0932b, #f6e58d); color: #2d3436; }
-        .sun-set { background: linear-gradient(135deg, #2c3e50, #4a69bd); color: white; }
-        .sun-icon { font-size: 30px; margin-bottom: 8px; display: block; }
-        .sun-time { font-size: 22px; font-weight: bold; font-family: 'Tiro Bangla'; }
-        .sun-label { font-size: 13px; font-family: 'Tiro Bangla'; opacity: 0.8; }
-        .prayer-section { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--secondary); margin-bottom: 30px; }
-        .prayer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .prayer-list { list-style: none; }
-        .prayer-item { display: flex; justify-content: space-between; padding: 12px; border-radius: 8px; margin-bottom: 8px; transition: 0.2s; font-family: 'Tiro Bangla'; font-size: 15px; background: #f8f9fa; border-left: 3px solid transparent; }
-        .prayer-item:hover { background: #e0f7fa; transform: translateX(5px); }
-        .p-name { font-weight: bold; display: flex; align-items: center; gap: 10px; }
-
-        /* MEMBER & BLOOD & FOOTER */
-        .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .mem-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: 0.3s; }
-        .mem-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .mem-head { background: linear-gradient(135deg, var(--primary), #34495e); padding: 20px; text-align: center; color: white; position: relative; }
-        .mem-avatar { width: 80px; height: 80px; background: white; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 35px; color: var(--primary); }
-        .mem-blood-badge { position: absolute; top: 15px; right: 15px; background: #e17055; color: white; font-weight: bold; padding: 5px 10px; border-radius: 20px; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .mem-body { padding: 20px; }
-        .mem-name { text-align: center; font-family: 'Tiro Bangla'; font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); }
-        .mem-info-row { display: flex; margin-bottom: 8px; font-size: 13px; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
-        .mem-info-row:last-child { border-bottom: none; }
-        .mem-icon { width: 25px; color: var(--secondary); text-align: center; margin-right: 10px; }
-        .mem-label { font-weight: 600; margin-right: 5px; color: #636e72; font-family: 'Tiro Bangla'; }
-        .mem-val { color: #2d3436; font-family: 'Tiro Bangla'; }
-        .blood-hero { background: linear-gradient(135deg, #ff7675, #d63031); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(214, 48, 49, 0.3); }
-        .blood-search-box { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
-        .b-select { padding: 12px 20px; border-radius: 30px; border: none; font-size: 16px; outline: none; width: 200px; color: #333; }
-        .blood-result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .b-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid #ff7675; position: relative; }
-        .b-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f1f2f6; padding-bottom: 10px; }
-        .b-name { font-family: 'Tiro Bangla'; font-size: 18px; font-weight: bold; color: var(--primary); }
-        .b-eligibility { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: bold; }
-        .elig-yes { background: #00b89420; color: #00b894; border: 1px solid #00b894; }
-        .elig-no { background: #d6303120; color: #d63031; border: 1px solid #d63031; }
-        .b-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; background: #f8f9fa; padding: 10px; border-radius: 8px; }
-        .b-date-box { font-size: 12px; font-family: 'Tiro Bangla'; }
-        .b-date-label { color: #636e72; display: block; margin-bottom: 3px; }
-        .b-date-val { font-weight: bold; color: var(--primary); }
-        .b-total-stat { text-align: center; margin-bottom: 15px; font-size: 13px; font-family: 'Tiro Bangla'; color: #2c3e50; background: #ffeaa750; padding: 5px; border-radius: 5px; }
-        .btn-call { display: block; width: 100%; text-align: center; background: var(--primary); color: white; padding: 10px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; }
-        .btn-call:hover { background: var(--secondary); }
-        .floor-title-bar { background: white; padding: 15px 25px; border-radius: 10px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        
-        /* UPDATED: We removed .room-grid generic class styling that was here before, 
-           because we will use the specific grid layouts below. 
-           But we keep .room-card styling for the individual room boxes. */
-        
-        .room-card { 
-            background: white; padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #eee; position: relative; overflow: hidden; 
-            /* Flex layout to center content */
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100%; width: 100%;
-        }
-        .room-card:hover { transform: translateY(-5px); border-color: var(--secondary); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .r-icon { font-size: 32px; color: #b2bec3; margin-bottom: 10px; position: relative; z-index: 2; }
-        .r-icon.active { color: var(--accent); }
-        
-        .footer-compact { background: #2d3436; color: #b2bec3; padding: 15px; border-radius: 10px; margin-top: 30px; text-align: center; font-size: 12px; border-bottom: 3px solid var(--secondary); }
-        .footer-compact a { color: var(--white); text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .footer-compact a:hover { color: var(--secondary); text-decoration: underline; }
-
-        /* MODALS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 95%; max-width: 500px; border-radius: 15px; overflow: hidden; max-height: 90vh; overflow-y: auto; animation: popUp 0.3s; }
-        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: 1; opacity: 1; } }
-        .modal-head { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .modal-body { padding: 15px; }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-size: 12px; font-weight: bold; color: #636e72; margin-bottom: 5px; }
-        .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px; border: 1px solid #dfe6e9; border-radius: 6px; font-family: 'Tiro Bangla'; outline: none; transition: 0.3s; }
-        .btn-full { width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; font-family: 'Tiro Bangla'; }
-        .btn-save { background: var(--secondary); color: white; }
-        .btn-del { background: #d63031; color: white; }
-        .calc-placeholder { background: white; padding: 20px; border-radius: 10px; min-height: 300px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .em-list { list-style: none; padding: 0; }
-        .em-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #eee; transition: 0.2s; cursor: pointer; }
-        .em-item:last-child { border-bottom: none; }
-        .em-item:hover { background: #f9f9f9; transform: translateX(5px); }
-        .em-icon { width: 40px; height: 40px; background: #ffeaa7; color: #fdcb6e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 18px; flex-shrink: 0; }
-        .em-text h4 { font-family: 'Tiro Bangla'; color: #2d3436; margin-bottom: 2px; font-size: 15px; }
-        .em-text p { font-size: 13px; color: #636e72; font-weight: bold; }
-
-        @media(max-width: 768px) {
-            .sidebar { transform: translateX(-100%); width: 260px; }
-            .sidebar.show { transform: translateX(0); }
-            .main { margin-left: 0; width: 100%; padding-top: 10px; }
-            .mobile-header { display: flex; }
-            .datetime-container { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .greeting-badge { margin-left: 0; margin-top: 5px; }
-        }
-
-        /* DARK MODE */
-        body.dark-mode { background-color: #121212; color: #dfe6e9; --bg: #121212; --white: #1e272e; }
-        body.dark-mode .main { background-color: #121212; }
-        body.dark-mode .sidebar { background-color: #000000; box-shadow: 4px 0 10px rgba(255,255,255,0.05); }
-        body.dark-mode .nav-links li a { color: #b2bec3; }
-        body.dark-mode .nav-links li a:hover, body.dark-mode .nav-links li a.active { color: #ffffff; background: rgba(255,255,255,0.1); }
-        body.dark-mode .menu-label { color: #a4b0be; }
-        body.dark-mode .submenu { background: #1e272e; }
-        body.dark-mode .datetime-container, body.dark-mode .stat-card-new, body.dark-mode .fac-card, body.dark-mode .mem-card, body.dark-mode .b-card, body.dark-mode .room-card, body.dark-mode .map-section, body.dark-mode .prayer-section, body.dark-mode .footer-compact, body.dark-mode .calc-placeholder, body.dark-mode .modal-content, body.dark-mode .floor-title-bar, body.dark-mode .notice-board-wrapper, body.dark-mode .prayer-item, body.dark-mode .rules-box, body.dark-mode .cred-box, body.dark-mode .user-status-card, body.dark-mode .rules-header-toggle, body.dark-mode .rules-content { background-color: #1e272e !important; color: #dfe6e9; border-color: #4b4b4b; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 { color: #dfe6e9 !important; }
-        body.dark-mode p, body.dark-mode span, body.dark-mode label, body.dark-mode li { color: #b2bec3; }
-        body.dark-mode .stat-num-new { color: #81ecec; }
-        body.dark-mode .mem-name { color: #81ecec; }
-        body.dark-mode .p-name { color: #dfe6e9; }
-        body.dark-mode .mem-label { color: #81ecec; }
-        body.dark-mode .dt-text p { color: #b2bec3; }
-        body.dark-mode .dt-text h4 { color: #81ecec; }
-        body.dark-mode .notice-text { color: #ffeaa7; }
-        body.dark-mode .stat-icon-new { background-color: #2d3436 !important; }
-        body.dark-mode .stat-icon-new[style*="color:#2d3436"] { color: #dfe6e9 !important; }
-        body.dark-mode .footer-compact a { color: #00cec9 !important; }
-        body.dark-mode .prayer-item:hover { background-color: #4b4b4b; }
-        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background-color: #2d3436; color: white; border-color: #636e72; }
-        body.dark-mode .em-item { border-bottom-color: #4b4b4b; }
-        body.dark-mode .em-item:hover { background-color: #2d3436; }
-        body.dark-mode .b-name { color: #81ecec; }
-        body.dark-mode .b-total-stat { background: #2d3436; color: #dfe6e9; }
-        body.dark-mode .b-dates { background: #2d3436; }
-        body.dark-mode .b-select { background: #2d3436; color: white; border: 1px solid #636e72; }
-        body.dark-mode .rules-box ul li { color: #dfe6e9 !important; }
-        body.dark-mode .rules-box h3 { color: #ff7675 !important; }
-        body.dark-mode .rules-box i { color: #00b894; }
-        body.dark-mode .cred-copy-box { background-color: #2d3436; border-color: #636e72; }
-        body.dark-mode .us-icon { background: #2d3436 !important; color: #00cec9 !important; }
-        body.dark-mode .user-status-card.admin-mode .us-icon { background: #2d3436 !important; color: #6c5ce7 !important; }
-        body.dark-mode .rules-header-toggle:hover { background: #2d3436; }
-        
-        /* Dark mode support for specific grid rooms */
-        body.dark-mode .static-room.dining { background-color: #353b48 !important; color: #dfe6e9; border-color: #636e72; }
-        body.dark-mode .static-room.stairs { background-color: #2f3640 !important; color: #dfe6e9; border-color: #636e72; }
-        body.dark-mode .static-room.kitchen { background-color: #2c3e50 !important; color: #dfe6e9; border-color: #636e72; }
-        body.dark-mode .static-room.bath { background-color: #192a56 !important; color: #dfe6e9; border-color: #636e72; }
-        body.dark-mode .room:hover { background-color: #2d3436; }
-    </style>
-
-    <!-- ==================== INSERTED GRID LAYOUT STYLES ==================== -->
-    <style>
-        .grid-container {
-            display: grid;
-            gap: 15px;
-            grid-template-columns: repeat(3, 1fr);
-            margin-top: 20px;
-        }
-
-        /* Generic container for room-card placement */
-        .room-slot {
-            min-height: 80px;
-            display: flex;
-            align-items: stretch;
-            justify-content: stretch;
-        }
-
-        /* Styles for static elements (Stairs, Dining, etc) */
-        .static-room {
-            background: #ffffff;
-            border: 2px solid #2c3e50;
-            border-radius: 12px;
-            min-height: 80px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #00cec920;
+            color: #00cec9;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 24px;
+        }
+        .user-status-card.admin-mode .us-icon {
+            background: #6c5ce720;
+            color: #6c5ce7;
+        }
+        .us-info h3 {
+            font-family: 'Tiro Bangla';
+            font-size: 18px;
+            margin: 0;
+            color: var(--primary);
+        }
+        .us-info small {
+            font-size: 12px;
+            color: #636e72;
             font-weight: bold;
-            font-size: 1.2em;
+        }
+        /* ================= NEW: BEAUTIFUL FLOOR ROOM COUNT BADGE ================= */
+        .floor-room-badge {
+            background: linear-gradient(135deg, #ff7675, #d63031);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .floor-room-badge i {
+            font-size: 14px;
+        }
+        /* ================= ROOM TYPE BADGES ================= */
+        .room-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            text-transform: uppercase;
+        }
+        .badge-single {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+        .badge-double {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        }
+        /* ================= COLLAPSIBLE RULES CSS ================= */
+        .rules-box {
+            background: white;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #ff7675;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .rules-header-toggle {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            transition: 0.3s;
+        }
+        .rules-header-toggle:hover {
+            background: #f9f9f9;
+        }
+        .rules-header-toggle h3 {
+            margin: 0;
+            color: #c0392b;
+            font-family:'Tiro Bangla';
+        }
+        .rules-chevron {
+            transition: transform 0.3s ease;
+            color: #636e72;
+        }
+        .rules-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #fff;
+        }
+        .rules-content.open {
+            max-height: 1000px; /* Large enough value */
+        }
+        .rules-inner {
+            padding: 0 20px 20px 20px;
+        }
+        .rules-header-toggle.active .rules-chevron {
+            transform: rotate(180deg);
+        }
+        
+    </style>
+    <style>
+        /* Shariful Modal CSS (FIXED DISPLAY) */
+        .sharifulinfo-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            animation: sharifulinfo-fadeIn 0.4s ease;
+            overflow-y: auto;
+            padding: 20px 10px;
+            box-sizing: border-box;
+        }
+        .sharifulinfo-modal-content {
+            position: relative;
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+            margin: auto;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 420px;
+            animation: sharifulinfo-slideIn 0.5s ease;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .sharifulinfo-modal-inner {
+            padding: 30px 25px;
+            position: relative;
+        }
+        .sharifulinfo-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d);
+            z-index: 1;
+        }
+        .sharifulinfo-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            font-family: 'Tiro Bangla', sans-serif;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .sharifulinfo-close:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: rgba(255, 255, 255, 0.2);
+            color: #fdbb2d;
+        }
+        .sharifulinfo-header {
+            margin-bottom: 30px;
+        }
+        .sharifulinfo-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        .sharifulinfo-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .sharifulinfo-image:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        .sharifulinfo-image-overlay {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            z-index: 1;
+            opacity: 0.5;
+            animation: sharifulinfo-rotate 10s linear infinite;
+        }
+        .sharifulinfo-name {
+            font-size: 26px;
+            margin: 15px 0 10px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+        .sharifulinfo-department {
+            font-size: 18px;
+            margin: 12px 0;
+            font-weight: 600;
+            color: #fdbb2d;
+            letter-spacing: 1px;
+        }
+        .sharifulinfo-session {
+            font-size: 16px;
+            margin: 10px 0;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .sharifulinfo-profession-container {
+            margin: 20px 0;
+        }
+        .sharifulinfo-profession {
+            font-size: 16px;
+            margin: 0;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .sharifulinfo-social {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .sharifulinfo-social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .sharifulinfo-social-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .sharifulinfo-social-link:nth-child(1):hover {
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.8), rgba(59, 89, 152, 0.9));
+        }
+        .sharifulinfo-social-link:nth-child(2):hover {
+            background: linear-gradient(135deg, rgba(0, 132, 255, 0.8), rgba(0, 132, 255, 0.9));
+        }
+        .sharifulinfo-social-link:nth-child(3):hover {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.8), rgba(37, 211, 102, 0.9));
+        }
+        .sharifulinfo-social-link:nth-child(4):hover {
+            background: linear-gradient(135deg, rgba(212, 70, 56, 0.8), rgba(212, 70, 56, 0.9));
+        }
+        .sharifulinfo-social-link i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .sharifulinfo-social-link span {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        @keyframes sharifulinfo-fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes sharifulinfo-slideIn {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes sharifulinfo-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @media (max-width: 480px) {
+            .sharifulinfo-modal {
+                padding: 10px 5px;
+            }
+            .sharifulinfo-modal-content {
+                max-width: 95%;
+                border-radius: 20px;
+            }
+            .sharifulinfo-modal-inner {
+                padding: 25px 20px;
+            }
+            .sharifulinfo-image {
+                width: 140px;
+                height: 140px;
+            }
+            .sharifulinfo-name {
+                font-size: 22px;
+            }
+            .sharifulinfo-social {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+    <style>
+        /* Existing Main Styles */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #00cec9;
+            --accent: #6c5ce7;
+            --danger: #e17055;
+            --bg: #f1f2f6;
+            --white: #ffffff;
+            --sidebar-w: 270px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', 'Tiro Bangla', sans-serif;
+            background: var(--bg);
+            color: #2d3436;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+        /* --- SIDEBAR (UPDATED FOR SCROLLING) --- */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: #1e272e;
+            height: 100vh;
+            position: fixed;
+            color: white;
+            transition: 0.3s;
+            z-index: 1000;
+            overflow-y: auto; /* Enable Scroll */
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            padding-bottom: 80px; /* Crucial for Mobile Scroll to bottom */
+        }
+        /* Custom Scrollbar for Sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #1e272e;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #636e72;
+            border-radius: 10px;
+        }
+        .brand {
+            padding: 25px 20px;
+            text-align: center;
+            background: #00000020;
+            border-bottom: 1px solid #ffffff10;
+        }
+        .brand h2 {
+            font-family: 'Tiro Bangla';
+            color: var(--secondary);
+            margin-top: 10px;
+            font-size: 20px;
+        }
+        .brand-link {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .menu-label {
+            padding: 15px 25px 5px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #636e72;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .nav-links {
+            list-style: none;
+            padding-bottom: 20px;
+        }
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            color: #b2bec3;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 14px;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+        .nav-links li a:hover, .nav-links li a.active {
+            background: #ffffff08;
+            color: var(--white);
+            border-left-color: var(--secondary);
+        }
+        .nav-links li a i {
+            width: 30px;
+            font-size: 16px;
+            color: var(--secondary);
+        }
+        .submenu {
+            display: none;
+            background: #00000030;
+        }
+        .submenu.open {
+            display: block;
+        }
+        .submenu a {
+            padding-left: 60px !important;
+            font-size: 13px !important;
+        }
+        .rule-group {
+            margin-bottom: 18px;
+        }
+        .rule-group h4 {
             color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
         }
-
-        /* বিশেষ রুমের স্টাইল */
-        .dining { background-color: #eef2f3; border-color: #bdc3c7; }
-        .stairs { background-color: #fff9e6; border-style: dashed; border-color: #f1c40f; }
-        .kitchen { background-color: #fff0eb; border-color: #e17055; }
-        .bath { background-color: #e3f2fd; font-size: 0.9em; border-color: #74b9ff; }
-
-        /* ১ তলার গ্রিড লেআউট */
-        .f1-grid {
-            grid-template-areas: 
-                "r101 stairs r104"
-                "dining dining bath"
-                "r102 kitchen r103";
+        .rule-group ul {
+            list-style: none;
+            padding-left: 0;
         }
+        .rule-group ul li {
+            padding: 6px 0;
+            position: relative;
+            padding-left: 22px;
+            color: #444;
+        }
+        .rule-group ul li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-size: 14px;
+        }
+        /* --- MAIN AREA --- */
+        .main {
+            margin-left: var(--sidebar-w);
+            padding: 20px;
+            transition: 0.3s;
+            flex: 1;
+            padding-bottom: 60px;
+        }
+        .mobile-header {
+            display: none;
+            background: var(--primary);
+            padding: 15px;
+            color: white;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .mobile-header-title {
+            text-decoration: none;
+            color: white;
+        }
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: 0; }
+        }
+        /* DATETIME */
+        .datetime-container {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+            animation: slideDown 0.5s ease;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .dt-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .dt-icon {
+            width: 42px;
+            height: 42px;
+            background: #f1f2f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .dt-box:hover .dt-icon {
+            background: var(--secondary);
+            color: white;
+        }
+        .dt-text h4 {
+            font-family: 'Tiro Bangla';
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+        .dt-text p {
+            font-family: 'Tiro Bangla';
+            font-size: 12px;
+            color: #636e72;
+            font-weight: 500;
+        }
+        .greeting-badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: 'Tiro Bangla';
+            margin-left: auto;
+        }
+        /* NOTICE */
+        .notice-board-wrapper {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .notice-label {
+            font-weight: bold;
+            background: #d63031;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-right: 15px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        .notice-text {
+            font-family: 'Tiro Bangla';
+            font-size: 14px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        /* SLIDER & STATS */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s;
+            background-size: cover;
+            background-position: center;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 40px 30px 20px;
+            color: white;
+        }
+        .slide-content h1 {
+            font-family: 'Tiro Bangla';
+            font-size: 28px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card-new {
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .stat-card-new:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .stat-icon-new {
+            font-size: 28px;
+            margin-bottom: 10px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f1f2f6;
+        }
+        .stat-num-new {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .stat-label-new {
+            font-size: 13px;
+            color: #636e72;
+            font-family: 'Tiro Bangla';
+        }
+        /* WEATHER & MAP */
+        .weather-card {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(9, 132, 227, 0.3);
+            overflow: hidden;
+        }
+        .weather-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .w-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .w-loc h3 {
+            font-family: 'Tiro Bangla';
+            font-size: 22px;
+        }
+        .w-loc p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        .w-main {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .w-temp {
+            font-size: 45px;
+            font-weight: bold;
+        }
+        .w-icon {
+            font-size: 40px;
+            color: #dfe6e9;
+        }
+        .w-details {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            background: rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+        .map-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .map-header {
+            border-bottom: 2px solid #f1f2f6;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .map-header h3 {
+            font-family: 'Tiro Bangla';
+            color: var(--primary);
+        }
+        .map-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        /* FACILITIES & SUN/PRAYER */
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .fac-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .fac-card:hover {
+            transform: translateY(-5px);
+        }
+        .fac-card i {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .fac-card h4 {
+            font-size: 14px;
+            font-family: 'Tiro Bangla';
+        }
+        .sun-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+        .sun-card {
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .sun-rise {
+            background: linear-gradient(135deg, #f0932b, #f6e58d);
+            color: #2d3436;
+        }
+        .sun-set {
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+            color: white;
+        }
+        .sun-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .sun-time {
+            font-size: 22px;
+            font-weight: bold;
+            font-family: 'Tiro Bangla';
+        }
+        .sun-label {
+            font-size: 13px;
+            font-family: 'Tiro Bangla';
+            opacity: 0.8;
+        }
+        .prayer-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--secondary);
+            margin-bottom: 30px;
+        }
+        .prayer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .prayer-list {
+            list-style: none;
+        }
+        .prayer-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: 0.2s;
+            font-family: 'Tiro Bangla';
+            font-size: 15px;
+            background: #f8f9fa;
+            border-left: 3px solid transparent;
+        }
+        .prayer-item:hover {
+            background: #e0f7fa;
+            transform: translateX(5px);
+        }
+        .p-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        /* MEMBER & BLOOD & FOOTER */
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .mem-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            transition: 0.3s;
+        }
+        .mem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .mem-head {
+            background: linear-gradient(135deg, var(--primary), #34495e);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .mem-avatar {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.2);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: var(--primary);
+        }
+        .mem-blood-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e17055;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .mem-body {
+            padding: 20px;
+        }
+        .mem-name {
+            text-align: center;
+            font-family: 'Tiro Bangla';
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .mem-info-row {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 13px;
+            align-items: center;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+        .mem-info-row:last-child {
+            border-bottom: none;
+        }
+        .mem-icon {
+            width: 25px;
+            color: var(--secondary);
+            text-align: center;
+            margin-right: 10px;
+        }
+        .mem-label {
+            font-weight: 600;
+            margin-right: 5px;
+            color: #636e72;
+            font-family: 'Tiro Bangla';
+        }
+        .mem-val {
+            color: #2d3436;
+            font-family: 'Tiro Bangla';
+        }
+        .blood-hero {
+            background: linear-gradient(135deg, #ff7675, #d63031);
+            padding: 40px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(214, 48, 49, 0.3);
+        }
+        .blood-search-box {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .b-select {
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+            width: 200px;
+            color: #333;
+        }
+        .blood-result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .b-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #ff7675;
+            position: relative;
+        }
+        .b-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f1f2f6;
+            padding-bottom: 10px;
+        }
+        .b-name {
+            font-family: 'Tiro Bangla';
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .b-eligibility {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .elig-yes {
+            background: #00b89420;
+            color: #00b894;
+            border: 1px solid #00b894;
+        }
+        .elig-no {
+            background: #d6303120;
+            color: #d63031;
+            border: 1px solid #d63031;
+        }
+        .b-dates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .b-date-box {
+            font-size: 12px;
+            font-family: 'Tiro Bangla';
+        }
+        .b-date-label {
+            color: #636e72;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .b-date-val {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .b-total-stat {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-family: 'Tiro Bangla';
+            color: #2c3e50;
+            background: #ffeaa750;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .btn-call {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-call:hover {
+            background: var(--secondary);
+        }
+        .floor-title-bar {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        /* UPDATED: We removed .room-grid generic class styling that was here before, because we will use the specific grid layouts below. But we keep .room-card styling for the individual room boxes. */
+        .room-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
+            /* Flex layout to center content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+        .room-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .r-icon {
+            font-size: 32px;
+            color: #b2bec3;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .r-icon.active {
+            color: var(--accent);
+        }
+        .footer-compact {
+            background: #2d3436;
+            color: #b2bec3;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            border-bottom: 3px solid var(--secondary);
+        }
+        .footer-compact a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .footer-compact a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        /* MODALS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            width: 95%;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: popUp 0.3s;
+        }
+        @keyframes popUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: 1; opacity: 1; }
+        }
+        .modal-head {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-body {
+            padding: 15px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #636e72;
+            margin-bottom: 5px;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dfe6e9;
+            border-radius: 6px;
+            font-family: 'Tiro Bangla';
+            outline: none;
+            transition: 0.3s;
+        }
+        .btn-full {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Tiro Bangla';
+        }
+        .btn-save {
+            background: var(--secondary);
+            color: white;
+        }
+        .btn-del {
+            background: #d63031;
+            color: white;
+        }
+        .calc-placeholder {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 300px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .em-list {
+            list-style: none;
+            padding: 0;
+        }
+        .em-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .em-item:last-child {
+            border-bottom: none;
+        }
+        .em-item:hover {
+            background: #f9f9f9;
+            transform: translateX(5px);
+        }
+        .em-icon {
+            width: 40px;
+            height: 40px;
+            background: #ffeaa7;
+            color: #fdcb6e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .em-text h4 {
+            font-family: 'Tiro Bangla';
+            color: #2d3436;
+            margin-bottom: 2px;
+            font-size: 15px;
+        }
+        .em-text p {
+            font-size: 13px;
+            color: #636e72;
+            font-weight: bold;
+        }
+        @media(max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 260px;
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding-top: 10px;
+            }
+            .mobile-header {
+                display: flex;
+            }
+            .datetime-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .greeting-badge {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+        /* DARK MODE */
+        body.dark-mode {
+            background-color: #121212;
+            color: #dfe6e9;
+            --bg: #121212;
+            --white: #1e272e;
+        }
+        body.dark-mode .main {
+            background-color: #121212;
+        }
+        body.dark-mode .sidebar {
+            background-color: #000000;
+            box-shadow: 4px 0 10px rgba(255,255,255,0.05);
+        }
+        body.dark-mode .nav-links li a {
+            color: #b2bec3;
+        }
+        body.dark-mode .nav-links li a:hover, body.dark-mode .nav-links li a.active {
+            color: #ffffff;
+            background: rgba(255,255,255,0.1);
+        }
+        body.dark-mode .menu-label {
+            color: #a4b0be;
+        }
+        body.dark-mode .submenu {
+            background: #1e272e;
+        }
+        body.dark-mode .datetime-container, body.dark-mode .stat-card-new, body.dark-mode .fac-card, body.dark-mode .mem-card, body.dark-mode .b-card, body.dark-mode .room-card, body.dark-mode .map-section, body.dark-mode .prayer-section, body.dark-mode .footer-compact, body.dark-mode .calc-placeholder, body.dark-mode .modal-content, body.dark-mode .floor-title-bar, body.dark-mode .notice-board-wrapper, body.dark-mode .prayer-item, body.dark-mode .rules-box, body.dark-mode .cred-box, body.dark-mode .user-status-card, body.dark-mode .rules-header-toggle, body.dark-mode .rules-content {
+            background-color: #1e272e !important;
+            color: #dfe6e9;
+            border-color: #4b4b4b;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #dfe6e9 !important;
+        }
+        body.dark-mode p, body.dark-mode span, body.dark-mode label, body.dark-mode li {
+            color: #b2bec3;
+        }
+        body.dark-mode .stat-num-new {
+            color: #81ecec;
+        }
+        body.dark-mode .mem-name {
+            color: #81ecec;
+        }
+        body.dark-mode .p-name {
+            color: #dfe6e9;
+        }
+        body.dark-mode .mem-label {
+            color: #81ecec;
+        }
+        body.dark-mode .dt-text p {
+            color: #b2bec3;
+        }
+        body.dark-mode .dt-text h4 {
+            color: #81ecec;
+        }
+        body.dark-mode .notice-text {
+            color: #ffeaa7;
+        }
+        body.dark-mode .stat-icon-new {
+            background-color: #2d3436 !important;
+        }
+        body.dark-mode .stat-icon-new[style*="color:#2d3436"] {
+            color: #dfe6e9 !important;
+        }
+        body.dark-mode .footer-compact a {
+            color: #00cec9 !important;
+        }
+        body.dark-mode .prayer-item:hover {
+            background-color: #4b4b4b;
+        }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background-color: #2d3436;
+            color: white;
+            border-color: #636e72;
+        }
+        body.dark-mode .em-item {
+            border-bottom-color: #4b4b4b;
+        }
+        body.dark-mode .em-item:hover {
+            background-color: #2d3436;
+        }
+        body.dark-mode .b-name {
+            color: #81ecec;
+        }
+        body.dark-mode .b-total-stat {
+            background: #2d3436;
+            color: #dfe6e9;
+        }
+        body.dark-mode .b-dates {
+            background: #2d3436;
+        }
+        body.dark-mode .b-select {
+            background: #2d3436;
+            color: white;
+            border: 1px solid #636e72;
+        }
+        body.dark-mode .rules-box ul li {
+            color: #dfe6e9 !important;
+        }
+        body.dark-mode .rules-box h3 {
+            color: #ff7675 !important;
+        }
+        body.dark-mode .rules-box i {
+            color: #00b894;
+        }
+        body.dark-mode .cred-copy-box {
+            background-color: #2d3436;
+            border-color: #636e72;
+        }
+        body.dark-mode .us-icon {
+            background: #2d3436 !important;
+            color: #00cec9 !important;
+        }
+        body.dark-mode .user-status-card.admin-mode .us-icon {
+            background: #2d3436 !important;
+            color: #6c5ce7 !important;
+        }
+        body.dark-mode .rules-header-toggle:hover {
+            background: #2d3436;
+        }
+        /* Dark mode support for specific grid rooms */
+        body.dark-mode .static-room.dining {
+            background-color: #353b48 !important;
+            color: #dfe6e9;
+            border-color: #636e72;
+        }
+        body.dark-mode .static-room.stairs {
+            background-color: #2f3640 !important;
+            color: #dfe6e9;
+            border-color: #636e72;
+        }
+        body.dark-mode .static-room.kitchen {
+            background-color: #2c3e50 !important;
+            color: #dfe6e9;
+            border-color: #636e72;
+        }
+        body.dark-mode .static-room.bath {
+            background-color: #192a56 !important;
+            color: #dfe6e9;
+            border-color: #636e72;
+        }
+        body.dark-mode .room:hover {
+            background-color: #2d3436;
+        }
+    </style>
+    <!-- ==================== INSERTED GRID LAYOUT STYLES ==================== -->
+    
+    
+    <style>
+    .grid-container {
+        display: grid;
+        gap: 15px;
+        grid-template-columns: repeat(3, 1fr); /* ৩টি সমান কলাম */
+        margin-top: 20px;
+    }
 
-        /* ২য় ও ৩য় তলার গ্রিড লেআউট */
+    /* Generic container for room-card placement */
+    .room-slot {
+        min-height: 80px;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+    }
+
+    /* Styles for static elements */
+    .static-room {
+        background: #ffffff;
+        border: 2px solid #2c3e50;
+        border-radius: 12px;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        font-family: 'Tiro Bangla', sans-serif;
+        color: #2c3e50;
+    }
+
+    /* বিশেষ রুমের কালার স্কিম */
+    .dining {
+        background-color: #eef2f3;
+        border-color: #bdc3c7;
+    }
+    .stairs {
+        background-color: #fff9e6;
+        border-style: dashed;
+        border-color: #f1c40f;
+    }
+    .kitchen {
+        background-color: #fff0eb;
+        border-color: #e17055;
+    }
+    .bath {
+        background-color: #e3f2fd;
+        font-size: 0.9em;
+        border-color: #74b9ff;
+    }
+
+    /* ১০৩ নম্বর রুমের কন্টেইনার স্টাইল */
+    .room-103-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ১ তলার লেআউট (স্কেচ অনুযায়ী) */
+    .f1-grid {
+        grid-template-areas: 
+            "r101 stairs r104"
+            "dining dining common-bath"
+            "r102 kitchen r103-group";
+    }
+
+    /* রেস্পন্সিভ মোবাইল ভিউ */
+    @media (max-width: 500px) {
+        .static-room {
+            font-size: 1em;
+            padding: 10px;
+        }
+        .grid-container {
+            gap: 10px;
+        }
+    }
+            /* ২য় ও ৩য় তলার গ্রিড লেআউট */
         .f23-grid {
             grid-template-areas: 
                 "r1 stairs r6"
                 "r2 dining b-group"
                 "r3 r4 r5";
         }
-
         .bath-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-
-        .bath-sm { flex: 1; min-height: 40px; }
-
-        @media (max-width: 500px) {
-            .static-room { font-size: 1em; padding: 10px; }
+        .bath-sm {
+            flex: 1;
+            min-height: 40px;
         }
-    </style>
+        @media (max-width: 500px) {
+            .static-room {
+                font-size: 1em;
+                padding: 10px;
+            }
+        }
+</style>
 
 </head>
 <body>
-
     <!-- ================= DUAL LOGIN OVERLAY ================= -->
     <div id="login-overlay">
         <div class="login-card">
@@ -504,12 +1764,10 @@
                 <h2>ছবিকুঞ্জ ছাত্রাবাস</h2>
                 <p>স্মার্ট মেস ম্যানেজমেন্ট সিস্টেম</p>
             </div>
-            
             <div class="login-tabs">
                 <button class="tab-btn active" onclick="switchTab('admin')">এডমিন লগইন</button>
                 <button class="tab-btn" onclick="switchTab('border')">বর্ডার লগইন</button>
             </div>
-
             <div class="login-body">
                 <!-- Admin Login Form -->
                 <div id="admin-form" class="login-form active">
@@ -524,7 +1782,6 @@
                     </div>
                     <button class="btn-login" onclick="checkAdminLogin()">লগইন করুন (Admin)</button>
                 </div>
-
                 <!-- Border Login Form -->
                 <div id="border-form" class="login-form">
                     <div class="input-group-login">
@@ -538,23 +1795,19 @@
                     </div>
                     <button class="btn-login" onclick="checkBorderLogin()">লগইন করুন (Border)</button>
                 </div>
-
                 <div class="error-msg" id="login-msg">তথ্য সঠিক নয়!</div>
             </div>
         </div>
     </div>
-
     <!-- CREDENTIALS MODAL (AUTO POPUP AFTER ADDING BORDER) -->
     <div id="credModal">
         <div class="cred-box">
             <h3 style="color:#00cec9; margin-bottom:10px;">লগইন তথ্য তৈরি হয়েছে!</h3>
             <p style="font-size:13px; color:#636e72">এই তথ্যটি কপি করে বর্ডারকে দিন</p>
-            
             <div class="cred-copy-box">
                 <div class="cred-line"><strong>User:</strong> <span id="gen-user">...</span></div>
                 <div class="cred-line"><strong>Pass:</strong> <span id="gen-pass">...</span></div>
             </div>
-            
             <div style="display:flex; gap:10px;">
                 <button class="btn-full" style="background:#0984e3; color:white; flex:1;" onclick="copyCreds()"><i class="fas fa-copy"></i> পুরোটা কপি করুন</button>
                 <button class="btn-full" style="background:#2d3436; color:white; flex:1;" onclick="closeCredModal()">ঠিক আছে</button>
@@ -562,10 +1815,8 @@
         </div>
     </div>
     <!-- ================= END LOGIN OVERLAY ================= -->
-
     <!-- WRAPPER FOR MAIN WEBSITE CONTENT -->
     <div id="main-website-container">
-
         <!-- MOBILE HEADER -->
         <div class="mobile-header">
             <a href="#" onclick="showSection('home')" class="mobile-header-title">
@@ -579,7 +1830,6 @@
                 <i class="fas fa-bars" style="font-size: 24px; cursor: pointer;" onclick="toggleSidebar()"></i>
             </div>
         </div>
-    
         <!-- SIDEBAR -->
         <nav class="sidebar" id="sidebar">
             <div class="brand">
@@ -591,7 +1841,6 @@
                     <i class="fas fa-moon" id="theme-icon-side"></i> থিম পরিবর্তন
                 </div>
             </div>
-            
             <div class="menu-label">Main Menu</div>
             <ul class="nav-links">
                 <li><a onclick="showSection('home')" class="active"><i class="fas fa-home"></i> হোম পেজ</a></li>
@@ -599,13 +1848,11 @@
                 <li><a onclick="showSection('floor-g')"><i class="fas fa-layer-group"></i> ১ম তলা (1st Floor)</a></li>
                 <li><a onclick="showSection('floor-1')"><i class="fas fa-layer-group"></i> ২য় তলা (2nd Floor)</a></li>
                 <li><a onclick="showSection('floor-2')"><i class="fas fa-layer-group"></i> ৩য় তলা (3rd Floor)</a></li>
-                
                 <li><a onclick="showSection('member-list')"><i class="fas fa-users"></i> সদস্য তালিকা</a></li>
                 <li><a onclick="showSection('blood-finder')"><i class="fas fa-heartbeat" style="color:#ff7675"></i> রক্ত খুঁজুন</a></li>
                 <li><a onclick="openEmergency()"><i class="fas fa-phone-alt" style="color:#00cec9"></i> জরুরি সেবা</a></li>
                 <li><a onclick="logout()" style="color:#fab1a0;"><i class="fas fa-sign-out-alt"></i> লগআউট</a></li>
             </ul>
-    
             <div class="menu-label">Connect</div>
             <ul class="nav-links">
                 <li>
@@ -614,7 +1861,6 @@
                     </a>
                 </li>
             </ul>
-    
             <div class="menu-label">Management</div>
             <ul class="nav-links">
                 <li>
@@ -630,13 +1876,10 @@
                 </li>
             </ul>
         </nav>
-    
         <!-- MAIN CONTENT -->
         <div class="main">
-    
             <!-- 1. HOME -->
             <div id="home" class="section active">
-                
                 <!-- USER IDENTITY CARD -->
                 <div class="user-status-card" id="user-status-display">
                     <div class="us-icon"><i class="fas fa-user-circle"></i></div>
@@ -645,18 +1888,15 @@
                         <h3 id="logged-user-name">লোড হচ্ছে...</h3>
                     </div>
                 </div>
-
                 <div class="datetime-container">
                     <div class="dt-box"><div class="dt-icon"><i class="far fa-calendar-alt"></i></div><div class="dt-text"><h4 id="live-date">...</h4><p>আজকের তারিখ</p></div></div>
                     <div class="dt-box"><div class="dt-icon"><i class="far fa-clock"></i></div><div class="dt-text"><h4 id="live-time">...</h4><p>বর্তমান সময়</p></div></div>
                     <div class="greeting-badge" id="greeting-text">শুভ দিন</div>
                 </div>
-    
                 <div class="notice-board-wrapper">
                     <span class="notice-label"><i class="fas fa-bullhorn"></i> নোটিশ</span>
                     <marquee class="notice-text" behavior="scroll" direction="left" scrollamount="5">ছবিকুঞ্জ ছাত্রাবাসে আপনাকে স্বাগতম - শরিফুল</marquee>
                 </div>
-    
                 <div class="weather-card">
                     <div class="w-header">
                         <div class="w-loc"><h3><i class="fas fa-map-marker-alt"></i> বগুড়া, বাংলাদেশ</h3><p id="weather-desc">আকাশ পরিষ্কার</p></div>
@@ -665,13 +1905,11 @@
                     <div class="w-main"><div class="w-temp" id="weather-temp">--°C</div></div>
                     <div class="w-details"><span><i class="fas fa-wind"></i> <span id="wind-speed">-- km/h</span></span><span><i class="fas fa-tint"></i> <span id="humidity">--%</span></span></div>
                 </div>
-    
                 <div class="slider-wrapper">
                     <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000');"><div class="slide-content"><h1>ছবিকুঞ্জ ছাত্রাবাসে স্বাগতম</h1><p>একটি আদর্শ ও নিরাপদ ছাত্রাবাস</p></div></div>
                     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000');"><div class="slide-content"><h1>আধুনিক সুযোগ সুবিধা</h1><p>২৪ ঘণ্টা বিদ্যুৎ ও পানির সুব্যবস্থা</p></div></div>
                     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522771753014-df70f1c270c4?q=80&w=1000');"><div class="slide-content"><h1>মনোরম পরিবেশ</h1><p>পড়াশোনার জন্য শান্ত ও নিরিবিলি পরিবেশ</p></div></div>
                 </div>
-    
                 <h3 style="font-family:'Tiro Bangla'; color:var(--primary); margin-bottom:15px; border-left:4px solid var(--secondary); padding-left:10px;">বর্তমান অবস্থা</h3>
                 <div class="stats-grid">
                     <div class="stat-card-new"><div class="stat-icon-new" style="color:#0984e3; background:#0984e320"><i class="fas fa-users"></i></div><div class="stat-num-new" id="stat-mem">0</div><div class="stat-label-new">মোট সদস্য</div></div>
@@ -681,7 +1919,8 @@
                     <div class="stat-card-new"><div class="stat-icon-new" style="color:#2d3436; background:#2d343620"><i class="fas fa-user"></i></div><div class="stat-num-new" id="stat-single">0</div><div class="stat-label-new">সিঙ্গেল রুম</div></div>
                     <div class="stat-card-new"><div class="stat-icon-new" style="color:#e17055; background:#e1705520"><i class="fas fa-layer-group"></i></div><div class="stat-num-new" id="stat-floor">0</div><div class="stat-label-new">মোট তলা</div></div>
                 </div>
-    
+                <!-- FOOD MENU SECTION REMOVED AS PER INSTRUCTION -->
+                
                 <div style="margin-bottom: 30px;">
                     <h3 style="font-family:'Tiro Bangla'; color:var(--primary); border-bottom:2px solid var(--secondary); display:inline-block; padding-bottom:5px;">আমাদের সুবিধাসমূহ</h3>
                     <div class="facilities-grid">
@@ -697,22 +1936,18 @@
                         <div class="fac-card"><i class="fas fa-warehouse"></i><h4>গ্যারেজ ব্যবস্থা</h4></div>
                     </div>
                 </div>
-    
                 <div class="map-section">
                     <div class="map-header"><h3><i class="fas fa-map-marked-alt" style="color:var(--danger); margin-right:8px;"></i> লোকেশন ও ঠিকানা</h3><p style="font-size:13px; color:#555; margin-top:5px;"><i class="fas fa-map-pin"></i> জহুরুল নগর, বগুড়া</p></div>
                     <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.648174542289!2d89.37059727599723!3d24.87586564463878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc54ad8e49b805%3A0x6b9d629a8a619028!2sJahurul%20Nagar%2C%20Bogura!5e0!3m2!1sen!2sbd!4v1709400000000!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
                 </div>
-    
                 <div class="sun-grid">
                     <div class="sun-card sun-rise"><i class="fas fa-sun sun-icon"></i><div class="sun-time" id="sunrise-time">...</div><div class="sun-label">সূর্যোদয় (আজ)</div></div>
                     <div class="sun-card sun-set"><i class="fas fa-moon sun-icon"></i><div class="sun-time" id="sunset-time">...</div><div class="sun-label">সূর্যাস্ত (আজ)</div></div>
                 </div>
-    
                 <div class="prayer-section">
                     <div class="prayer-header"><h3 style="font-family:'Tiro Bangla'; color:var(--primary)"><i class="fas fa-mosque"></i> নামাজের সময়সূচী</h3><span style="font-size:12px; color:#777; font-family:'Tiro Bangla'">বগুড়া জেলা</span></div>
                     <ul class="prayer-list" id="prayer-list-container"><li class="prayer-item"><span class="p-name">লোড হচ্ছে...</span></li></ul>
                 </div>
-    
                 <!-- UPDATED COLLAPSIBLE RULES SECTION -->
                 <div class="rules-box">
                     <div class="rules-header-toggle" onclick="toggleRules()">
@@ -729,49 +1964,50 @@
                         </div>
                     </div>
                 </div>
-    
                 <div class="footer-compact">Design By <a href="javascript:void(0);" class="designer-link">MD SHARIFUL ISLAM</a>. © ২০২৬ ছবিকুঞ্জ ছাত্রাবাস - জহরুল নগর,বগুড়া।</div>
             </div>
-            
             <div class="sharifulinfo-modal" id="sharifulinfoModal" style="display: none;">
-              <div class="sharifulinfo-modal-content">
-                <div class="sharifulinfo-modal-inner">
-                  <span class="sharifulinfo-close">&times;</span>
-                  <div class="sharifulinfo-header">
-                    <div class="sharifulinfo-image-container"><img src="https://i.imgur.com/mm2jLrd.png" alt="MD SHARIFUL ISLAM" class="sharifulinfo-image"><div class="sharifulinfo-image-overlay"></div></div>
-                    <h2 class="sharifulinfo-name">MD SHARIFUL ISLAM</h2><p class="sharifulinfo-department">DEPARTMENT OF PHYSICS</p><p class="sharifulinfo-session">SESSION: 24-25</p><div class="sharifulinfo-profession-container"><p class="sharifulinfo-profession">Professional Web Designer & Developer</p></div>
-                  </div>
-                  <div class="sharifulinfo-social">
-                    <a href="https://www.facebook.com/share/1G1KQHWXH9/" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
-                    <a href="https://m.me/msharifulvisionary" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-facebook-messenger"></i><span>Messenger</span></a>
-                    <a href="https://wa.me/8801735757143" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
-                    <a href="mailto:msharifulvisionary@gmail.com" class="sharifulinfo-social-link"><i class="fas fa-envelope"></i><span>Email</span></a>
-                  </div>
+                <div class="sharifulinfo-modal-content">
+                    <div class="sharifulinfo-modal-inner">
+                        <span class="sharifulinfo-close">&times;</span>
+                        <div class="sharifulinfo-header">
+                            <div class="sharifulinfo-image-container"><img src="https://i.imgur.com/mm2jLrd.png" alt="MD SHARIFUL ISLAM" class="sharifulinfo-image"><div class="sharifulinfo-image-overlay"></div></div>
+                            <h2 class="sharifulinfo-name">MD SHARIFUL ISLAM</h2><p class="sharifulinfo-department">DEPARTMENT OF PHYSICS</p><p class="sharifulinfo-session">SESSION: 24-25</p><div class="sharifulinfo-profession-container"><p class="sharifulinfo-profession">Professional Web Designer & Developer</p></div>
+                        </div>
+                        <div class="sharifulinfo-social">
+                            <a href="https://www.facebook.com/share/1G1KQHWXH9/" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
+                            <a href="https://m.me/msharifulvisionary" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-facebook-messenger"></i><span>Messenger</span></a>
+                            <a href="https://wa.me/8801735757143" target="_blank" class="sharifulinfo-social-link"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+                            <a href="mailto:msharifulvisionary@gmail.com" class="sharifulinfo-social-link"><i class="fas fa-envelope"></i><span>Email</span></a>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-    
             <!-- ================= REPLACED FLOOR LAYOUTS ================= -->
-            
-            <!-- 1st Floor (Using Grid Layout) -->
-            <div id="floor-g" class="section">
-                <div class="floor-title-bar">
-                    <h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2>
-                    <span class="floor-room-badge"><i class="fas fa-door-open"></i> 4 Rooms</span>
-                </div>
-                <div class="grid-container f1-grid" id="grid-g">
-                    <div class="room-slot" style="grid-area: r101;" id="slot-g_101">Loading...</div>
-                    <div class="static-room stairs" style="grid-area: stairs;">সিঁড়ি</div>
-                    <div class="room-slot" style="grid-area: r104;" id="slot-g_104">Loading...</div>
-                    
-                    <div class="static-room dining" style="grid-area: dining;">Dining</div>
-                    <div class="static-room bath" style="grid-area: bath;">Bath</div>
-                    
-                    <div class="room-slot" style="grid-area: r102;" id="slot-g_102">Loading...</div>
-                    <div class="static-room kitchen" style="grid-area: kitchen;">কিচেন</div>
-                    <div class="room-slot" style="grid-area: r103;" id="slot-g_103">Loading...</div>
-                </div>
-            </div>
+            <!-- 1st Floor (Using Modified Grid Layout for Room 103 Baths) -->
+<div id="floor-g" class="section">
+    <div class="floor-title-bar">
+        <h2 style="font-family:'Tiro Bangla'">১ম তলা (1st Floor)</h2>
+        <span class="floor-room-badge"><i class="fas fa-door-open"></i> 4 Rooms</span>
+    </div>
+    
+    <div class="grid-container f1-grid" id="grid-g">
+        <div class="room-slot" style="grid-area: r101;" id="slot-g_101">Loading...</div>
+        <div class="static-room stairs" style="grid-area: stairs;">সিঁড়ি</div>
+        <div class="room-slot" style="grid-area: r104;" id="slot-g_104">Loading...</div>
+
+        <div class="static-room dining" style="grid-area: dining;">Dining</div>
+        <div class="static-room bath" style="grid-area: common-bath;">কমন বাথরুম</div>
+
+        <div class="room-slot" style="grid-area: r102;" id="slot-g_102">Loading...</div>
+        <div class="static-room kitchen" style="grid-area: kitchen;">কিচেন</div>
+
+        <div class="room-103-container" style="grid-area: r103-group;">
+            <div class="static-room bath" style="min-height: 40px; border-radius: 10px 10px 0 0; border-bottom: none;">এডজাস্ট বাথ</div>
+            <div class="room-slot" id="slot-g_103" style="flex-grow: 1; border: 2px solid #2c3e50; border-top: 2px solid #2c3e50; border-radius: 0 0 10px 10px;">Loading...</div>
+        </div>
+    </div>
+</div>
 
             <!-- 2nd Floor (Using Grid Layout) -->
             <div id="floor-1" class="section">
@@ -783,21 +2019,17 @@
                     <div class="room-slot" style="grid-area: r1;" id="slot-f1_201">Loading...</div>
                     <div class="static-room stairs" style="grid-area: stairs;">সিঁড়ি</div>
                     <div class="room-slot" style="grid-area: r6;" id="slot-f1_206">Loading...</div>
-                    
                     <div class="room-slot" style="grid-area: r2;" id="slot-f1_202">Loading...</div>
                     <div class="static-room dining" style="grid-area: dining;">Dining</div>
-                    
                     <div style="grid-area: b-group;" class="bath-group">
                         <div class="static-room bath bath-sm">Bath 2</div>
                         <div class="static-room bath bath-sm">Bath 1</div>
                     </div>
-                    
                     <div class="room-slot" style="grid-area: r3;" id="slot-f1_203">Loading...</div>
                     <div class="room-slot" style="grid-area: r4;" id="slot-f1_204">Loading...</div>
                     <div class="room-slot" style="grid-area: r5;" id="slot-f1_205">Loading...</div>
                 </div>
             </div>
-
             <!-- 3rd Floor (Using Grid Layout) -->
             <div id="floor-2" class="section">
                 <div class="floor-title-bar">
@@ -808,25 +2040,19 @@
                     <div class="room-slot" style="grid-area: r1;" id="slot-f2_301">Loading...</div>
                     <div class="static-room stairs" style="grid-area: stairs;">সিঁড়ি</div>
                     <div class="room-slot" style="grid-area: r6;" id="slot-f2_306">Loading...</div>
-                    
                     <div class="room-slot" style="grid-area: r2;" id="slot-f2_302">Loading...</div>
                     <div class="static-room dining" style="grid-area: dining;">Dining</div>
-                    
                     <div style="grid-area: b-group;" class="bath-group">
                         <div class="static-room bath bath-sm">Bath 2</div>
                         <div class="static-room bath bath-sm">Bath 1</div>
                     </div>
-                    
                     <div class="room-slot" style="grid-area: r3;" id="slot-f2_303">Loading...</div>
                     <div class="room-slot" style="grid-area: r4;" id="slot-f2_304">Loading...</div>
                     <div class="room-slot" style="grid-area: r5;" id="slot-f2_305">Loading...</div>
                 </div>
             </div>
-            
             <!-- ================= END FLOOR LAYOUTS ================= -->
-
             <div id="member-list" class="section"><h2 style="font-family:'Tiro Bangla'; margin-bottom:20px; color:var(--primary); text-align:center;">সকল সদস্যের তালিকা</h2><div class="member-grid" id="all-member-container"></div></div>
-    
             <div id="blood-finder" class="section">
                 <div class="blood-hero">
                     <i class="fas fa-heartbeat fa-3x" style="margin-bottom:10px;"></i><h1>রক্ত খুঁজুন</h1><p>জরুরি প্রয়োজনে মেসের ডোনার খুঁজে বের করুন</p>
@@ -834,10 +2060,8 @@
                 </div>
                 <div id="blood-results" class="blood-result-grid"><p style="text-align:center; width:100%; color:#777; grid-column: 1/-1;">ফলাফল দেখার জন্য গ্রুপ সিলেক্ট করুন</p></div>
             </div>
-    
             <div id="calc-dm" class="section calc-placeholder"></div><div id="calc-dr" class="section calc-placeholder"></div><div id="calc-mc" class="section calc-placeholder"></div><div id="calc-mr" class="section calc-placeholder"></div><div id="calc-cb" class="section calc-placeholder"></div>
         </div>
-    
         <!-- MODALS -->
         <!-- UPDATED EMERGENCY NUMBERS FOR BOGURA -->
         <div class="modal" id="emergencyModal">
@@ -856,14 +2080,14 @@
                         <li class="em-item" onclick="callNumber('01777711200')"><div class="em-icon" style="background:#27ae60; color:white;"><i class="fas fa-shield-alt"></i></div><div class="em-text"><h4>RAB-12, বগুড়া</h4><p>০১৭৭৭-৭১১২০০</p></div></li>
                         <li class="em-item" onclick="callNumber('01320000400')"><div class="em-icon" style="background:#e67e22; color:white;"><i class="fas fa-road"></i></div><div class="em-text"><h4>হাইওয়ে পুলিশ</h4><p>০১৩২০-০০০০৪০০</p></div></li>
                         <li class="em-item" onclick="callNumber('01320155060')"><div class="em-icon" style="background:#0984e3; color:white"><i class="fas fa-hiking"></i></div><div class="em-text"><h4>টুরিস্ট পুলিশ বগুড়া</h4><p>০১৩২০-১৫৫০৬০</p></div></li>
+                        <li class="em-item" onclick="callNumber('05161001')"><div class="em-icon" style="background:#a55eea; color:white"><i class="fas fa-phone-alt"></i></div><div class="em-text"><h4>ডিসি অফিস বগুড়া</h4><p>০৫১-৬১০০১</p></div></li>
+                        <li class="em-item" onclick="callNumber('05166666')"><div class="em-icon" style="background:#26de81; color:white"><i class="fas fa-car-crash"></i></div><div class="em-text"><h4>ট্রাফিক পুলিশ</h4><p>০৫১-৬৬৬৬৬</p></div></li>
                     </ul>
                 </div>
             </div>
         </div>
-    
         <!-- Room Modal -->
         <div class="modal" id="roomModal"><div class="modal-content"><div class="modal-head"><h3 id="rm-header" style="font-family:'Tiro Bangla'">রুম বিবরণ</h3><i class="fas fa-times" onclick="closeModal('roomModal')" style="cursor:pointer"></i></div><div class="modal-body" id="room-members-list"></div></div></div>
-        
         <!-- Profile Modal -->
         <div class="modal" id="profileModal">
             <div class="modal-content">
@@ -887,12 +2111,12 @@
                         <div class="input-group"><label>ঠিকানা</label> <input type="text" id="p-address"></div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                             <div class="input-group">
-                                <label>পেশা</label> 
+                                <label>পেশা</label>
                                 <select id="p-profession"><option value="">Select</option><option value="ছাত্র">ছাত্র</option><option value="কর্মজীবী/ চাকুরীজীবী">কর্মজীবী/ চাকুরীজীবী</option><option value="অন্যান্য">অন্যান্য</option></select>
                             </div>
                             <!-- UPDATED CLASS OPTIONS -->
                             <div class="input-group">
-                                <label>বর্তমান অধ্যায়নরত শ্রেনী</label> 
+                                <label>বর্তমান অধ্যায়নরত শ্রেনী</label>
                                 <select id="p-class">
                                     <option value="">Select</option>
                                     <option value="একাদশ শ্রেণী">একাদশ শ্রেণী</option>
@@ -921,6 +2145,11 @@
                             </div>
                         </div>
                         <div class="input-group"><label>নোট</label> <textarea id="p-note" rows="2"></textarea></div>
+                        <!-- NEW: Duration in Mess Calculation -->
+                        <div class="input-group" id="duration-display">
+                            <label>মেসে থাকার সময়কাল</label>
+                            <div style="padding: 10px; background: #f8f9fa; border-radius: 6px; font-family: 'Tiro Bangla';" id="duration-text">-</div>
+                        </div>
                         <!-- BUTTONS (Will be hidden for Border if not own profile) -->
                         <div id="admin-actions">
                             <button type="button" class="btn-full btn-save" onclick="saveProfile()"><i class="fas fa-save"></i> সেভ করুন</button>
@@ -930,21 +2159,85 @@
                 </div>
             </div>
         </div>
-
-    </div> 
+    </div>
     <!-- END WRAPPER -->
-
     <!-- ================= DUAL LOGIN SCRIPT ================= -->
     <script>
+        // SOUND FUNCTIONS (VOLUME INCREASED)
+        function playSound(type) {
+            try {
+                // Create audio context
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Different sounds for different actions with INCREASED VOLUME (0.6)
+                if (type === 'login') {
+                    // Login sound - pleasant notification sound
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.2); // E5
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                } 
+                else if (type === 'logout') {
+                    // Logout sound - slightly different tone
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime); // E5
+                    oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.2); // C5
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                }
+                else if (type === 'save') {
+                    // Save sound - success tone
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.setValueAtTime(392, audioContext.currentTime); // G4
+                    oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.1); // C5
+                    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.2); // E5
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.4);
+                }
+                else if (type === 'delete') {
+                    // Delete sound - warning tone
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(349.23, audioContext.currentTime); // F4
+                    oscillator.frequency.setValueAtTime(311.13, audioContext.currentTime + 0.1); // D#4
+                    gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Volume Up
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                }
+                else if (type === 'copy') {
+                    // Copy sound - short beep
+                    oscillator.type = 'square';
+                    oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // A5
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Volume Up slightly less
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                }
+            } catch (e) {
+                console.log("Audio not supported in this browser:", e);
+            }
+        }
+        
         // ADMIN CREDENTIALS
         const ADMIN_USER = "cobikunjomess";
         const ADMIN_PASS = "123@cobikunjomess";
-
+        
         // TAB SWITCHER
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
-            
             if(tab === 'admin') {
                 document.querySelectorAll('.tab-btn')[0].classList.add('active');
                 document.getElementById('admin-form').classList.add('active');
@@ -954,7 +2247,7 @@
             }
             document.getElementById('login-msg').style.display = 'none';
         }
-
+        
         // TOGGLE PASS
         function togglePass(id, icon) {
             const input = document.getElementById(id);
@@ -968,36 +2261,38 @@
                 icon.classList.add("fa-eye");
             }
         }
-
+        
         function checkAdminLogin() {
             const u = document.getElementById('admin-user').value;
             const p = document.getElementById('admin-pass').value;
             if(u === ADMIN_USER && p === ADMIN_PASS) {
+                playSound('login');
                 localStorage.setItem('userRole', 'admin');
                 showWebsite();
             } else {
                 showLoginError();
             }
         }
-
+        
         function showLoginError() {
             const msg = document.getElementById('login-msg');
             msg.style.display = 'block';
             setTimeout(() => msg.style.display = 'none', 3000);
         }
-
+        
         function showWebsite() {
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('main-website-container').style.display = 'block';
         }
-
+        
         function logout() {
             if(confirm("আপনি কি লগআউট করতে চান?")) {
+                playSound('logout');
                 localStorage.clear();
                 location.reload();
             }
         }
-
+        
         function closeCredModal() {
             document.getElementById('credModal').style.display = 'none';
         }
@@ -1006,21 +2301,19 @@
             const u = document.getElementById('gen-user').innerText;
             const p = document.getElementById('gen-pass').innerText;
             const text = "ইউজারনেম: " + u + "\nপাসওয়ার্ড: " + p;
-            
             navigator.clipboard.writeText(text).then(() => {
+                playSound('copy');
                 alert("কপি হয়েছে!");
             }).catch(err => {
                 console.error('Error copying text: ', err);
             });
         }
     </script>
-
-
     <!-- LOGIC WITH BORDER LOGIN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+        
         const firebaseConfig = {
             apiKey: "AIzaSyCMGOvFyxnjqhKbM0wj0GKYT4JM6jIc6M4",
             authDomain: "mess-system-4945a.firebaseapp.com",
@@ -1029,29 +2322,30 @@
             messagingSenderId: "494201609858",
             appId: "1:494201609858:web:5ca03e529ec719b1f75e9b"
         };
+        
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
-        let allMembersData = {}; 
-
+        let allMembersData = {};
+        
         // LOGIN CHECK ON LOAD
         window.addEventListener('load', () => {
             const role = localStorage.getItem('userRole');
             if(role) showWebsite();
         });
-
+        
         // BORDER LOGIN FUNCTION
         window.checkBorderLogin = async () => {
             const u = document.getElementById('border-user').value.trim();
             const p = document.getElementById('border-pass').value.trim();
-            
-            if(!u || !p) { showLoginError(); return; }
-
+            if(!u || !p) {
+                showLoginError();
+                return;
+            }
             try {
                 const q = query(collection(db, "members"), where("username", "==", u), where("password", "==", p));
                 const querySnapshot = await getDocs(q);
-                
                 if (!querySnapshot.empty) {
+                    playSound('login');
                     localStorage.setItem('userRole', 'member');
                     localStorage.setItem('currentUser', u); // Store username for self-edit check
                     showWebsite();
@@ -1063,40 +2357,67 @@
                 alert("লগইন সমস্যা! ইন্টারনেট চেক করুন।");
             }
         }
-
+        
         // Updated Floor Config to match Grid IDs
         const floors = {
-            'g': { name: "১ম তলা", rooms: [{n:'১০১',c:2,id:'g_101'}, {n:'১০২',c:2,id:'g_102'}, {n:'১০৩',c:1,id:'g_103'}, {n:'১০৪',c:2,id:'g_104'}] },
-            '1': { name: "২য় তলা", rooms: [{n:'২০১',c:2,id:'f1_201'}, {n:'২০২',c:1,id:'f1_202'}, {n:'২০৩',c:2,id:'f1_203'}, {n:'২০৪',c:1,id:'f1_204'}, {n:'২০৫',c:2,id:'f1_205'}, {n:'২০৬',c:2,id:'f1_206'}] },
-            '2': { name: "৩য় তলা", rooms: [{n:'৩০১',c:2,id:'f2_301'}, {n:'৩০২',c:1,id:'f2_302'}, {n:'৩০৩',c:2,id:'f2_303'}, {n:'৩০৪',c:1,id:'f2_304'}, {n:'৩০৫',c:2,id:'f2_305'}, {n:'৩০৬',c:2,id:'f2_306'}] }
+            'g': { 
+                name: "১ম তলা", 
+                rooms: [
+                    {n:'১০১',c:2,id:'g_101'}, 
+                    {n:'১০২',c:2,id:'g_102'}, 
+                    {n:'১০৩',c:1,id:'g_103'}, 
+                    {n:'১০৪',c:2,id:'g_104'}
+                ] 
+            },
+            '1': { 
+                name: "২য় তলা", 
+                rooms: [
+                    {n:'২০১',c:2,id:'f1_201'}, 
+                    {n:'২০২',c:1,id:'f1_202'}, 
+                    {n:'২০৩',c:2,id:'f1_203'}, 
+                    {n:'২০৪',c:1,id:'f1_204'}, 
+                    {n:'২০৫',c:2,id:'f1_205'}, 
+                    {n:'২০৬',c:2,id:'f1_206'}
+                ] 
+            },
+            '2': { 
+                name: "৩য় তলা", 
+                rooms: [
+                    {n:'৩০১',c:2,id:'f2_301'}, 
+                    {n:'৩০২',c:1,id:'f2_302'}, 
+                    {n:'৩০৩',c:2,id:'f2_303'}, 
+                    {n:'৩০৪',c:1,id:'f2_304'}, 
+                    {n:'৩০৫',c:2,id:'f2_305'}, 
+                    {n:'৩০৬',c:2,id:'f2_306'}
+                ] 
+            }
         };
-
+        
+        // FOOD MENU REMOVED
+        
         window.initApp = async () => {
             const snap = await getDocs(collection(db, "members"));
             allMembersData = {};
             snap.forEach(doc => allMembersData[doc.id] = doc.data());
-            
             updateUserStatus(); // NEW: Update the welcome card
             updateDashboardStats();
-            
-            // Updated Render calls (No specific container ID passed as second arg, 
+            // Updated Render calls (No specific container ID passed as second arg,
             // logic finds slots by ID now)
             renderFloor('g');
             renderFloor('1');
             renderFloor('2');
-            
             renderAllMemberList();
-            fetchWeather(); 
-            fetchPrayerTimes(); 
+            fetchWeather();
+            fetchPrayerTimes();
         }
-
+        
         // NEW FUNCTION: UPDATE USER STATUS DISPLAY
         function updateUserStatus() {
             const role = localStorage.getItem('userRole');
             const userDisplay = document.getElementById('logged-user-name');
             const iconDisplay = document.querySelector('.us-icon i');
             const statusCard = document.querySelector('.user-status-card');
-
+            
             if (role === 'admin') {
                 userDisplay.innerText = "অ্যাডমিন (Admin)";
                 iconDisplay.className = "fas fa-user-shield";
@@ -1104,7 +2425,6 @@
             } else if (role === 'member') {
                 const u = localStorage.getItem('currentUser');
                 let memberName = "বর্ডার (Member)";
-                
                 // Try to find name from data
                 for(let key in allMembersData) {
                     if(allMembersData[key].username === u) {
@@ -1112,24 +2432,21 @@
                         break;
                     }
                 }
-                
                 userDisplay.innerText = memberName;
                 iconDisplay.className = "fas fa-user";
                 statusCard.classList.remove('admin-mode');
             }
         }
-
+        
         // UPDATED: Render Logic for GRID Layout
         function renderFloor(key) {
             floors[key].rooms.forEach(r => {
                 // Find the specific slot in the HTML grid for this room
                 const slotId = `slot-${r.id}`;
                 const container = document.getElementById(slotId);
-                
                 if(container) {
                     let occupiedCount = 0;
                     for(let i=1; i<=r.c; i++) if(allMembersData[`${r.id}_s${i}`]) occupiedCount++;
-                    
                     // Determine Badge Class
                     const badgeClass = r.c === 1 ? 'badge-single' : 'badge-double';
                     
@@ -1148,17 +2465,16 @@
                     
                     // Inject the room card logic INSIDE the grid slot
                     const html = `
-                    <div class="room-card" style="${bgStyle}" onclick="openRoom('${r.id}', '${r.n}', ${r.c})">
-                        <span class="room-badge ${badgeClass}">${r.c===1?'Single':'Double'}</span>
-                        <i class="fas fa-door-open r-icon ${occupiedCount > 0 ?'active':''}"></i>
-                        <h4 style="font-family:'Tiro Bangla'">${r.n}</h4>
-                    </div>`;
-                    
+                        <div class="room-card" style="${bgStyle}" onclick="openRoom('${r.id}', '${r.n}', ${r.c})">
+                            <span class="room-badge ${badgeClass}">${r.c===1?'Single':'Double'}</span>
+                            <i class="fas fa-door-open r-icon ${occupiedCount > 0 ?'active':''}"></i>
+                            <h4 style="font-family:'Tiro Bangla'">${r.n}</h4>
+                        </div>`;
                     container.innerHTML = html;
                 }
             });
         }
-
+        
         window.openRoom = (rid, rname, cap) => {
             const role = localStorage.getItem('userRole');
             const currentUser = localStorage.getItem('currentUser');
@@ -1167,10 +2483,8 @@
             for(let i=1; i<=cap; i++) {
                 const mid = `${rid}_s${i}`;
                 const m = allMembersData[mid];
-                
                 let actionText = '';
                 let isClickable = false;
-
                 // LOGIC: Admin sees edit/add everywhere. Member sees edit ONLY if it is their profile.
                 if (role === 'admin') {
                     actionText = m ? '(এডিট)' : '(যুক্ত করুন)';
@@ -1184,40 +2498,36 @@
                         isClickable = true; // Can click to view, but edit will be disabled
                     }
                 }
-
                 const clickAction = isClickable ? `onclick="editMem('${mid}', '${rname}')"` : '';
-
                 html += `
-                <div style="display:flex; align-items:center; padding:10px; border-bottom:1px solid #eee; cursor:pointer" ${clickAction}>
-                    <div style="width:40px; height:40px; border-radius:50%; background:${m?'#00cec9':'#eee'}; color:white; display:flex; align-items:center; justify-content:center; margin-right:15px">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div>
-                        <div style="font-weight:bold; font-family:'Tiro Bangla'">${m ? m.name : 'ফাঁকা সিট'}</div>
-                        <div style="font-size:12px; color:#777">সিট নং ${i} ${actionText}</div>
-                    </div>
-                </div>`;
+                    <div style="display:flex; align-items:center; padding:10px; border-bottom:1px solid #eee; cursor:pointer" ${clickAction}>
+                        <div style="width:40px; height:40px; border-radius:50%; background:${m?'#00cec9':'#eee'}; color:white; display:flex; align-items:center; justify-content:center; margin-right:15px">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight:bold; font-family:'Tiro Bangla'">${m ? m.name : 'ফাঁকা সিট'}</div>
+                            <div style="font-size:12px; color:#777">সিট নং ${i} ${actionText}</div>
+                        </div>
+                    </div>`;
             }
             document.getElementById('room-members-list').innerHTML = html;
             document.getElementById('roomModal').style.display = 'flex';
         }
-
+        
         window.editMem = (mid, rname) => {
             const role = localStorage.getItem('userRole');
             const currentUser = localStorage.getItem('currentUser');
-            
             document.getElementById('roomModal').style.display = 'none';
             document.getElementById('profileModal').style.display = 'flex';
             document.getElementById('profileForm').reset();
             document.getElementById('p-id').value = mid;
-            
             const m = allMembersData[mid];
             
             // PERMISSION LOGIC
             const adminActions = document.getElementById('admin-actions');
             const deleteBtn = document.getElementById('btn-delete-mem');
             const form = document.getElementById('profileForm');
-
+            
             if(role === 'admin') {
                 form.classList.remove('disabled-form');
                 adminActions.style.display = 'block';
@@ -1232,7 +2542,7 @@
                 form.classList.add('disabled-form');
                 adminActions.style.display = 'none';
             }
-
+            
             if(m) {
                 document.getElementById('p-name').value = m.name||'';
                 document.getElementById('p-phone').value = m.phone||'';
@@ -1249,9 +2559,59 @@
                 document.getElementById('p-note').value = m.note||'';
                 document.getElementById('p-username').value = m.username||'';
                 document.getElementById('p-password').value = m.password||'';
+                
+                // Calculate and display duration in mess
+                updateDurationDisplay(m.join_date);
+            } else {
+                // For new member, hide duration display
+                document.getElementById('duration-display').style.display = 'none';
             }
         }
-
+        
+        // Function to calculate and display duration in mess
+        function updateDurationDisplay(joinDate) {
+            if (!joinDate) {
+                document.getElementById('duration-text').textContent = '-';
+                return;
+            }
+            
+            const join = new Date(joinDate);
+            const now = new Date();
+            
+            // Calculate difference in months
+            let years = now.getFullYear() - join.getFullYear();
+            let months = now.getMonth() - join.getMonth();
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // Adjust for days
+            const daysDiff = now.getDate() - join.getDate();
+            if (daysDiff < 0) {
+                months--;
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+            }
+            
+            let durationText = '';
+            if (years > 0) {
+                durationText += years + ' বছর ';
+            }
+            if (months > 0) {
+                durationText += months + ' মাস';
+            }
+            if (years === 0 && months === 0) {
+                durationText = 'নতুন সদস্য';
+            }
+            
+            document.getElementById('duration-text').textContent = durationText;
+            document.getElementById('duration-display').style.display = 'block';
+        }
+        
         window.saveProfile = async () => {
             const id = document.getElementById('p-id').value;
             let username = document.getElementById('p-username').value;
@@ -1260,17 +2620,17 @@
             // GENERATE CREDENTIALS IF NEW OR EMPTY
             let isNewCreds = false;
             if(!username || !password) {
-                username = "user_" + id; 
+                username = "user_" + id;
                 password = Math.floor(100000 + Math.random() * 900000).toString();
                 isNewCreds = true;
             }
-
+            
             const data = {
                 name: document.getElementById('p-name').value,
                 phone: document.getElementById('p-phone').value,
                 blood: document.getElementById('p-blood').value,
                 address: document.getElementById('p-address').value,
-                profession: document.getElementById('p-profession').value, 
+                profession: document.getElementById('p-profession').value,
                 current_class: document.getElementById('p-class').value,
                 college: document.getElementById('p-college').value,
                 dept: document.getElementById('p-dept').value,
@@ -1282,34 +2642,41 @@
                 username: username,
                 password: password
             };
-
+            
             try {
                 await setDoc(doc(db, "members", id), data);
                 allMembersData[id] = data;
-                
                 document.getElementById('profileModal').style.display = 'none';
+                
+                // Play save sound
+                playSound('save');
+                
                 initApp();
-
                 // Show Credentials if Admin and New/Edited
                 if(localStorage.getItem('userRole') === 'admin') {
-                     document.getElementById('gen-user').innerText = username;
-                     document.getElementById('gen-pass').innerText = password;
-                     document.getElementById('credModal').style.display = 'flex';
+                    document.getElementById('gen-user').innerText = username;
+                    document.getElementById('gen-pass').innerText = password;
+                    document.getElementById('credModal').style.display = 'flex';
                 }
-
-            } catch(e) { alert("Error: " + e.message); }
+            } catch(e) {
+                alert("Error: " + e.message);
+            }
         }
-
+        
         window.delMember = async () => {
             if(confirm("মেম্বার ডিলিট করলে তার লগইন এক্সেস বন্ধ হয়ে যাবে। নিশ্চিত?")) {
                 const id = document.getElementById('p-id').value;
                 await deleteDoc(doc(db, "members", id));
                 delete allMembersData[id];
                 document.getElementById('profileModal').style.display = 'none';
+                
+                // Play delete sound
+                playSound('delete');
+                
                 initApp();
             }
         }
-
+        
         // --- STATS CALCULATION LOGIC ---
         function updateDashboardStats() {
             let totalFloors = 0;
@@ -1317,7 +2684,6 @@
             let singleRooms = 0;
             let doubleRooms = 0;
             let totalSeats = 0;
-
             for(let fKey in floors) {
                 totalFloors++;
                 const rArr = floors[fKey].rooms;
@@ -1328,10 +2694,8 @@
                     totalSeats += r.c;
                 });
             }
-
             const totalMembers = Object.keys(allMembersData).length;
             const emptySeats = totalSeats - totalMembers;
-
             document.getElementById('stat-mem').innerText = totalMembers;
             document.getElementById('stat-room').innerText = totalRooms;
             document.getElementById('stat-seat').innerText = emptySeats;
@@ -1339,7 +2703,7 @@
             document.getElementById('stat-double').innerText = doubleRooms;
             document.getElementById('stat-floor').innerText = totalFloors;
         }
-
+        
         function getBanglaDate(dateObj) {
             const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
             const day = dateObj.getDate().toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
@@ -1347,44 +2711,89 @@
             const month = months[dateObj.getMonth()];
             return `${day} ${month} ${year}`;
         }
-
+        
+        // UPDATED: Function to calculate duration in mess for member list
+        function getDurationInMess(joinDate) {
+            if (!joinDate) return "-";
+            
+            const join = new Date(joinDate);
+            const now = new Date();
+            
+            // Calculate difference in months
+            let years = now.getFullYear() - join.getFullYear();
+            let months = now.getMonth() - join.getMonth();
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // Adjust for days
+            const daysDiff = now.getDate() - join.getDate();
+            if (daysDiff < 0) {
+                months--;
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+            }
+            
+            let durationText = '';
+            if (years > 0) {
+                durationText += years + ' বছর ';
+            }
+            if (months > 0) {
+                durationText += months + ' মাস';
+            }
+            if (years === 0 && months === 0) {
+                durationText = 'নতুন';
+            }
+            
+            return durationText;
+        }
+        
         function renderAllMemberList() {
             const container = document.getElementById('all-member-container');
             let html = '';
             for(let key in allMembersData) {
                 const m = allMembersData[key];
+                // Calculate duration in mess
+                const duration = getDurationInMess(m.join_date);
                 
                 html += `
-                <div class="mem-card">
-                    <div class="mem-head">
-                        <div class="mem-avatar"><i class="fas fa-user"></i></div>
-                        ${m.blood ? `<span class="mem-blood-badge">${m.blood}</span>` : ''}
-                    </div>
-                    <div class="mem-body">
-                        <div class="mem-name">${m.name}</div>
-                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-briefcase"></i></div><div><span class="mem-label">পেশা:</span> <span class="mem-val">${m.profession || '-'}</span></div></div>
-                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-book-open"></i></div><div><span class="mem-label">শ্রেণী:</span> <span class="mem-val">${m.current_class || '-'}</span></div></div>
-                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-university"></i></div><div><span class="mem-label">কলেজ:</span> <span class="mem-val">${m.college||'-'}</span></div></div>
-                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-graduation-cap"></i></div><div><span class="mem-label">বিভাগ/সেশন:</span> <span class="mem-val">${m.dept||''} (${m.session||'-'})</span></div></div>
-                        <div class="mem-info-row">
-                            <div class="mem-icon"><i class="fas fa-phone"></i></div>
-                            <div style="display:flex; align-items:center; justify-content:space-between; width:100%">
-                                <span><span class="mem-label">মোবাইল:</span> <span class="mem-val">${m.phone||'-'}</span></span>
-                                ${m.phone ? `<button onclick="callNumber('${m.phone}')" style="border:none; background:#00cec9; color:white; border-radius:4px; padding:2px 6px; cursor:pointer; font-size:10px;"><i class="fas fa-copy"></i></button>` : ''}
-                            </div>
+                    <div class="mem-card">
+                        <div class="mem-head">
+                            <div class="mem-avatar"><i class="fas fa-user"></i></div>
+                            ${m.blood ? `<span class="mem-blood-badge">${m.blood}</span>` : ''}
                         </div>
-                        <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-map-marker-alt"></i></div><div><span class="mem-label">ঠিকানা:</span> <span class="mem-val">${m.address||'-'}</span></div></div>
-                    </div>
-                </div>`;
+                        <div class="mem-body">
+                            <div class="mem-name">${m.name}</div>
+                            <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-briefcase"></i></div><div><span class="mem-label">পেশা:</span> <span class="mem-val">${m.profession || '-'}</span></div></div>
+                            <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-book-open"></i></div><div><span class="mem-label">শ্রেণী:</span> <span class="mem-val">${m.current_class || '-'}</span></div></div>
+                            <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-university"></i></div><div><span class="mem-label">কলেজ:</span> <span class="mem-val">${m.college||'-'}</span></div></div>
+                            <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-graduation-cap"></i></div><div><span class="mem-label">বিভাগ/সেশন:</span> <span class="mem-val">${m.dept||''} (${m.session||'-'})</span></div></div>
+                            <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-calendar-alt"></i></div><div><span class="mem-label">মেসে সময়:</span> <span class="mem-val">${duration}</span></div></div>
+                            <div class="mem-info-row">
+                                <div class="mem-icon"><i class="fas fa-phone"></i></div>
+                                <div style="display:flex; align-items:center; justify-content:space-between; width:100%">
+                                    <span><span class="mem-label">মোবাইল:</span> <span class="mem-val">${m.phone||'-'}</span></span>
+                                    ${m.phone ? `<button onclick="callNumber('${m.phone}')" style="border:none; background:#00cec9; color:white; border-radius:4px; padding:2px 6px; cursor:pointer; font-size:10px;"><i class="fas fa-copy"></i></button>` : ''}
+                                </div>
+                            </div>
+                            <div class="mem-info-row"><div class="mem-icon"><i class="fas fa-map-marker-alt"></i></div><div><span class="mem-label">ঠিকানা:</span> <span class="mem-val">${m.address||'-'}</span></div></div>
+                        </div>
+                    </div>`;
             }
             container.innerHTML = html;
         }
-
+        
         window.searchBlood = () => {
             const grp = document.getElementById('search-blood').value;
             const resBox = document.getElementById('blood-results');
-            if(!grp) { resBox.innerHTML = '<p style="grid-column:1/-1; text-align:center">গ্রুপ নির্বাচন করুন</p>'; return; }
-
+            if(!grp) {
+                resBox.innerHTML = '<p style="grid-column:1/-1; text-align:center">গ্রুপ নির্বাচন করুন</p>';
+                return;
+            }
             let html = '';
             let found = false;
             for(let key in allMembersData) {
@@ -1394,38 +2803,42 @@
                     let lastDateStr = "এখনো রক্ত দেননি";
                     let nextDateStr = "যেকোনো সময়";
                     let isEligible = true;
-
                     if(m.last_blood) {
                         const lastDate = new Date(m.last_blood);
                         const nextDate = new Date(lastDate);
                         nextDate.setDate(lastDate.getDate() + 120);
                         lastDateStr = getBanglaDate(lastDate);
                         nextDateStr = getBanglaDate(nextDate);
-                        if(new Date() < nextDate) { isEligible = false; }
+                        if(new Date() < nextDate) {
+                            isEligible = false;
+                        }
                     }
-
                     const totalDonated = m.total_donations ? m.total_donations.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]) : '০';
-
                     html += `
-                    <div class="b-card">
-                        <div class="b-card-head"><div class="b-name">${m.name}</div><span class="b-eligibility ${isEligible ? 'elig-yes' : 'elig-no'}">${isEligible ? 'এখন রক্ত দিতে পারবে' : 'এখন রক্ত দিতে পারবে না'}</span></div>
-                        <div class="b-total-stat"><i class="fas fa-layer-group"></i> মোট রক্তদান: <b>${totalDonated}</b> বার</div>
-                        <div class="b-dates">
-                            <div class="b-date-box"><span class="b-date-label">সর্বশেষ রক্তদান:</span><span class="b-date-val">${lastDateStr}</span></div>
-                            <div class="b-date-box"><span class="b-date-label">পরবর্তী তারিখ:</span><span class="b-date-val">${nextDateStr}</span></div>
-                        </div>
-                        <a onclick="callNumber('${m.phone}')" class="btn-call"><i class="fas fa-phone-alt"></i> কল করুন</a>
-                    </div>`;
+                        <div class="b-card">
+                            <div class="b-card-head"><div class="b-name">${m.name}</div><span class="b-eligibility ${isEligible ? 'elig-yes' : 'elig-no'}">${isEligible ? 'এখন রক্ত দিতে পারবে' : 'এখন রক্ত দিতে পারবে না'}</span></div>
+                            <div class="b-total-stat"><i class="fas fa-layer-group"></i> মোট রক্তদান: <b>${totalDonated}</b> বার</div>
+                            <div class="b-dates">
+                                <div class="b-date-box"><span class="b-date-label">সর্বশেষ রক্তদান:</span><span class="b-date-val">${lastDateStr}</span></div>
+                                <div class="b-date-box"><span class="b-date-label">পরবর্তী তারিখ:</span><span class="b-date-val">${nextDateStr}</span></div>
+                            </div>
+                            <a onclick="callNumber('${m.phone}')" class="btn-call"><i class="fas fa-phone-alt"></i> কল করুন</a>
+                        </div>`;
                 }
             }
             resBox.innerHTML = found ? html : '<p style="grid-column:1/-1; text-align:center; color:red">কোন ডোনার পাওয়া যায়নি</p>';
         }
-
+        
         window.callNumber = (num) => {
-            if(!num) { alert("নাম্বার নেই!"); return; }
-            navigator.clipboard.writeText(num).then(() => { window.location.href = "tel:" + num; });
+            if(!num) {
+                alert("নাম্বার নেই!");
+                return;
+            }
+            navigator.clipboard.writeText(num).then(() => {
+                window.location.href = "tel:" + num;
+            });
         }
-
+        
         // FETCH APIS
         async function fetchWeather() {
             try {
@@ -1436,29 +2849,40 @@
                 const wind = Math.round(current.wind_speed_10m);
                 const hum = current.relative_humidity_2m;
                 const code = current.weather_code;
-
                 document.getElementById('weather-temp').innerText = temp + "°C";
                 document.getElementById('wind-speed').innerText = wind + " km/h";
                 document.getElementById('humidity').innerText = hum + "%";
-                
-                let iconClass = "fa-cloud-sun"; let desc = "আংশিক মেঘলা";
-                if(code === 0) { iconClass = "fa-sun"; desc = "রৌদ্রোজ্জ্বল"; }
-                else if(code >= 1 && code <= 3) { iconClass = "fa-cloud-sun"; desc = "আংশিক মেঘলা"; }
-                else if(code >= 45 && code <= 48) { iconClass = "fa-smog"; desc = "কুয়াশাচ্ছন্ন"; }
-                else if(code >= 51 && code <= 67) { iconClass = "fa-cloud-rain"; desc = "বৃষ্টিপাত"; }
-                else if(code >= 80 && code <= 99) { iconClass = "fa-poo-storm"; desc = "ঝড়ো বৃষ্টি"; }
-
+                let iconClass = "fa-cloud-sun";
+                let desc = "আংশিক মেঘলা";
+                if(code === 0) {
+                    iconClass = "fa-sun";
+                    desc = "রৌদ্রোজ্জ্বল";
+                } else if(code >= 1 && code <= 3) {
+                    iconClass = "fa-cloud-sun";
+                    desc = "আংশিক মেঘলা";
+                } else if(code >= 45 && code <= 48) {
+                    iconClass = "fa-smog";
+                    desc = "কুয়াশাচ্ছন্ন";
+                } else if(code >= 51 && code <= 67) {
+                    iconClass = "fa-cloud-rain";
+                    desc = "বৃষ্টিপাত";
+                } else if(code >= 80 && code <= 99) {
+                    iconClass = "fa-poo-storm";
+                    desc = "ঝড়ো বৃষ্টি";
+                }
                 document.getElementById('weather-icon').className = `fas ${iconClass} w-icon`;
                 document.getElementById('weather-desc').innerText = desc;
-            } catch(e) { console.log("Weather Error:", e); document.getElementById('weather-temp').innerText = "--"; }
+            } catch(e) {
+                console.log("Weather Error:", e);
+                document.getElementById('weather-temp').innerText = "--";
+            }
         }
-
+        
         window.fetchPrayerTimes = async () => {
             try {
                 const res = await fetch("https://api.aladhan.com/v1/timings/today?latitude=24.8481&longitude=89.3730&method=1");
                 const data = await res.json();
                 const t = data.data.timings;
-
                 const toBanglaTime = (timeStr) => {
                     const [h, m] = timeStr.split(':');
                     let hours = parseInt(h);
@@ -1469,14 +2893,13 @@
                     else if(hours >= 20) suffix = 'রাত';
                     else if(hours < 5) suffix = 'রাত';
                     else if(hours >= 5) suffix = 'সকাল';
-                    hours = hours % 12; hours = hours ? hours : 12; 
+                    hours = hours % 12;
+                    hours = hours ? hours : 12;
                     const bnNum = (n) => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
                     return `${bnNum(hours)}:${bnNum(m)} ${suffix}`;
                 };
-
                 document.getElementById('sunrise-time').innerText = toBanglaTime(t.Sunrise);
                 document.getElementById('sunset-time').innerText = toBanglaTime(t.Sunset);
-
                 const prayers = [
                     {n: 'ফজর', t: toBanglaTime(t.Fajr)},
                     {n: 'যোহর', t: toBanglaTime(t.Dhuhr)},
@@ -1484,43 +2907,53 @@
                     {n: 'মাগরিব', t: toBanglaTime(t.Maghrib)},
                     {n: 'এশা', t: toBanglaTime(t.Isha)}
                 ];
-
                 let listHtml = '';
                 prayers.forEach(p => {
                     listHtml += `<li class="prayer-item"><span class="p-name"><i class="far fa-clock"></i> ${p.n}</span><span style="font-weight:bold">${p.t}</span></li>`;
                 });
                 document.getElementById('prayer-list-container').innerHTML = listHtml;
-            } catch(e) { console.log("Prayer API Error:", e); }
+            } catch(e) {
+                console.log("Prayer API Error:", e);
+            }
         }
-
+        
         initApp();
     </script>
-
     <!-- UI & TIME SCRIPT -->
     <script>
-        function toggleSidebar() { document.querySelector('.sidebar').classList.toggle('show'); }
-        function toggleSubmenu() { document.getElementById('calcSub').classList.toggle('open'); }
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+        
+        function toggleSubmenu() {
+            document.getElementById('calcSub').classList.toggle('open');
+        }
+        
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             const sec = document.getElementById(id);
-            if(sec) { sec.classList.add('active'); }
+            if(sec) {
+                sec.classList.add('active');
+            }
             if(window.innerWidth <= 768) document.querySelector('.sidebar').classList.remove('show');
         }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
         
         function openEmergency() {
             document.getElementById('emergencyModal').style.display = 'flex';
         }
-
+        
         // Toggle Rules Function
         function toggleRules() {
             const content = document.getElementById('rules-content');
             const toggleBtn = document.querySelector('.rules-header-toggle');
-            
             content.classList.toggle('open');
             toggleBtn.classList.toggle('active');
         }
-
+        
         let sIdx = 0;
         const slides = document.querySelectorAll('.slide');
         function runSlide() {
@@ -1529,7 +2962,7 @@
             slides[sIdx].classList.add('active');
         }
         setInterval(runSlide, 4000);
-
+        
         function toggleTheme() {
             const body = document.body;
             body.classList.toggle('dark-mode');
@@ -1540,20 +2973,8 @@
             const sideIcon = document.getElementById('theme-icon-side');
             if(sideIcon) sideIcon.className = `fas ${iconClass}`;
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            // Re-render floors to update gradients immediately
-            if(typeof window.initApp === 'function') {
-                // We re-render to update the colors inside rooms
-                // Since the function is modular, we can just reload or let user refresh.
-                // But let's try to update room backgrounds if they exist
-                document.querySelectorAll('.room-card').forEach(el => {
-                   // A simpler way is just reload for full effect, or handle in CSS.
-                   // The CSS handles basic colors, but JS handles gradients.
-                   // For simplicity in this static output, we rely on reload for gradient updates or live JS re-run.
-                   // To avoid complex re-binding, we can just leave it as is.
-                });
-            }
         }
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             if(savedTheme === 'dark') {
@@ -1564,46 +2985,83 @@
                 if(sideIcon) sideIcon.className = 'fas fa-sun';
             }
         });
-
+        
         function updateTime() {
             const now = new Date();
             const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+            // NEW: Days Array
+            const days = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
+            
             const toBn = n => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
             const dayDate = toBn(now.getDate());
             const monthName = months[now.getMonth()];
             const year = toBn(now.getFullYear());
+            const dayName = days[now.getDay()]; // Get Day Name
+            
             let hours = now.getHours();
             let minutes = now.getMinutes();
             let period = "";
             let greeting = "শুভ দিন";
-            if (hours >= 5 && hours < 12) { period = "সকাল"; greeting = "শুভ সকাল"; }
-            else if (hours >= 12 && hours < 16) { period = "দুপুর"; greeting = "শুভ দুপুর"; }
-            else if (hours >= 16 && hours < 18) { period = "বিকেল"; greeting = "শুভ বিকেল"; }
-            else if (hours >= 18 && hours < 20) { period = "সন্ধ্যা"; greeting = "শুভ সন্ধ্যা"; }
-            else { period = "রাত"; greeting = "শুভ রাত্রি"; }
+            if (hours >= 5 && hours < 12) {
+                period = "সকাল";
+                greeting = "শুভ সকাল";
+            } else if (hours >= 12 && hours < 16) {
+                period = "দুপুর";
+                greeting = "শুভ দুপুর";
+            } else if (hours >= 16 && hours < 18) {
+                period = "বিকেল";
+                greeting = "শুভ বিকেল";
+            } else if (hours >= 18 && hours < 20) {
+                period = "সন্ধ্যা";
+                greeting = "শুভ সন্ধ্যা";
+            } else {
+                period = "রাত";
+                greeting = "শুভ রাত্রি";
+            }
             let showHours = hours % 12;
             if(showHours === 0) showHours = 12;
             const timeStr = `${toBn(showHours)}:${toBn(minutes < 10 ? '0'+minutes : minutes)} ${period}`;
-            const dateStr = `${dayDate} ${monthName} ${year}`;
+            // UPDATED DATE STRING WITH DAY NAME
+            const dateStr = `${dayName}, ${dayDate} ${monthName} ${year}`;
+            
             document.getElementById('live-date').innerText = dateStr;
             document.getElementById('live-time').innerText = timeStr;
             document.getElementById('greeting-text').innerText = greeting;
         }
+        
         setInterval(updateTime, 1000);
-        updateTime(); 
+        updateTime();
     </script>
-    
     <script>
-    const sharifulinfoModal = document.getElementById('sharifulinfoModal');
-    function openSharifulinfoModal() { sharifulinfoModal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
-    function closeSharifulinfoModal() { sharifulinfoModal.style.display = 'none'; document.body.style.overflow = 'auto'; }
-    document.querySelector('.sharifulinfo-close').addEventListener('click', closeSharifulinfoModal);
-    window.addEventListener('click', function(event) { if (event.target === sharifulinfoModal) { closeSharifulinfoModal(); } });
-    document.addEventListener('keydown', function(event) { if (event.key === 'Escape') { closeSharifulinfoModal(); } });
-    document.addEventListener('DOMContentLoaded', function() {
-      const designerLink = document.querySelector('.designer-link');
-      if (designerLink) { designerLink.addEventListener('click', function(e) { e.preventDefault(); openSharifulinfoModal(); }); }
-    });
+        const sharifulinfoModal = document.getElementById('sharifulinfoModal');
+        function openSharifulinfoModal() {
+            sharifulinfoModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSharifulinfoModal() {
+            sharifulinfoModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        document.querySelector('.sharifulinfo-close').addEventListener('click', closeSharifulinfoModal);
+        window.addEventListener('click', function(event) {
+            if (event.target === sharifulinfoModal) {
+                closeSharifulinfoModal();
+            }
+        });
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeSharifulinfoModal();
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const designerLink = document.querySelector('.designer-link');
+            if (designerLink) {
+                designerLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openSharifulinfoModal();
+                });
+            }
+        });
     </script>
 </body>
 </html>
