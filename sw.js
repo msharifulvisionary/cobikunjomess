@@ -1,4 +1,4 @@
-const CACHE_NAME = "chobikunjo-offline-v4";
+const CACHE_NAME = "chobikunjo-offline-v5";
 const urlsToCache = [
   "./",
   "./index.html",
