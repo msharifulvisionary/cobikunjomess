@@ -1,6 +1,6 @@
 {
-  "name": "A ChobiKunjo Mess",
-  "short_name": " A ChobiKunjo",
+  "name": "ChobiKunjo Mess",
+  "short_name": "ChobiKunjo",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f1f2f6",
