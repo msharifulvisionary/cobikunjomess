@@ -2632,20 +2632,21 @@ function switchTab(tab) {
         }
     </script>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
         
         const firebaseConfig = {
-            apiKey: "AIzaSyCMGOvFyxnjqhKbM0wj0GKYT4JM6jIc6M4",
-            authDomain: "mess-system-4945a.firebaseapp.com",
-            projectId: "mess-system-4945a",
-            storageBucket: "mess-system-4945a.firebasestorage.app",
-            messagingSenderId: "494201609858",
-            appId: "1:494201609858:web:5ca03e529ec719b1f75e9b"
-        };
+    apiKey: "AIzaSyBlubCGCqBhU_292uLAa1nGbi5XJMjEccs",
+    authDomain: "chobikunjomess.firebaseapp.com",
+    projectId: "chobikunjomess",
+    storageBucket: "chobikunjomess.firebasestorage.app",
+    messagingSenderId: "1089443055720",
+    appId: "1:1089443055720:web:7a7347a9266d7c7ba353dd",
+    databaseURL: "https://chobikunjomess-default-rtdb.firebaseio.com"
+  };
         
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const db = getDatabase(app);
         let allMembersData = {};
         
         window.addEventListener('load', () => {
@@ -2661,9 +2662,17 @@ function switchTab(tab) {
                 return;
             }
             try {
-                const q = query(collection(db, "members"), where("username", "==", u), where("password", "==", p));
-                const querySnapshot = await getDocs(q);
-                if (!querySnapshot.empty) {
+                const membersRef = ref(db, 'members');
+                const q = query(membersRef, orderByChild('username'), equalTo(u));
+                const snapshot = await get(q);
+                let found = false;
+                if (snapshot.exists()) {
+                    snapshot.forEach((childSnapshot) => {
+                        const val = childSnapshot.val();
+                        if (val.password === p) found = true;
+                    });
+                }
+                if (found) {
                     playSound('login');
                     localStorage.setItem('userRole', 'member');
                     localStorage.setItem('currentUser', u); 
@@ -2742,11 +2751,11 @@ window.loadDailyMenu = async () => {
     const docId = getTodayDocId();
     
     try {
-        const docRef = doc(db, "daily_menus", docId);
-        const docSnap = await getDoc(docRef);
+        const menuRef = ref(db, "daily_menus/" + docId);
+        const snapshot = await get(menuRef);
 
-        if (docSnap.exists()) {
-            const data = docSnap.data();
+        if (snapshot.exists()) {
+            const data = snapshot.val();
             document.getElementById('view-breakfast').innerText = data.breakfast || 'কিছু দেওয়া হয়নি';
             document.getElementById('view-lunch').innerText = data.lunch || 'কিছু দেওয়া হয়নি';
             document.getElementById('view-dinner').innerText = data.dinner || 'কিছু দেওয়া হয়নি';
@@ -2801,7 +2810,7 @@ window.saveMenu = async () => {
     };
 
     try {
-        await setDoc(doc(db, "daily_menus", docId), menuData);
+        await set(ref(db, "daily_menus/" + docId), menuData);
         playSound('save'); // আপনার আগের সাউন্ড ফাংশন ব্যবহার করা হলো
         document.getElementById('menuModal').style.display = 'none';
         loadDailyMenu(); // সাথে সাথে আপডেট দেখাবে
@@ -2816,9 +2825,14 @@ window.saveMenu = async () => {
 // আপনার আগের কোডের initApp() ফাংশনের ভেতরে সবার শেষে এই লাইনটি যুক্ত করুন:
 // loadDailyMenu();
         window.initApp = async () => {
-            const snap = await getDocs(collection(db, "members"));
+            const membersRef = ref(db, "members");
+            const snap = await get(membersRef);
             allMembersData = {};
-            snap.forEach(doc => allMembersData[doc.id] = doc.data());
+            if (snap.exists()) {
+                snap.forEach(childSnapshot => {
+                    allMembersData[childSnapshot.key] = childSnapshot.val();
+                });
+            }
             updateUserStatus();
             updateDashboardStats();
             renderFloor('g');
@@ -3054,7 +3068,7 @@ window.saveMenu = async () => {
             };
             
             try {
-                await setDoc(doc(db, "members", id), data);
+                await set(ref(db, "members/" + id), data);
                 allMembersData[id] = data;
                 document.getElementById('profileModal').style.display = 'none';
                 playSound('save');
@@ -3073,7 +3087,7 @@ window.saveMenu = async () => {
         window.delMember = async () => {
             if(confirm("মেম্বার ডিলিট করলে তার লগইন এক্সেস বন্ধ হয়ে যাবে। নিশ্চিত?")) {
                 const id = document.getElementById('p-id').value;
-                await deleteDoc(doc(db, "members", id));
+                await remove(ref(db, "members/" + id));
                 delete allMembersData[id];
                 document.getElementById('profileModal').style.display = 'none';
                 playSound('delete');
